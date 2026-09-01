@@ -122,6 +122,24 @@ function createNearFacadeDetails(surfaces) {
   return details;
 }
 
+function createStreetPlot(surfaces) {
+  const plot = new THREE.Group();
+  plot.name = 'Left street plot';
+
+  plot.add(
+    box('Left house front verge', [6.4, 0.05, 0.62], [-11.35, 0.028, -2.48], surfaces.grass),
+    box('Left house plot lip', [6.55, 0.1, 0.12], [-11.35, 0.04, -2.16], surfaces.pavementShade),
+    box('Left alley packed earth', [1.85, 0.055, 2.35], [-12.15, 0.03, -2.55], surfaces.soil),
+    box('Left rain barrel', [0.32, 0.42, 0.32], [-12.42, 0.22, -3.28], surfaces.metal),
+    box('Left rain barrel rim', [0.34, 0.04, 0.34], [-12.42, 0.44, -3.28], surfaces.distantTrim),
+    box('Left street bush mass', [0.72, 0.48, 0.55], [-8.72, 0.26, -1.92], surfaces.grass),
+    box('Left street bush shade', [0.5, 0.32, 0.4], [-8.55, 0.42, -1.82], surfaces.soil),
+    box('Left far bush mass', [0.58, 0.4, 0.48], [-13.85, 0.22, -3.35], surfaces.grass),
+  );
+
+  return plot;
+}
+
 function createAlleyDetails(surfaces) {
   const alley = new THREE.Group();
   alley.name = 'Left residence alley';
@@ -190,6 +208,7 @@ export function createLeftBackgroundExtension({ surfaces }) {
       surfaces.distantArchitectureShade,
     ),
     createNearFacadeDetails(surfaces),
+    createStreetPlot(surfaces),
     createAlleyDetails(surfaces),
     createMiddleFacadeDetails(surfaces),
     createFarLeftShrineHint(),

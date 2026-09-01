@@ -6,6 +6,11 @@ import { box, material } from './primitives.js';
 const transform = new THREE.Object3D();
 
 const HEDGE_CLUMPS = [
+  [-18.4, -6.15, 0.85, 1.65, 0.48],
+  [-16.9, -6.85, 0.72, 1.42, 0.44],
+  [-19.6, -5.55, 0.9, 1.88, 0.5],
+  [-15.6, -7.85, 0.68, 1.28, 0.4],
+  [-17.8, -8.35, 0.78, 1.55, 0.46],
   [-22.4, -5.15, 0.7, 1.55, 0.42],
   [-21.6, -6.35, 0.85, 1.85, 0.48],
   [-22.8, -7.7, 0.62, 1.28, 0.4],
@@ -69,6 +74,7 @@ export function createBackgroundGround() {
     box('Horizon earth', [58, 0.08, 32], [-6, 0.028, -26], earthDark),
     box('Yard earth behind street', [40, 0.07, 8.5], [-2.5, 0.03, -11.2], earth),
     box('Left earth beside shrine', [9.2, 0.07, 11.5], [-23.1, 0.032, -8.4], earth),
+    box('Left precinct yard', [7.8, 0.075, 5.4], [-17.4, 0.034, -6.55], earth),
     box('Left grass beside shrine', [4.4, 0.055, 3.2], [-21.4, 0.04, -5.15], grassFar),
     box('Rear grass lip', [36, 0.055, 2.4], [-3.4, 0.036, -6.85], grassFar),
     box('Rear grass behind plots', [18, 0.05, 2.1], [-6.2, 0.034, -9.15], grassFar),

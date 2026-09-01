@@ -28,6 +28,37 @@ function createPrecinctGround(gravel, gravelShade, pebble) {
   return ground;
 }
 
+function createShrineGrove(needle, needleDark) {
+  const grove = new THREE.Group();
+  grove.name = 'Quiet shrine grove';
+
+  const trunks = [
+    [-16.85, -5.35, 0.18, 3.15],
+    [-17.65, -5.75, 0.22, 3.85],
+    [-16.25, -6.05, 0.16, 2.75],
+    [-18.25, -6.25, 0.2, 3.45],
+    [-16.55, -6.55, 0.17, 3.0],
+  ];
+  trunks.forEach(([x, z, radius, height], index) => {
+    grove.add(
+      box(
+        `Shrine grove trunk ${index + 1}`,
+        [radius, height, radius],
+        [x, height / 2, z],
+        needleDark,
+      ),
+      box(
+        `Shrine grove canopy ${index + 1}`,
+        [radius * 3.4, height * 0.55, radius * 3.1],
+        [x, height * 0.78, z],
+        index % 2 === 0 ? needle : needleDark,
+      ),
+    );
+  });
+
+  return grove;
+}
+
 function createPrecinctFence(wood, woodDark) {
   const fence = new THREE.Group();
   fence.name = 'Shrine precinct fence';
@@ -79,6 +110,16 @@ export function createFarLeftShrineHint() {
     emissiveIntensity: 0.22,
     roughness: 0.7,
   });
+  const needle = material(weatherIsWet() ? 0x4a6756 : 0x5a7866, {
+    roughness: 0.88,
+    emissive: 0x1c2e24,
+    emissiveIntensity: 0.12,
+  });
+  const needleDark = material(weatherIsWet() ? 0x354a3e : 0x3a4c40, {
+    roughness: 0.9,
+    emissive: 0x121c16,
+    emissiveIntensity: 0.08,
+  });
 
   const shrine = new THREE.Group();
   shrine.name = 'Far left shrine hint';
@@ -104,6 +145,10 @@ export function createFarLeftShrineHint() {
     box('Torii kasagi', [1.72, 0.12, 0.17], [-15.25, 2.28, -3.94], wood),
     kasagiLeft,
     kasagiRight,
+    createShrineGrove(needle, needleDark),
+    box('Shrine approach stone near', [0.62, 0.045, 0.48], [-13.72, 0.03, -2.58], stone),
+    box('Shrine approach stone mid', [0.58, 0.045, 0.42], [-14.42, 0.032, -3.18], stone),
+    box('Shrine approach stone far', [0.64, 0.05, 0.46], [-14.95, 0.034, -3.62], stone),
     box('Shrine stone path', [0.72, 0.05, 0.7], [-15.25, 0.055, -4.38], stone),
     box('Shrine stone base', [1.38, 0.14, 1.12], [-15.45, 0.08, -4.86], stone),
     box('Shrine hall', [1.02, 0.88, 0.92], [-15.45, 0.58, -4.86], woodDark),

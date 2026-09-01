@@ -1,63 +1,45 @@
 import * as THREE from 'three';
 import { weatherIsWet } from '../weatherMode.js';
-import { box, material } from './primitives.js';
+import { box } from './primitives.js';
 
 const CLUSTERS = [
-  {
-    name: 'Left rain cloud',
-    puffs: [
-      [5.4, 1.55, 2.8, -12.4, 10.6, -10.2],
-      [3.6, 1.2, 2.2, -14.8, 11.1, -9.6],
-      [2.8, 0.95, 1.8, -11.2, 11.35, -11.1],
-      [4.1, 1.05, 2.4, -13.6, 10.15, -11.4],
-    ],
-  },
-  {
-    name: 'Center rain cloud',
-    puffs: [
-      [6.2, 1.7, 3.1, -1.8, 11.4, -11.8],
-      [4.4, 1.25, 2.4, 1.4, 11.85, -11.0],
-      [3.2, 1.05, 2.0, -3.6, 12.1, -12.6],
-      [5.0, 1.15, 2.6, -0.2, 10.75, -12.9],
-      [2.6, 0.85, 1.6, 2.8, 11.2, -12.2],
-    ],
-  },
-  {
-    name: 'Right rain cloud',
-    puffs: [
-      [4.8, 1.4, 2.5, 7.2, 10.4, -10.6],
-      [3.4, 1.1, 2.1, 9.4, 10.95, -9.9],
-      [2.7, 0.9, 1.7, 6.1, 11.2, -11.4],
-      [3.8, 1.0, 2.2, 8.3, 9.85, -11.7],
-    ],
-  },
-  {
-    name: 'Far rain cloud',
-    puffs: [
-      [7.4, 1.85, 3.2, -6.5, 12.8, -16.4],
-      [5.2, 1.3, 2.5, -3.4, 13.3, -15.6],
-      [4.0, 1.1, 2.1, -8.6, 12.4, -17.2],
-    ],
-  },
+  [-23.9, 4.85, -15.4],
+  [-21.4, 4.5, -15.2],
+  [-8.5, 5.2, -14.8],
+  [-3.3, 5.4, -15.0],
+  [1.5, 4.85, -14.6],
+  [5.1, 4.65, -14.4],
 ];
 
 export function createRainClouds() {
   if (!weatherIsWet()) return null;
 
-  const body = material(0x3d5460, { roughness: 0.96 });
-  const shade = material(0x2a3e48, { roughness: 0.97 });
+  const body = new THREE.MeshBasicMaterial({ color: 0x2a3c44, fog: false });
+  const shade = new THREE.MeshBasicMaterial({ color: 0x1e2c34, fog: false });
+  const lift = new THREE.MeshBasicMaterial({ color: 0x33444c, fog: false });
+  const surfaces = [shade, body, lift];
   const clouds = new THREE.Group();
   clouds.name = 'Heavy rain clouds';
 
-  CLUSTERS.forEach((cluster) => {
-    const group = new THREE.Group();
-    group.name = cluster.name;
-    cluster.puffs.forEach((puff, index) => {
-      const [width, height, depth, x, y, z] = puff;
-      const surface = index % 2 === 0 ? body : shade;
-      group.add(box(`${cluster.name} puff ${index + 1}`, [width, height, depth], [x, y, z], surface));
+  CLUSTERS.forEach(([x, y, z], cluster) => {
+    const puffs = [
+      [0, 0, 0, 1.55, 0.58, 1.25],
+      [0.7, 0.28, -0.25, 1.15, 0.5, 1.05],
+      [-0.65, 0.18, 0.3, 1.05, 0.46, 0.95],
+      [0.15, 0.42, 0.1, 0.85, 0.4, 0.8],
+    ];
+    puffs.forEach((puff, index) => {
+      const [dx, dy, dz, width, height, depth] = puff;
+      const mesh = box(
+        `Rain cloud ${cluster + 1} puff ${index + 1}`,
+        [width, height, depth],
+        [x + dx, y + dy, z + dz],
+        surfaces[(cluster + index) % 3],
+      );
+      mesh.rotation.y = (cluster + index) % 2 === 0 ? 0.28 : -0.22;
+      mesh.rotation.z = index === 1 ? 0.08 : index === 2 ? -0.06 : 0.03;
+      clouds.add(mesh);
     });
-    clouds.add(group);
   });
 
   clouds.traverse((object) => {
