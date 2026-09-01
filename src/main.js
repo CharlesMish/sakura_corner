@@ -46,7 +46,7 @@ const lighting = createLighting();
 const tree = createSakuraTree();
 const petalSystem = createPetalSystem();
 const weatherEffects = createWeatherEffects();
-const rainClouds = createRainClouds();
+const rainStorm = createRainClouds();
 scene.add(
   environment.group,
   tree.group,
@@ -54,7 +54,7 @@ scene.add(
   weatherEffects.group,
   lighting.group,
 );
-if (rainClouds) scene.add(rainClouds);
+if (rainStorm) scene.add(rainStorm.group);
 
 const releaseDirection = new THREE.Vector3();
 const interaction = ART_DIRECTION.interaction.enabled
@@ -141,6 +141,7 @@ function render(timestamp) {
   tree.update(elapsed);
   petalSystem.update(delta, elapsed);
   weatherEffects.update(delta);
+  rainStorm?.update(elapsed);
   renderer.render(scene, camera);
 }
 

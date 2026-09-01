@@ -56,6 +56,10 @@ try {
     });
     await page.goto(url, { waitUntil: 'networkidle' });
     await page.waitForTimeout(1800);
+    await page.evaluate(() => {
+      window.__forceLightning = true;
+    });
+    await page.waitForTimeout(120);
     await page.screenshot({
       path: resolve(outputDirectory, capture.name),
       clip: capture.clip,
