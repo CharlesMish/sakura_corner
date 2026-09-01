@@ -1,0 +1,45 @@
+:root {
+  color-scheme: dark;
+  font-family: system-ui, sans-serif;
+  background: #8c8790;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+body {
+  background:
+    radial-gradient(circle at 40% 24%, #dfc8c0 0%, #aaa0a2 54%, #77757c 100%);
+}
+
+html[data-weather="wet"] body,
+html[data-weather="rain"] body {
+  background:
+    radial-gradient(circle at 40% 24%, #3a5260 0%, #2a3e48 54%, #1c2c34 100%);
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+  touch-action: none;
+}
+
+noscript {
+  position: fixed;
+  inset: 1rem auto auto 1rem;
+  color: #fff;
+}

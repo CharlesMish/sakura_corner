@@ -1,0 +1,10 @@
+node_modules
+.playwright-browsers
+.playwright-libs
+dist
+screenshots/*.png
+screenshots/*.webm
+screenshots/*.gif
+!screenshots/.gitkeep
+.DS_Store
+

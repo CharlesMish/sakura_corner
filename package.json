@@ -1,0 +1,24 @@
+{
+  "name": "urban-edge-sakura-window",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "capture": "node scripts/capture-scene.mjs",
+    "capture:interaction": "node scripts/capture-interaction.mjs",
+    "capture:sway": "node scripts/diagnose-canopy-sway.mjs",
+    "analyze:sway": "node scripts/analyze-canopy-sway.mjs",
+    "analyze:interaction": "node scripts/analyze-interaction.mjs",
+    "analyze:response": "node scripts/analyze-tree-response.mjs",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "three": "^0.185.1"
+  },
+  "devDependencies": {
+    "playwright": "^1.62.1",
+    "vite": "^8.2.2"
+  }
+}

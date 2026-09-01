@@ -1,0 +1,216 @@
+import * as THREE from 'three';
+import { createFarLeftShrineHint } from './createFarLeftShrineHint.js';
+import { box, branchBetween, material } from './primitives.js';
+
+const VOLUMES = [
+  {
+    name: 'Left neighborhood near residence',
+    bodySize: [2.9, 3.15, 2.1],
+    bodyPosition: [-10.42, 1.425, -4],
+    capSize: [3.05, 0.14, 2.25],
+    tone: 'near',
+  },
+  {
+    name: 'Left neighborhood middle residence',
+    bodySize: [2.45, 3.38, 2.4],
+    bodyPosition: [-13.22, 1.55, -5.22],
+    capSize: [2.62, 0.13, 2.55],
+    tone: 'far',
+  },
+];
+
+const WINDOWS = [
+  { name: 'upper', position: [-10.02, 1.87, -2.91], size: [0.72, 0.78] },
+  { name: 'lower', position: [-10.8, 0.78, -2.91], size: [0.48, 0.55] },
+];
+
+function createVolume(definition, surfaces, integratedSurfaces) {
+  const group = new THREE.Group();
+  group.name = definition.name;
+  const bodySurface = definition.tone === 'near'
+    ? integratedSurfaces.nearBody
+    : surfaces.farArchitecture;
+  const capSurface = definition.tone === 'near'
+    ? integratedSurfaces.nearCap
+    : surfaces.farArchitectureShade;
+  const capPosition = [
+    definition.bodyPosition[0],
+    definition.bodyPosition[1] + definition.bodySize[1] / 2 + definition.capSize[1] / 2,
+    definition.bodyPosition[2],
+  ];
+
+  group.add(
+    box(`${definition.name} body`, definition.bodySize, definition.bodyPosition, bodySurface),
+    box(`${definition.name} roofline`, definition.capSize, capPosition, capSurface),
+  );
+  return group;
+}
+
+function createNearFacadeDetails(surfaces) {
+  const details = new THREE.Group();
+  details.name = 'Restrained left residence details';
+  const curtain = material(0x3a4146, { roughness: 0.88 });
+
+  WINDOWS.forEach((window) => {
+    details.add(
+      box(
+        `Left residence ${window.name} window surround`,
+        [window.size[0] + 0.16, window.size[1] + 0.14, 0.045],
+        [window.position[0], window.position[1], window.position[2] - 0.025],
+        surfaces.distantTrim,
+      ),
+      box(
+        `Left residence ${window.name} inset window`,
+        [window.size[0], window.size[1], 0.04],
+        window.position,
+        surfaces.distantWindow,
+      ),
+      box(
+        `Left residence ${window.name} sill`,
+        [window.size[0] + 0.22, 0.06, 0.12],
+        [window.position[0], window.position[1] - window.size[1] * 0.52, window.position[2] + 0.04],
+        surfaces.distantArchitectureShade,
+      ),
+    );
+  });
+
+  details.add(
+    box('Left residence upper interior shade', [0.62, 0.68, 0.03], [-10.02, 1.87, -2.94], surfaces.windowDark),
+    box('Left residence upper curtain left', [0.16, 0.62, 0.025], [-10.24, 1.86, -2.89], curtain),
+    box('Left residence upper curtain right', [0.14, 0.58, 0.025], [-9.82, 1.84, -2.89], curtain),
+    box('Left residence upper mullion', [0.035, 0.7, 0.03], [-10.02, 1.87, -2.88], surfaces.distantTrim),
+  );
+
+  const balcony = new THREE.Group();
+  balcony.name = 'Small left residence balcony fragment';
+  balcony.add(
+    box('Left balcony slab', [1.08, 0.08, 0.38], [-10.02, 1.38, -2.7], surfaces.distantArchitectureShade),
+    box('Left balcony rail', [1, 0.045, 0.045], [-10.02, 1.65, -2.5], surfaces.metal),
+    box('Left balcony planter', [0.78, 0.14, 0.22], [-10.02, 1.47, -2.56], surfaces.metal),
+    box('Left balcony soil', [0.64, 0.06, 0.16], [-10.02, 1.56, -2.54], surfaces.soil),
+    box('Left balcony plant left', [0.14, 0.22, 0.1], [-10.22, 1.7, -2.53], surfaces.grass),
+    box('Left balcony plant right', [0.12, 0.16, 0.09], [-9.84, 1.66, -2.52], surfaces.grass),
+  );
+  [-10.44, -10.02, -9.6].forEach((x, index) => {
+    balcony.add(
+      box(`Left balcony post ${index + 1}`, [0.045, 0.28, 0.045], [x, 1.51, -2.5], surfaces.metal),
+    );
+  });
+  details.add(balcony);
+
+  details.add(
+    box(
+      'Left residence side window surround',
+      [0.04, 0.84, 0.82],
+      [-8.94, 1.38, -3.72],
+      surfaces.distantTrim,
+    ),
+    box(
+      'Left residence side inset window',
+      [0.045, 0.68, 0.66],
+      [-8.91, 1.38, -3.72],
+      surfaces.distantWindow,
+    ),
+    box('Left residence side sill', [0.1, 0.06, 0.72], [-8.86, 1.02, -3.72], surfaces.distantArchitectureShade),
+    box('Left residence door surround', [0.6, 1.32, 0.05], [-9.46, 0.66, -2.96], surfaces.distantTrim),
+    box('Left residence door recess', [0.52, 1.22, 0.08], [-9.46, 0.64, -2.98], surfaces.distantArchitectureShade),
+    box('Left residence door', [0.44, 1.12, 0.05], [-9.46, 0.64, -2.92], surfaces.windowDark),
+    box('Left residence door step', [0.56, 0.06, 0.2], [-9.46, 0.03, -2.78], surfaces.pavementShade),
+    box('Left residence door pull', [0.035, 0.14, 0.04], [-9.32, 0.64, -2.88], surfaces.metal),
+  );
+
+  return details;
+}
+
+function createAlleyDetails(surfaces) {
+  const alley = new THREE.Group();
+  alley.name = 'Left residence alley';
+  const crate = material(0x5b5348, { roughness: 0.86 });
+
+  alley.add(
+    box('Alley gate post left', [0.07, 1.18, 0.07], [-12.42, 0.58, -3.82], surfaces.metal),
+    box('Alley gate post right', [0.07, 1.18, 0.07], [-11.92, 0.58, -3.82], surfaces.metal),
+    box('Alley gate top rail', [0.56, 0.055, 0.055], [-12.17, 1.12, -3.82], surfaces.metal),
+    box('Alley gate mid rail', [0.56, 0.05, 0.05], [-12.17, 0.7, -3.82], surfaces.metal),
+    box('Alley gate latch', [0.09, 0.13, 0.045], [-12.0, 0.8, -3.76], surfaces.distantTrim),
+    box('Alley crate', [0.42, 0.3, 0.34], [-12.18, 0.15, -3.02], crate),
+    box('Alley crate lid', [0.44, 0.045, 0.36], [-12.18, 0.32, -3.02], crate),
+    box('Alley crate small', [0.26, 0.18, 0.22], [-11.96, 0.09, -3.22], crate),
+    box('Left residence utility plate', [0.24, 0.3, 0.06], [-11.93, 1.38, -3.38], surfaces.metal),
+    box('Left residence utility inset', [0.12, 0.09, 0.035], [-11.91, 1.38, -3.34], surfaces.windowDark),
+  );
+
+  return alley;
+}
+
+function createMiddleFacadeDetails(surfaces) {
+  const details = new THREE.Group();
+  details.name = 'Middle residence facade';
+
+  details.add(
+    box('Middle residence window surround', [0.58, 0.68, 0.06], [-13.18, 2.08, -3.98], surfaces.distantTrim),
+    box('Middle residence window', [0.42, 0.5, 0.04], [-13.18, 2.08, -3.92], surfaces.distantWindow),
+    box('Middle residence window sill', [0.64, 0.055, 0.1], [-13.18, 1.78, -3.88], surfaces.distantArchitectureShade),
+    box('Middle residence lower window surround', [0.42, 0.5, 0.05], [-13.48, 0.92, -3.98], surfaces.distantTrim),
+    box('Middle residence lower window', [0.3, 0.36, 0.035], [-13.48, 0.92, -3.92], surfaces.windowDark),
+    box('Middle residence roof vent', [0.28, 0.16, 0.22], [-13.05, 3.32, -4.55], surfaces.distantArchitectureShade),
+  );
+
+  return details;
+}
+
+export function createLeftBackgroundExtension({ surfaces }) {
+  const extension = new THREE.Group();
+  extension.name = 'Grounded left neighborhood continuation';
+
+  const integratedSurfaces = {
+    // Lift the camera-facing shade without flattening this residence into the
+    // brighter pavement or storefront.
+    nearBody: material(0x818483, {
+      emissive: 0x3a3e40,
+      emissiveIntensity: 0.18,
+      roughness: 0.94,
+    }),
+    nearCap: material(0x747878, {
+      emissive: 0x2e3233,
+      emissiveIntensity: 0.1,
+      roughness: 0.95,
+    }),
+  };
+
+  VOLUMES.forEach((definition) => {
+    extension.add(createVolume(definition, surfaces, integratedSurfaces));
+  });
+
+  extension.add(
+    box(
+      'Left neighborhood alley recess',
+      [0.48, 2.72, 0.55],
+      [-12.08, 1.21, -5.72],
+      surfaces.distantArchitectureShade,
+    ),
+    createNearFacadeDetails(surfaces),
+    createAlleyDetails(surfaces),
+    createMiddleFacadeDetails(surfaces),
+    createFarLeftShrineHint(),
+    branchBetween(
+      'Left neighborhood drainpipe',
+      [-12.28, -0.12, -3.58],
+      [-12.28, 2.92, -3.58],
+      0.048,
+      0.04,
+      surfaces.distantTrim,
+      6,
+    ),
+    box('Left residence gutter stub', [0.52, 0.06, 0.1], [-11.72, 3.02, -3.52], surfaces.distantTrim),
+  );
+
+  extension.traverse((object) => {
+    if (object.isMesh) {
+      object.castShadow = false;
+      object.receiveShadow = true;
+    }
+  });
+
+  return extension;
+}
