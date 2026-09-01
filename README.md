@@ -1,4 +1,4 @@
-# Cursor / Grok Creative Playground
+# sakura_corner
 
 This is a self-contained creative snapshot of the accepted Urban Edge Sakura
 Window production scene. It exists so Grok can explore boldly in Cursor without
@@ -21,8 +21,6 @@ assignment is in `GROK_BRIEF.md`.
   spirit links to the parent installation. Do not install, update, replace, or
   delete dependencies.
 - `reference/` contains immutable accepted captures. Never overwrite them.
-- This directory has its own local Git baseline. Commit meaningful experiments
-  here if useful; never push.
 
 ## Commands
 
@@ -42,4 +40,3 @@ The existing Three.js chunk-size warning is known and is not itself a defect.
 Leave the lane intact. Complete `HANDOFF.md`, update `PROGRESS.md`, preserve the
 best comparison captures, and stop. Sol can then inspect the lane's Git diff and
 selectively integrate ideas into production.
-
