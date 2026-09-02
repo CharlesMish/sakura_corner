@@ -10,17 +10,26 @@ The production parent is intentionally untouched by work in this folder.
 
 ## Current milestone
 
-Rain is the default playground scene and is being tuned as a Nocturne Onsen
-candidate: cooler cyan air, sakura pink, shop gold, a far hearth, and a few
-moths. Open `http://127.0.0.1:5177/` or `/?weather=rain`. Clear is `/?weather=clear`.
+Hierarchy pass plus a three-item sign-off correction. Thesis unchanged:
+
+> cool air, one living sakura, one dry warm shop, weather continuing beyond
+> the frame.
+
+The storm no longer stretches as a full-width lid. Clear-weather pole and
+wire use local lighter materials. Far-left cube grove volumes are gone.
+
+Open `http://127.0.0.1:5177/` or `/?weather=rain`. Clear is `/?weather=clear`.
+
+Stopped for visual sign-off. Do not commit yet. Do not start wet-ground or
+shop-history work.
 
 ## What remains
 
-- Keep rain readable: blockier drops, puddles that catch light, neighborhood
-  still visible through the cool air.
-- Flesh camera-cropped street and roof detail without competing with the tree.
-- Keep hearth/moths named for a later mixer hook. Do not build the mixer here.
-- Complete `HANDOFF.md` when a rain candidate is worth sending back to WSL.
+- Wet-ground, runoff, and shop-wall history are still deferred.
+- The storm is still box grammar. It is left-weighted with one underside
+  step, not a spanning header. Portrait is the gate.
+- Hearth and moths stay named for a later mixer hook.
+- Complete director review of `HANDOFF.md` before anything goes back to WSL.
 
 ## Known baseline notes
 
@@ -28,4 +37,3 @@ moths. Open `http://127.0.0.1:5177/` or `/?weather=rain`. Clear is `/?weather=cl
 - The accepted clear composition should remain available for comparison.
 - The known Vite/Three.js chunk-size advisory is non-blocking.
 - Linked dependencies must not be installed, updated, or removed.
-

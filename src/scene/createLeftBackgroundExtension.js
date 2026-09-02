@@ -81,23 +81,6 @@ function createNearFacadeDetails(surfaces) {
     box('Left residence upper mullion', [0.035, 0.7, 0.03], [-10.02, 1.87, -2.88], surfaces.distantTrim),
   );
 
-  const balcony = new THREE.Group();
-  balcony.name = 'Small left residence balcony fragment';
-  balcony.add(
-    box('Left balcony slab', [1.08, 0.08, 0.38], [-10.02, 1.38, -2.7], surfaces.distantArchitectureShade),
-    box('Left balcony rail', [1, 0.045, 0.045], [-10.02, 1.65, -2.5], surfaces.metal),
-    box('Left balcony planter', [0.78, 0.14, 0.22], [-10.02, 1.47, -2.56], surfaces.metal),
-    box('Left balcony soil', [0.64, 0.06, 0.16], [-10.02, 1.56, -2.54], surfaces.soil),
-    box('Left balcony plant left', [0.14, 0.22, 0.1], [-10.22, 1.7, -2.53], surfaces.grass),
-    box('Left balcony plant right', [0.12, 0.16, 0.09], [-9.84, 1.66, -2.52], surfaces.grass),
-  );
-  [-10.44, -10.02, -9.6].forEach((x, index) => {
-    balcony.add(
-      box(`Left balcony post ${index + 1}`, [0.045, 0.28, 0.045], [x, 1.51, -2.5], surfaces.metal),
-    );
-  });
-  details.add(balcony);
-
   details.add(
     box(
       'Left residence side window surround',
@@ -130,11 +113,6 @@ function createStreetPlot(surfaces) {
     box('Left house front verge', [6.4, 0.05, 0.62], [-11.35, 0.028, -2.48], surfaces.grass),
     box('Left house plot lip', [6.55, 0.1, 0.12], [-11.35, 0.04, -2.16], surfaces.pavementShade),
     box('Left alley packed earth', [1.85, 0.055, 2.35], [-12.15, 0.03, -2.55], surfaces.soil),
-    box('Left rain barrel', [0.32, 0.42, 0.32], [-12.42, 0.22, -3.28], surfaces.metal),
-    box('Left rain barrel rim', [0.34, 0.04, 0.34], [-12.42, 0.44, -3.28], surfaces.distantTrim),
-    box('Left street bush mass', [0.72, 0.48, 0.55], [-8.72, 0.26, -1.92], surfaces.grass),
-    box('Left street bush shade', [0.5, 0.32, 0.4], [-8.55, 0.42, -1.82], surfaces.soil),
-    box('Left far bush mass', [0.58, 0.4, 0.48], [-13.85, 0.22, -3.35], surfaces.grass),
   );
 
   return plot;
@@ -143,21 +121,10 @@ function createStreetPlot(surfaces) {
 function createAlleyDetails(surfaces) {
   const alley = new THREE.Group();
   alley.name = 'Left residence alley';
-  const crate = material(0x5b5348, { roughness: 0.86 });
-
   alley.add(
-    box('Alley gate post left', [0.07, 1.18, 0.07], [-12.42, 0.58, -3.82], surfaces.metal),
-    box('Alley gate post right', [0.07, 1.18, 0.07], [-11.92, 0.58, -3.82], surfaces.metal),
-    box('Alley gate top rail', [0.56, 0.055, 0.055], [-12.17, 1.12, -3.82], surfaces.metal),
-    box('Alley gate mid rail', [0.56, 0.05, 0.05], [-12.17, 0.7, -3.82], surfaces.metal),
-    box('Alley gate latch', [0.09, 0.13, 0.045], [-12.0, 0.8, -3.76], surfaces.distantTrim),
-    box('Alley crate', [0.42, 0.3, 0.34], [-12.18, 0.15, -3.02], crate),
-    box('Alley crate lid', [0.44, 0.045, 0.36], [-12.18, 0.32, -3.02], crate),
-    box('Alley crate small', [0.26, 0.18, 0.22], [-11.96, 0.09, -3.22], crate),
     box('Left residence utility plate', [0.24, 0.3, 0.06], [-11.93, 1.38, -3.38], surfaces.metal),
     box('Left residence utility inset', [0.12, 0.09, 0.035], [-11.91, 1.38, -3.34], surfaces.windowDark),
   );
-
   return alley;
 }
 
@@ -169,9 +136,6 @@ function createMiddleFacadeDetails(surfaces) {
     box('Middle residence window surround', [0.58, 0.68, 0.06], [-13.18, 2.08, -3.98], surfaces.distantTrim),
     box('Middle residence window', [0.42, 0.5, 0.04], [-13.18, 2.08, -3.92], surfaces.distantWindow),
     box('Middle residence window sill', [0.64, 0.055, 0.1], [-13.18, 1.78, -3.88], surfaces.distantArchitectureShade),
-    box('Middle residence lower window surround', [0.42, 0.5, 0.05], [-13.48, 0.92, -3.98], surfaces.distantTrim),
-    box('Middle residence lower window', [0.3, 0.36, 0.035], [-13.48, 0.92, -3.92], surfaces.windowDark),
-    box('Middle residence roof vent', [0.28, 0.16, 0.22], [-13.05, 3.32, -4.55], surfaces.distantArchitectureShade),
   );
 
   return details;

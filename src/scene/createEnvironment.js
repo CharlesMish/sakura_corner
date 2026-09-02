@@ -161,8 +161,8 @@ function createSaggingWire(name, start, end, slack, surfaces) {
   );
   const curve = new THREE.QuadraticBezierCurve3(p0, p1, p2);
   const wire = new THREE.Mesh(
-    new THREE.TubeGeometry(curve, 48, 0.03, 5, false),
-    surfaces.wire,
+    new THREE.TubeGeometry(curve, 32, 0.02, 5, false),
+    surfaces.utilityWire,
   );
   wire.name = name;
   wire.castShadow = true;
@@ -177,59 +177,46 @@ function createUtilityFraming(surfaces) {
     branchBetween(
       'Tapered utility pole',
       [6.3, -0.02, -0.9],
-      [6.15, 8.38, -1.05],
+      [6.15, 8.72, -1.05],
       0.2,
       0.125,
-      surfaces.metal,
+      surfaces.utilityPole,
       9,
     ),
-    box('Simple crossarm', [1.25, 0.13, 0.16], [6.15, 7.78, -1.02], surfaces.metal),
+    box('Simple crossarm', [1.25, 0.13, 0.16], [6.15, 8.38, -1.02], surfaces.utilityPole),
   );
 
   const farPole = branchBetween(
     'Far neighborhood utility pole',
     [-12.68, -0.02, -3.12],
-    [-12.76, 7.88, -3.22],
+    [-12.76, 8.55, -3.22],
     0.15,
     0.1,
-    surfaces.metal,
+    surfaces.utilityPole,
     8,
   );
   farPole.castShadow = false;
-  const farArm = box('Far pole crossarm', [0.98, 0.1, 0.12], [-12.76, 7.38, -3.22], surfaces.metal);
-  farArm.castShadow = false;
-  utility.add(farPole, farArm);
+  utility.add(farPole);
 
-  const insulatorGeometry = new THREE.CylinderGeometry(0.075, 0.09, 0.22, 8);
+  const insulatorGeometry = new THREE.CylinderGeometry(0.065, 0.08, 0.18, 8);
   const nearInsulators = [
-    [5.73, 7.95, -1.02],
-    [6.57, 7.95, -1.02],
+    [5.73, 8.48, -1.02],
+    [6.57, 8.48, -1.02],
   ];
-  const farInsulators = [
-    [-13.12, 7.52, -3.22],
-    [-12.4, 7.52, -3.22],
-  ];
-  [...nearInsulators, ...farInsulators].forEach((position, index) => {
+  nearInsulators.forEach((position, index) => {
     const insulator = new THREE.Mesh(insulatorGeometry, surfaces.insulator);
     insulator.name = `Pole insulator ${index + 1}`;
     insulator.position.set(...position);
-    insulator.castShadow = index < 2;
+    insulator.castShadow = true;
     utility.add(insulator);
   });
 
   utility.add(
     createSaggingWire(
       'Street-side overhead wire',
-      [6.57, 7.96, -1.02],
-      [-12.4, 7.54, -3.2],
-      0.58,
-      surfaces,
-    ),
-    createSaggingWire(
-      'Tree-side overhead wire',
-      [5.73, 7.94, -1.02],
-      [-13.12, 7.52, -3.22],
-      0.66,
+      [6.57, 8.48, -1.02],
+      [-12.4, 8.42, -3.2],
+      0.12,
       surfaces,
     ),
   );
@@ -368,12 +355,6 @@ function createFarNeighborhood(surfaces) {
     box('Far left workshop roof', [2.7, 0.12, 1.95], [-17.82, 1.52, -6.44], surfaces.farArchitecture),
     box('Far left street house', [2.7, 2.15, 1.7], [-18.15, 0.98, -5.15], surfaces.farArchitecture),
     box('Far left street window', [0.55, 0.38, 0.05], [-17.85, 1.18, -4.28], surfaces.farWindow),
-    box(
-      'Far left street interior glow',
-      [0.28, 0.22, 0.03],
-      [-17.85, 1.16, -4.22],
-      surfaces.glow,
-    ),
     box('Far left ridge apartment', [3.2, 2.25, 1.85], [-13.85, 1.02, -10.05], surfaces.farArchitectureShade),
     box('Far left ridge cap', [3.4, 0.12, 2.0], [-13.82, 2.2, -10.04], surfaces.farArchitecture),
     box('Far left ridge window', [0.52, 0.36, 0.05], [-13.45, 1.28, -8.95], surfaces.farWindow),
@@ -506,7 +487,15 @@ export function createEnvironment() {
     }),
     signAccent: material(palette.signAccent),
     metal: material(palette.metal, { roughness: 0.68, metalness: 0.16 }),
-    wire: material(0x30383d, { roughness: 0.72, metalness: 0.1 }),
+    wire: material(0x22282c, { roughness: 0.78, metalness: 0.08 }),
+    utilityPole: material(weatherIsWet() ? palette.metal : 0x6c6862, {
+      roughness: weatherIsWet() ? 0.68 : 0.76,
+      metalness: weatherIsWet() ? 0.16 : 0.08,
+    }),
+    utilityWire: material(weatherIsWet() ? 0x22282c : 0x7a7670, {
+      roughness: weatherIsWet() ? 0.78 : 0.88,
+      metalness: weatherIsWet() ? 0.08 : 0.03,
+    }),
     bicycle: material(0x465156, { roughness: 0.72, metalness: 0.14 }),
     insulator: material(0xb6b0a2, { roughness: 0.55 }),
     soil: material(0x4a4139),
@@ -530,6 +519,8 @@ export function createEnvironment() {
     applyWetMaterial(surfaces.window, 'window');
     applyWetMaterial(surfaces.metal, 'metal');
     applyWetMaterial(surfaces.wire, 'metal');
+    applyWetMaterial(surfaces.utilityPole, 'metal');
+    applyWetMaterial(surfaces.utilityWire, 'metal');
     applyWetMaterial(surfaces.bicycle, 'metal');
     applyWetMaterial(surfaces.soil, 'soil');
     applyWetMaterial(surfaces.grass, 'grass');

@@ -39,6 +39,14 @@ try {
       clip: { x: 500, y: 40, width: 650, height: 520 },
     },
     { name: 'scene-portrait.png', width: 390, height: 844 },
+    { name: 'hierarchy-rain-later.png', width: 1920, height: 1080, wait: 3600 },
+    { name: 'hierarchy-rain-10s.png', width: 1920, height: 1080, wait: 10000 },
+    {
+      name: 'hierarchy-clear-desktop.png',
+      width: 1920,
+      height: 1080,
+      search: '?weather=clear',
+    },
   ];
 
   for (const capture of captures) {
@@ -54,12 +62,8 @@ try {
         console.error(`console.error in ${capture.name}:`, message.text());
       }
     });
-    await page.goto(url, { waitUntil: 'networkidle' });
-    await page.waitForTimeout(1800);
-    await page.evaluate(() => {
-      window.__forceLightning = true;
-    });
-    await page.waitForTimeout(120);
+    await page.goto(`${url}${capture.search ?? ''}`, { waitUntil: 'networkidle' });
+    await page.waitForTimeout(capture.wait ?? 1800);
     await page.screenshot({
       path: resolve(outputDirectory, capture.name),
       clip: capture.clip,
