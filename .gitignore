@@ -7,5 +7,11 @@ screenshots/*.webm
 screenshots/*.gif
 !screenshots/.gitkeep
 !screenshots/signoff-*.png
+!screenshots/rain-contact-desktop.png
+!screenshots/rain-contact-laptop.png
+!screenshots/rain-contact-ultrawide.png
+!screenshots/rain-contact-portrait.png
+!screenshots/rain-contact-clear-desktop.png
+!screenshots/rain-contact-detail.png
 .DS_Store
 

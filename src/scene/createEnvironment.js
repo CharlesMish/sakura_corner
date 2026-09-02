@@ -10,6 +10,7 @@ import { box, branchBetween, material } from './primitives.js';
 import { createRightBackgroundExtension } from './createRightBackgroundExtension.js';
 import { createSleepNods } from './createSleepNods.js';
 import { applyWetMaterial } from './wetSurfaces.js';
+import { createRainContact } from './createRainContact.js';
 
 const { palette } = ART_DIRECTION;
 const transform = new THREE.Object3D();
@@ -688,6 +689,9 @@ export function createEnvironment() {
     weeds.mesh,
   );
   if (sleepNods) world.add(sleepNods.group);
+
+  const rainContact = createRainContact();
+  if (rainContact) world.add(rainContact);
 
   return {
     group: world,

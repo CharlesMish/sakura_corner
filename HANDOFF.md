@@ -2,119 +2,116 @@
 
 ## Visual thesis
 
-The rainy corner should read as cool air, one living sakura, and one dry
-warm shop, with weather continuing past the frame. The overnight neighborhood
-pass found useful ingredients and then over-built the world. This stop is a
-hierarchy edit: remove the demo beat, quiet the background, and stop adding
-places.
+The frozen parent already says rain is falling through cool air. This pass
+adds one more idea: rain has been touching this place for a while. The marks
+are local and wet-only. They sit where the camera already looks.
+
+Parent hierarchy/weather-enclosure checkpoint `4980851` is approved and
+frozen. Do not reopen storm, hills, shrine, bicycle, pole placement, camera,
+sakura, or shop light.
 
 ## Strongest result
 
-Default rain after the sign-off correction. Compare against the frozen
-hierarchy-pass frames.
+Rain-contact candidate on `grok/rain-contact`. First glance should still be
+sakura plus warm shop. Second glance: the existing shop-light pool catches on
+wet pavement, the downspout shoe has a short runoff, and the shop base looks
+lived-in.
 
-Sign-off frames:
+Compare against the signed-off freeze, not against overnight neighborhood
+frames.
 
-- `screenshots/signoff-desktop.png`
-- `screenshots/signoff-portrait.png`
-- `screenshots/signoff-ultrawide.png`
-- `screenshots/signoff-laptop.png`
-- `screenshots/signoff-clear-desktop.png`
+## Retained rain-contact treatments
 
-Hierarchy-pass freeze:
+All of this lives in `src/scene/createRainContact.js`. It returns `null` in
+clear weather. `createEnvironment()` adds the group only when wet.
 
-- `screenshots/hierarchy-pass-desktop.png`
-- `screenshots/hierarchy-pass-portrait.png`
-- `screenshots/hierarchy-pass-ultrawide.png`
-- `screenshots/hierarchy-pass-laptop.png`
-- `screenshots/hierarchy-pass-clear-desktop.png`
+1. Shop pool wet catch. Three camera-authored `MeshBasicMaterial` cards in
+   the existing warm pool, not a second light and not a larger pool. Main
+   card `[0.5, 0.01, 0.32]` at `[3.14, 0.042, -0.62]`, color `0xa07046`,
+   opacity `0.3`. Two smaller interrupted cards at `[3.34, 0.04, -0.26]` and
+   `[2.96, 0.041, -0.44]`, color `0x7e5636`, opacity `0.2`. Desktop sample at
+   the main card went `106,87,64` to `140,103,66`. Window sample at
+   `(1226, 694)` stayed `98,99,59`. Pool-region mean `97.4,79.1,59.9` to
+   `101.0,80.5,59.5`.
 
-## Experiments attempted
+2. One drainage path from the existing downspout shoe. Dark tint pad
+   `[0.34, 0.016, 0.3]` at `[7.2, 0.028, -0.92]` plus a short seam
+   `[0.08, 0.01, 0.44]` at `[7.16, 0.024, -0.55]`, color `0x1a2226`, opacity
+   `0.3`. No new grate. No animated stream. Shoe-region mean `24.6,29.4,30.8`
+   to `23.4,28.3,29.7`.
 
-Lightning was removed entirely rather than dimmed. A 10-second rain capture
-has no pale bolt pixels and the brightest upper-frame samples stay in the
-blossom range, not a flash.
+3. Shop-wall rain history. A darker base course on the existing storefront
+   trim, `[2.15, 0.14, 0.03]` at `[3.28, 0.16, -1.445]`, and a low plaster
+   band left of the window, `[0.95, 0.24, 0.03]` at `[1.72, 0.32, -1.61]`,
+   color `0x2a2824`, opacity `0.2`. Lit left plaster sample `93,82,64` to
+   `71,63,49`. Base sample `54,52,44` to `43,41,35`.
 
-Storm massing went from nine countable puffs, through a full-width cropped
-lid, to three left-weighted puffs: two as a lower step behind roofs, one
-quieter continuation that stays left of the crown. No lightning. No extra
-puff row.
+No animation on any of these marks.
 
-Mountains lost snow and forest icons. Peak count dropped and the ridge behind
-the tree is a saddle, not a triangle sitting in the canopy.
+## Experiments attempted and removed
 
-Left side lost shrine trees, a balcony fragment, a street bush, and then the
-remaining cube grove. The bicycle and the far hearth stayed.
+Irregular `BufferGeometry` ground patches were invisible. Winding and
+depth at `ndcZ ~ 0.993` swallowed them. Pixel samples at the projected
+vertices did not move.
 
-Clear-weather pole and wire got dedicated materials. Placement did not move.
+`MeshStandardMaterial` plates in the pool punched dark holes. A vertex at
+`(1181, 879)` went `94,76,59` to `33,34,30` and the pool mean dropped from
+`97` to `77`. Those plates were removed.
+
+A long runoff toward the curb grate does not survive the hero frames. The
+grate at `x=7.24, z=3.77` projects below the desktop, laptop, portrait, and
+ultrawide crops. The path was shortened to the shoe and a near sidewalk
+seam.
+
+`MeshStandardMaterial` wall boxes fell into the building's own shadow and
+read as black rectangles. Portrait plaster went `80,76,64` to `39,38,33`.
+Wall history now uses the same transparent `MeshBasicMaterial` tint as the
+ground cheats.
+
+A downspout stain on the continuation wall was removed. That wall is already
+near black (`0,2,4`), so the stain had no still-frame read.
+
+## Optional petal treatment disposition
+
+Skipped. `createPetalSystem.js` already flattens wet settled petals globally
+(`settledTilt` `0.02`, `settledRoughness` `0.62`, lower emissive). A subset
+that is more adhered only in the shop-contact zone would need new placement
+or material branching. This pass does not require that, and the instruction
+was to skip it if the change was not small and safe.
+
+Authored story petals, interaction budgets, and landing architecture were
+not opened.
 
 ## Weather / atmosphere treatment
 
-Rain remains the default. `createRainClouds()` returns `null` in clear mode.
-No lightning geometry, no flash light, no capture-script force flag.
-
-Storm materials are step `0x10161c` and retreat `0x1a232b`, `fog: false`.
-Three puffs share origin `[-22.4, 9.7, -15.2]`. The span that used to cross
-the sakura was removed so portrait sky to the right of the mass stays open.
-
-Portrait row samples at y=90: cloud through x=240, sky from x=270. Hierarchy
-pass at the same row was cloud across the full 390px. Crown row y=190 is sky.
-
-Wet atmosphere values in `src/config.js` were not retuned.
-
-Clear sky at (960, 80) samples `148,150,160`. Rain at the same pixel is
-`18,27,33`. No leftover storm boxes in clear.
+Unchanged from the frozen parent. Rain remains the default. Clear is
+`/?weather=clear`. Storm, fog, rain streaks, drips, and spout trickle are
+the previous values. The existing trickle is still a tiny animated drop at
+the shoe. The new runoff is a still-frame tint, not a second water system.
 
 ## Environment and storytelling changes
 
-Mountains remain as two long, low ridges in `createDistantHills.js`. Wet
-colors `0x161e24` / `0x1c2830` with existing scene fog. No snow. No slope
-trees. Highest remaining bump is 1.9 world units, shifted left of the sakura
-so it does not read as a peak growing out of the crown.
-
-The shrine is no longer a precinct. `createFarLeftShrineHint.js` keeps a dark
-hall and a flat roof. Torii, fence, lantern, pebbles, and the two shrine
-grove trees are gone. It should not parse as a shrine on first glance. If
-it reads as anything, it is another dark volume at the end of the street.
-
-Grove volumes are gone. Far-left street interior glow stays off. One small
-warm note on the left is the sleep-app hearth.
-
-Near-right pole, crossarm, and insulators stay. One street-side wire remains.
-Start `[6.57, 8.48, -1.02]`, end `[-12.4, 8.42, -3.2]`, slack `0.12`.
-Geometry did not move. Clear-only materials: pole `0x6c6862`, wire `0x7a7670`.
-Rain still uses the previous dark utility values. Clear wire at `(860, 36)`
-went from `27,17,11` to `114,81,57`.
-
-Bicycle still uses the old `wire` material for rims. Shop metal is unchanged.
+No new props, scenery, or civic infrastructure. Shop mass, window, door,
+downspout geometry, curb, and grate layout did not move. Left side mean in
+the desktop rain frame stayed `28.8,37.0,39.3`.
 
 ## Sakura, petals, and interaction changes
 
-None. Tree structure, five-lobed blossoms, passive petals, and the bounded
-interaction path were not opened.
+None.
 
 ## Exact tuning values
 
-Storm origin `[-22.4, 9.7, -15.2]` with three puffs. Left step heights 4.4 and
-4.1. Retreat height 2.5, offset `[5.4, 1.35, -0.45]`.
+Camera, pixel size, shop light, and wet palette are the frozen parent
+values. Light remains at `[3.25, 1.75, -1.25]`, wet intensity `9.1`.
 
-Hill far profile peaks: 1.55, 1.9, 1.15, 1.4, 0.9. Near: 1.2, 1.5, 0.95, 1.15.
-Positions unchanged: far `(-0.6, 0.04, -18.6)`, near `(0.4, 0, -16.4)`.
-
-Wire slack 0.12. Pole top `(6.15, 8.72, -1.05)`. Crossarm y=8.38.
-
-Camera, pixel size, shop light, and wet sky/haze are the previous values.
+Rain-contact cards use `MeshBasicMaterial`, `depthWrite: false`,
+`receiveShadow: false`, `renderOrder: 2`.
 
 ## Files changed or added
 
-- `src/scene/createRainClouds.js`
-- `src/scene/createDistantHills.js`
-- `src/scene/createFarLeftShrineHint.js`
-- `src/scene/createLeftHorizonFill.js`
-- `src/scene/createLeftBackgroundExtension.js`
-- `src/scene/createEnvironment.js`
-- `src/main.js` (lightning update already removed earlier in this lane)
-- `scripts/capture-scene.mjs` (later rain frame, 10s rain frame, clear desktop)
+- `src/scene/createRainContact.js`
+- `src/scene/createEnvironment.js` (wires the wet-only group)
+- `scripts/capture-scene.mjs` (rain-contact named frames, `CAPTURE_ONLY` filter)
 - `PROGRESS.md`
 - `HANDOFF.md`
 
@@ -122,71 +119,78 @@ No new dependencies. No parent production edits.
 
 ## Visual evidence
 
-- Sign-off rain desktop / portrait / ultrawide / laptop: `screenshots/signoff-*.png`
-- Sign-off clear: `screenshots/signoff-clear-desktop.png`
-- Hierarchy-pass freeze for comparison: `screenshots/hierarchy-pass-*.png`
-- Earlier rain baseline: `screenshots/hierarchy-before-desktop.png`
-- Accepted clear reference: `screenshots/hierarchy-reference-clear-desktop.png`
+Signed-off checkpoint (do not replace):
 
-10s pale-bolt count in the upper frame was 0. Brightest samples at 1.8s, 3.6s,
-and 10s all sit on the canopy around `(731, 202)` in the 90s RGB, not a
-white flash.
+- `screenshots/signoff-desktop.png`
+- `screenshots/signoff-portrait.png`
+- `screenshots/signoff-ultrawide.png`
+- `screenshots/signoff-laptop.png`
+- `screenshots/signoff-clear-desktop.png`
+
+Local copies of that freeze: `screenshots/rain-contact-before-*.png`
+
+This candidate:
+
+- `screenshots/rain-contact-desktop.png`
+- `screenshots/rain-contact-portrait.png`
+- `screenshots/rain-contact-ultrawide.png`
+- `screenshots/rain-contact-laptop.png`
+- `screenshots/rain-contact-clear-desktop.png`
+- `screenshots/rain-contact-detail.png` (shop wall, light pool, shoe/contact)
+
+Official `scene-*.png` and hierarchy extra frames are also recaptured.
 
 ## Performance and stability
 
-Storm puff count dropped. Lightning point light is gone. Capture ran clean
-after restoring the `THREE` import on the shrine hint. Official viewports
-plus the extra hierarchy frames completed without page errors.
+A handful of thin unlit cards. No extra lights, particles, or shadow casters.
 
 ## Checks performed
 
 - `npm run build` (chunk-size advisory only)
 - `npm run capture` including 10s rain and `?weather=clear`
-- Desktop luminance hunt for pale bolts, snow-like pixels, and saturated
-  mountain green: all 0 on the rain hero frame
+- Desktop pixel samples versus `signoff-desktop.png` at the pool, shoe, wall,
+  window, canopy, and left street
+- Clear desktop pool/wall/shoe means matched the signed-off clear frame
 - Tree interaction analyzers were not rerun. That code was not touched.
 
 ## Integration map for Sol
 
 ### Keep directly
 
-- Default rain with no lightning
-- High cropped storm, now left-weighted rather than a spanning lid
-- Shop window / door / light pool, sakura, bicycle, near-right pole
-- Clear comparison path
+- Frozen hierarchy/weather-enclosure composition
+- Wet-only rain-contact cards if this candidate signs off
 
 ### Reinterpret conservatively
 
-- Distant ridges. They still exist, but they should stay this quiet or
-  quieter. Do not put snow or tree icons back.
-- The leftover shrine hall. It is already only a dark box. Could vanish
-  entirely if the street still reads as continuing.
+- The drainage path is shoe-to-near-pavement, not shoe-to-grate, because the
+  grate is below the approved crops. Do not lengthen it just to "complete"
+  the civic diagram.
 
 ### Leave in the sandbox
 
-- The old lightning bolt and flash
-- Mountain forest patches and snow caps
-- Readable shrine precinct
-- Extra left balcony, bush, and grove count
-- Capture-script lightning forcing
+- Dark standard-material pool plates
+- Full-length runoff to an off-frame grate
+- Wall grunge maps, cracks, posters, extra pipes
 
-## Known regressions / unresolved questions
+## Known residual weaknesses
 
-The storm is still boxes. Portrait no longer has a full-width black band at
-y=90. The right side of that row is sky. A viewer can still see a dark
-stepped mass on the left. That is the remaining weather object, not a second
-pass of puffs.
+The curb grate on the downspout line is not in the hero frames, so a viewer
+cannot see water arrive at a drain. The still-frame evidence is the shoe
+contact and a short darker seam.
 
-Clear pole and wire are lighter but still graphic. They should stay visible.
+Wall history is a low band left of the window plus a darker base course. It
+is not a weathered facade. The large plaster plane above the sill is still
+mostly clean except for the tree shadow.
 
-Left street still has box houses and earth banks. Those are neighborhood
-continuation, not replacement trees.
+Pool catch is three small warm fragments, not a wet-mirror system. If a
+director wants more "irregular wet surface," the next move is another
+interrupted card in the same pool, not a roughness pass on the whole
+sidewalk.
 
-Hills nearly disappear in clear haze. Wet ground, drains, and shop-wall
-history were not touched.
+Portrait crops the downspout. Pool and left plaster band still read. The
+plaster band is a low rectangle, not a full-height stripe.
 
 ## Suggested next move
 
-Director sign-off, then checkpoint commit. After that, wet-ground and
-shop-wall history. Do not reopen mountains, shrine, lightning, tree, or shop
-light.
+Director visual audit of the rain-contact frames. Do not commit until that
+passes. Do not reopen the frozen parent.
