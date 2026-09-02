@@ -3,11 +3,14 @@ import { ART_DIRECTION } from '../config.js';
 import { weatherIsWet } from '../weatherMode.js';
 import { createRightWallDetails } from './createDownspout.js';
 import { createBackgroundGround } from './createBackgroundGround.js';
+import { createDistantHills } from './createDistantHills.js';
+import { createLeftHorizonFill } from './createLeftHorizonFill.js';
 import { createLeftBackgroundExtension } from './createLeftBackgroundExtension.js';
 import { box, branchBetween, material } from './primitives.js';
 import { createRightBackgroundExtension } from './createRightBackgroundExtension.js';
 import { createSleepNods } from './createSleepNods.js';
 import { applyWetMaterial } from './wetSurfaces.js';
+import { createRainContact } from './createRainContact.js';
 
 const { palette } = ART_DIRECTION;
 const transform = new THREE.Object3D();
@@ -99,10 +102,27 @@ function createSmallDebris(surface) {
 function createWeeds(surface) {
   const geometry = new THREE.ConeGeometry(0.055, 0.48, 3);
   const placements = [
+    [-6.05, 0.2, 2.58, -0.18, 0.92],
+    [-4.55, 0.16, 2.64, 0.16, 0.72],
+    [-3.15, 0.18, 2.52, -0.14, 0.8],
+    [-1.55, 0.15, 2.6, 0.2, 0.66],
+    [-9.58, 0.16, 2.8, 0.16, 0.78],
+    [-7.42, 0.2, 2.68, -0.12, 0.88],
+    [-7.18, 0.15, 2.78, 0.2, 0.68],
+    [-5.55, 0.18, 2.7, -0.18, 0.82],
+    [-4.22, 0.14, 1.18, 0.14, 0.62],
+    [-6.85, 0.16, 0.42, -0.2, 0.7],
+    [-8.15, 0.2, -0.22, 0.22, 0.9],
+    [-0.88, 0.16, 2.62, -0.16, 0.74],
+    [0.42, 0.15, 2.58, 0.18, 0.64],
     [-3.02, 0.2, 2.42, -0.24, 0.92],
     [-2.82, 0.15, 2.5, 0.18, 0.72],
     [-2.67, 0.12, 2.39, -0.08, 0.58],
-    [-5.18, 0.16, -1.8, 0.26, 0.7],
+    [-3.85, 0.22, -1.62, 0.2, 0.95],
+    [-3.55, 0.16, -1.48, -0.16, 0.72],
+    [-4.55, 0.18, -1.72, 0.12, 0.8],
+    [-2.95, 0.14, -0.55, 0.18, 0.62],
+    [-2.15, 0.12, -0.22, -0.2, 0.55],
     [-4.96, 0.13, -1.88, -0.18, 0.58],
     [-0.42, 0.13, -2.03, -0.1, 0.62],
     [-0.22, 0.17, -1.96, 0.25, 0.78],
@@ -142,8 +162,8 @@ function createSaggingWire(name, start, end, slack, surfaces) {
   );
   const curve = new THREE.QuadraticBezierCurve3(p0, p1, p2);
   const wire = new THREE.Mesh(
-    new THREE.TubeGeometry(curve, 48, 0.03, 5, false),
-    surfaces.wire,
+    new THREE.TubeGeometry(curve, 32, 0.02, 5, false),
+    surfaces.utilityWire,
   );
   wire.name = name;
   wire.castShadow = true;
@@ -158,59 +178,46 @@ function createUtilityFraming(surfaces) {
     branchBetween(
       'Tapered utility pole',
       [6.3, -0.02, -0.9],
-      [6.15, 8.38, -1.05],
+      [6.15, 8.72, -1.05],
       0.2,
       0.125,
-      surfaces.metal,
+      surfaces.utilityPole,
       9,
     ),
-    box('Simple crossarm', [1.25, 0.13, 0.16], [6.15, 7.78, -1.02], surfaces.metal),
+    box('Simple crossarm', [1.25, 0.13, 0.16], [6.15, 8.38, -1.02], surfaces.utilityPole),
   );
 
   const farPole = branchBetween(
     'Far neighborhood utility pole',
     [-12.68, -0.02, -3.12],
-    [-12.76, 7.88, -3.22],
+    [-12.76, 8.55, -3.22],
     0.15,
     0.1,
-    surfaces.metal,
+    surfaces.utilityPole,
     8,
   );
   farPole.castShadow = false;
-  const farArm = box('Far pole crossarm', [0.98, 0.1, 0.12], [-12.76, 7.38, -3.22], surfaces.metal);
-  farArm.castShadow = false;
-  utility.add(farPole, farArm);
+  utility.add(farPole);
 
-  const insulatorGeometry = new THREE.CylinderGeometry(0.075, 0.09, 0.22, 8);
+  const insulatorGeometry = new THREE.CylinderGeometry(0.065, 0.08, 0.18, 8);
   const nearInsulators = [
-    [5.73, 7.95, -1.02],
-    [6.57, 7.95, -1.02],
+    [5.73, 8.48, -1.02],
+    [6.57, 8.48, -1.02],
   ];
-  const farInsulators = [
-    [-13.12, 7.52, -3.22],
-    [-12.4, 7.52, -3.22],
-  ];
-  [...nearInsulators, ...farInsulators].forEach((position, index) => {
+  nearInsulators.forEach((position, index) => {
     const insulator = new THREE.Mesh(insulatorGeometry, surfaces.insulator);
     insulator.name = `Pole insulator ${index + 1}`;
     insulator.position.set(...position);
-    insulator.castShadow = index < 2;
+    insulator.castShadow = true;
     utility.add(insulator);
   });
 
   utility.add(
     createSaggingWire(
       'Street-side overhead wire',
-      [6.57, 7.96, -1.02],
-      [-12.4, 7.54, -3.2],
-      0.58,
-      surfaces,
-    ),
-    createSaggingWire(
-      'Tree-side overhead wire',
-      [5.73, 7.94, -1.02],
-      [-13.12, 7.52, -3.22],
-      0.66,
+      [6.57, 8.48, -1.02],
+      [-12.4, 8.42, -3.2],
+      0.12,
       surfaces,
     ),
   );
@@ -334,15 +341,43 @@ function createFarNeighborhood(surfaces) {
   far.add(
     box('Far left facade crop', [4.6, 3.05, 2.1], [-11.15, 1.38, -7.92], surfaces.farArchitecture),
     box('Far left roofline', [4.85, 0.12, 2.26], [-11.12, 2.96, -7.91], surfaces.farArchitectureShade),
-    box('Far stair tower', [1.85, 6.05, 1.85], [-8.55, 2.88, -9.05], surfaces.farArchitectureShade),
-    box('Far stair tower cap', [2.08, 0.14, 2.02], [-8.53, 5.98, -9.04], surfaces.farArchitecture),
-    box('Far stair tower window', [0.38, 0.62, 0.05], [-8.55, 4.15, -8.1], surfaces.farWindow),
-    box('Far stair tower upper window', [0.32, 0.48, 0.05], [-8.55, 5.12, -8.1], surfaces.farWindow),
+    box('Far stair tower', [1.85, 3.15, 1.85], [-8.55, 1.42, -9.05], surfaces.farArchitectureShade),
+    box('Far stair tower cap', [2.08, 0.12, 2.02], [-8.53, 3.06, -9.04], surfaces.farArchitecture),
+    box('Far stair tower window', [0.38, 0.52, 0.05], [-8.55, 2.12, -8.1], surfaces.farWindow),
     box('Far low roof mass', [5.2, 2.15, 2], [-5.45, 0.94, -9.55], surfaces.farArchitecture),
     box('Far low parapet', [5.4, 0.13, 2.14], [-5.43, 2.08, -9.54], surfaces.farArchitectureShade),
     box('Far rooftop utility mass', [1.08, 0.62, 0.9], [-12.15, 3.55, -7.72], surfaces.farArchitectureShade),
     box('Far window grouping left', [1.35, 0.44, 0.05], [-11.35, 1.55, -6.77], surfaces.farWindow),
     box('Far window grouping right', [1.18, 0.38, 0.05], [-9.55, 1.45, -6.77], surfaces.farWindow),
+    box('Far street-end house', [3.15, 2.85, 1.95], [-16.15, 1.28, -7.55], surfaces.farArchitecture),
+    box('Far street-end roof', [3.35, 0.12, 2.12], [-16.12, 2.76, -7.54], surfaces.farArchitectureShade),
+    box('Far street-end window', [0.72, 0.4, 0.05], [-15.95, 1.55, -6.55], surfaces.farWindow),
+    box('Far left workshop', [2.35, 1.55, 1.7], [-17.85, 0.68, -6.45], surfaces.farArchitectureShade),
+    box('Far left workshop roof', [2.7, 0.12, 1.95], [-17.82, 1.52, -6.44], surfaces.farArchitecture),
+    box('Far left street house', [2.7, 2.15, 1.7], [-18.15, 0.98, -5.15], surfaces.farArchitecture),
+    box('Far left street window', [0.55, 0.38, 0.05], [-17.85, 1.18, -4.28], surfaces.farWindow),
+    box('Far left ridge apartment', [3.2, 2.25, 1.85], [-13.85, 1.02, -10.05], surfaces.farArchitectureShade),
+    box('Far left ridge cap', [3.4, 0.12, 2.0], [-13.82, 2.2, -10.04], surfaces.farArchitecture),
+    box('Far left ridge window', [0.52, 0.36, 0.05], [-13.45, 1.28, -8.95], surfaces.farWindow),
+  );
+  const houseRoofLeft = box(
+    'Far left street roof left',
+    [1.65, 0.1, 1.95],
+    [-18.78, 2.28, -5.14],
+    surfaces.farArchitectureShade,
+  );
+  houseRoofLeft.rotation.z = 0.34;
+  const houseRoofRight = box(
+    'Far left street roof right',
+    [1.65, 0.1, 1.95],
+    [-17.52, 2.28, -5.14],
+    surfaces.farArchitectureShade,
+  );
+  houseRoofRight.rotation.z = -0.34;
+  far.add(
+    houseRoofLeft,
+    houseRoofRight,
+    box('Far left street roof ridge', [0.14, 0.12, 2.02], [-18.15, 2.52, -5.14], surfaces.farArchitecture),
   );
   far.traverse((object) => {
     if (object.isMesh) object.castShadow = false;
@@ -414,7 +449,10 @@ export function createEnvironment() {
     road: material(palette.road),
     roadLight: material(palette.roadLight),
     roadShade: material(palette.roadShade),
-    marking: material(palette.roadMarking),
+    marking: material(palette.roadMarking, {
+      emissive: palette.roadMarking,
+      emissiveIntensity: weatherIsWet() ? 0.07 : 0.02,
+    }),
     plaster: material(palette.plaster),
     plasterShade: material(palette.plasterShade),
     plasterRoof: material(
@@ -450,7 +488,15 @@ export function createEnvironment() {
     }),
     signAccent: material(palette.signAccent),
     metal: material(palette.metal, { roughness: 0.68, metalness: 0.16 }),
-    wire: material(0x30383d, { roughness: 0.72, metalness: 0.1 }),
+    wire: material(0x22282c, { roughness: 0.78, metalness: 0.08 }),
+    utilityPole: material(weatherIsWet() ? palette.metal : 0x6c6862, {
+      roughness: weatherIsWet() ? 0.68 : 0.76,
+      metalness: weatherIsWet() ? 0.16 : 0.08,
+    }),
+    utilityWire: material(weatherIsWet() ? 0x22282c : 0x7a7670, {
+      roughness: weatherIsWet() ? 0.78 : 0.88,
+      metalness: weatherIsWet() ? 0.08 : 0.03,
+    }),
     bicycle: material(0x465156, { roughness: 0.72, metalness: 0.14 }),
     insulator: material(0xb6b0a2, { roughness: 0.55 }),
     soil: material(0x4a4139),
@@ -474,6 +520,8 @@ export function createEnvironment() {
     applyWetMaterial(surfaces.window, 'window');
     applyWetMaterial(surfaces.metal, 'metal');
     applyWetMaterial(surfaces.wire, 'metal');
+    applyWetMaterial(surfaces.utilityPole, 'metal');
+    applyWetMaterial(surfaces.utilityWire, 'metal');
     applyWetMaterial(surfaces.bicycle, 'metal');
     applyWetMaterial(surfaces.soil, 'soil');
     applyWetMaterial(surfaces.grass, 'grass');
@@ -501,21 +549,31 @@ export function createEnvironment() {
       -0.517,
       surfaces.roadShade,
     ),
-    box('Road edge marking', [18, 0.025, 0.18], [2.5, -0.51, 5.38], surfaces.marking),
+    box('Road curb groove', [22, 0.02, 0.08], [-1.2, -0.5, 4.12], surfaces.pavementShade),
   );
 
   const pavementDetails = new THREE.Group();
   pavementDetails.name = 'Quiet pavement variation';
   pavementDetails.add(
     box('Cool left pavement slab', [3.15, 0.018, 2.05], [-4.86, -0.008, 0.72], surfaces.pavementCool),
+    box('Far left pavement slab', [3.8, 0.016, 2.2], [-8.65, -0.007, 0.85], surfaces.pavementShade),
     box('Faded central pavement slab', [2.55, 0.016, 1.62], [-1.47, -0.007, -1.18], surfaces.pavementLight),
     box('Shop threshold pavement slab', [3.65, 0.018, 1.12], [3.6, -0.008, -0.87], surfaces.pavementCool),
     box('Lighter pavement repair', [2.8, 0.018, 1.55], [1.28, -0.008, 1.22], surfaces.pavementLight),
-    box('Long pavement seam', [0.035, 0.024, 5.65], [-3.35, 0.002, 0.32], surfaces.pavementShade),
-    box('Cross pavement seam', [4.6, 0.024, 0.035], [-1.05, 0.003, 2.03], surfaces.pavementShade),
+    box('Long pavement seam', [0.05, 0.028, 5.65], [-3.35, 0.004, 0.32], surfaces.pavementShade),
+    box('Left sidewalk long joint', [10.2, 0.03, 0.055], [-7.85, 0.005, 1.62], surfaces.pavementShade),
+    box('Left sidewalk paint line', [9.4, 0.016, 0.07], [-6.85, 0.01, 2.72], surfaces.marking),
+    box('Left sidewalk outer joint', [9.1, 0.028, 0.05], [-8.45, 0.005, 2.52], surfaces.pavementEdge),
+    box('Left sidewalk cross joint', [0.055, 0.028, 3.65], [-5.92, 0.005, 1.28], surfaces.pavementShade),
+    box('Far left sidewalk cross joint', [0.05, 0.028, 3.3], [-9.35, 0.005, 1.15], surfaces.pavementShade),
+    box('Mid-left sidewalk joint', [0.048, 0.028, 3.05], [-7.62, 0.005, 0.22], surfaces.pavementShade),
+    box('Mid sidewalk joint by wall', [3.4, 0.026, 0.045], [-3.15, 0.004, -0.85], surfaces.pavementShade),
     box('Store utility access cover', [0.86, 0.026, 0.62], [4.25, 0.004, 0.15], surfaces.metal),
+    box('Left sidewalk cover', [0.62, 0.024, 0.48], [-6.85, 0.004, 0.92], surfaces.metal),
+    box('Left sidewalk cover inset', [0.4, 0.028, 0.04], [-6.85, 0.01, 0.92], surfaces.pavementShade),
     box('Access cover inset', [0.58, 0.029, 0.045], [4.25, 0.011, 0.15], surfaces.pavementShade),
     box('Faded curb wear left', [1.15, 0.028, 0.09], [-4.95, -0.075, 3.13], surfaces.pavementShade),
+    box('Faded curb wear far left', [1.55, 0.026, 0.085], [-9.15, -0.074, 3.13], surfaces.pavementShade),
     box('Faded curb wear center', [0.72, 0.026, 0.085], [0.62, -0.074, 3.13], surfaces.pavementShade),
     box('Faded curb wear right', [1.38, 0.027, 0.09], [5.46, -0.075, 3.13], surfaces.pavementShade),
   );
@@ -619,6 +677,8 @@ export function createEnvironment() {
   const sleepNods = createSleepNods();
   world.add(
     createBackgroundGround(),
+    createDistantHills(),
+    createLeftHorizonFill(),
     createFarNeighborhood(surfaces),
     createSecondaryBackground(surfaces),
     createLeftBackgroundExtension({ surfaces }),
@@ -629,6 +689,9 @@ export function createEnvironment() {
     weeds.mesh,
   );
   if (sleepNods) world.add(sleepNods.group);
+
+  const rainContact = createRainContact();
+  if (rainContact) world.add(rainContact);
 
   return {
     group: world,

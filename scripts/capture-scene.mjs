@@ -27,7 +27,7 @@ try {
   const url = `http://127.0.0.1:${address.port}/`;
   browser = await chromium.launch({ headless: true });
 
-  const captures = [
+  const allCaptures = [
     { name: 'scene-desktop.png', width: 1920, height: 1080 },
     { name: 'scene-laptop.png', width: 1366, height: 768 },
     { name: 'scene-ultrawide.png', width: 2560, height: 1080 },
@@ -39,7 +39,35 @@ try {
       clip: { x: 500, y: 40, width: 650, height: 520 },
     },
     { name: 'scene-portrait.png', width: 390, height: 844 },
+    { name: 'hierarchy-rain-later.png', width: 1920, height: 1080, wait: 3600 },
+    { name: 'hierarchy-rain-10s.png', width: 1920, height: 1080, wait: 10000 },
+    {
+      name: 'hierarchy-clear-desktop.png',
+      width: 1920,
+      height: 1080,
+      search: '?weather=clear',
+    },
+    { name: 'rain-contact-desktop.png', width: 1920, height: 1080 },
+    { name: 'rain-contact-laptop.png', width: 1366, height: 768 },
+    { name: 'rain-contact-ultrawide.png', width: 2560, height: 1080 },
+    { name: 'rain-contact-portrait.png', width: 390, height: 844 },
+    {
+      name: 'rain-contact-clear-desktop.png',
+      width: 1920,
+      height: 1080,
+      search: '?weather=clear',
+    },
+    {
+      name: 'rain-contact-detail.png',
+      width: 1920,
+      height: 1080,
+      clip: { x: 1050, y: 620, width: 780, height: 450 },
+    },
   ];
+  const captureFilter = process.env.CAPTURE_ONLY;
+  const captures = captureFilter
+    ? allCaptures.filter((capture) => capture.name.includes(captureFilter))
+    : allCaptures;
 
   for (const capture of captures) {
     const page = await browser.newPage({
@@ -54,8 +82,8 @@ try {
         console.error(`console.error in ${capture.name}:`, message.text());
       }
     });
-    await page.goto(url, { waitUntil: 'networkidle' });
-    await page.waitForTimeout(1800);
+    await page.goto(`${url}${capture.search ?? ''}`, { waitUntil: 'networkidle' });
+    await page.waitForTimeout(capture.wait ?? 1800);
     await page.screenshot({
       path: resolve(outputDirectory, capture.name),
       clip: capture.clip,

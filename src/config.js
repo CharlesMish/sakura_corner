@@ -87,8 +87,8 @@ export const ART_DIRECTION = {
       horizonBlend: 0.42,
     },
     wet: {
-      skyTop: 0x1c2c34,
-      skyMiddle: 0x2d4450,
+      skyTop: 0x10181e,
+      skyMiddle: 0x243440,
       skyHorizon: 0x3a5260,
       fogNear: 22,
       fogFar: 48,
@@ -303,7 +303,7 @@ export const ART_DIRECTION = {
   palette: {
     sky: 0xa99b9e,
     haze: 0xaaa0a2,
-    wetHaze: 0x3a5260,
+    wetHaze: 0x2a3c44,
     pavement: 0x9d978f,
     pavementLight: 0xaaa198,
     pavementCool: 0x91918d,
