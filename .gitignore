@@ -6,5 +6,6 @@ screenshots/*.png
 screenshots/*.webm
 screenshots/*.gif
 !screenshots/.gitkeep
+!screenshots/signoff-*.png
 .DS_Store
 
