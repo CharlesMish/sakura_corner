@@ -1,0 +1,77 @@
+{
+  "scope": "Read-only measurements and representative frames. Continuous visual viewing and physical-display judgment were unavailable.",
+  "canonical": "d5f110295f813560f240799ce540935962fa64ca",
+  "renderedFrames": 3878,
+  "observedSceneSeconds": 64.99119999999999,
+  "integratedParticleSeconds": 64.91069999999999,
+  "meanFrameMs": 16.763322156304117,
+  "p95FrameMs": 19.099999994039536,
+  "maxFrameGapMs": 81.29999999701977,
+  "visibilityEvents": [],
+  "maxCameraMatrixChange": 0.0,
+  "maxLightPositionChange": 0,
+  "customShadowCasterCount": 0,
+  "zoneRotationRanges": [
+    {
+      "name": "left crown",
+      "peakToPeakXDegrees": 0.4370131529444506,
+      "peakToPeakZDegrees": 0.9605017088634691,
+      "maxSampleRotationStepDegrees": 0.023041985290231642
+    },
+    {
+      "name": "high crown",
+      "peakToPeakXDegrees": 0.5781886856438376,
+      "peakToPeakZDegrees": 1.4148985992052907,
+      "maxSampleRotationStepDegrees": 0.030362224796751762
+    },
+    {
+      "name": "reaching crown",
+      "peakToPeakXDegrees": 0.6661232975296091,
+      "peakToPeakZDegrees": 1.5437299422985724,
+      "maxSampleRotationStepDegrees": 0.03530439570096485
+    },
+    {
+      "name": "near lower crown",
+      "peakToPeakXDegrees": 0.3869380506907834,
+      "peakToPeakZDegrees": 0.904841642912674,
+      "maxSampleRotationStepDegrees": 0.018935563540878882
+    },
+    {
+      "name": "selective inner crown infill",
+      "peakToPeakXDegrees": 0.41601824757586026,
+      "peakToPeakZDegrees": 0.9148629762827102,
+      "maxSampleRotationStepDegrees": 0.02021598769419471
+    },
+    {
+      "name": "annotated gap infill",
+      "peakToPeakXDegrees": 0.4509392005485496,
+      "peakToPeakZDegrees": 0.9443852997552207,
+      "maxSampleRotationStepDegrees": 0.021257165496913314
+    },
+    {
+      "name": "trailing edge sprays",
+      "peakToPeakXDegrees": 0.7733535657836801,
+      "peakToPeakZDegrees": 1.5358533949479007,
+      "maxSampleRotationStepDegrees": 0.036188084488748815
+    }
+  ],
+  "exactRainEnsembleRepeatsAt10Hz": 0,
+  "observedRainResets": 5703,
+  "verticalRainSpeedRange": [
+    5.736456133438939,
+    10.999643577719798
+  ],
+  "rainDriftAngleFromVerticalRange": [
+    1.2122058806864389,
+    2.573859467645925
+  ],
+  "peakFallingPetals": 3,
+  "shopLightIntensityRange": [
+    6.654194250671939,
+    6.969532336539409
+  ],
+  "limitations": [
+    "Sampling cannot exclude perceptually obvious rain loops or brief geometry intersections.",
+    "No automated measure establishes spark-like appearance, appropriate faintness, gaze exit, or physical-display highlight structure."
+  ]
+}

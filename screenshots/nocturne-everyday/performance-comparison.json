@@ -1,0 +1,154 @@
+{
+  "browser": "152.0.7977.77",
+  "device": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A788) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+  "baseline": "nocturne-canonical",
+  "method": "Median of three trial means and three trial p95s; 4s warmup + 6s live animation, DPR 1, same GPU. Vsync limits inference about rendering headroom.",
+  "rows": [
+    {
+      "aspect": "desktop",
+      "weather": "rain",
+      "before": {
+        "frameMs": 16.664542936288086,
+        "p95Ms": 16.900000000000546,
+        "draws": 693
+      },
+      "after": {
+        "frameMs": 16.66454293628809,
+        "p95Ms": 16.899999999999636,
+        "draws": 698
+      },
+      "frameChangePercent": 2.220446049250313e-14,
+      "p95ChangePercent": -5.384581669432009e-12
+    },
+    {
+      "aspect": "desktop",
+      "weather": "clear",
+      "before": {
+        "frameMs": 16.803621169916433,
+        "p95Ms": 17,
+        "draws": 665
+      },
+      "after": {
+        "frameMs": 16.66426592797784,
+        "p95Ms": 16.899999999999636,
+        "draws": 670
+      },
+      "frameChangePercent": -0.8293167319677552,
+      "p95ChangePercent": -0.5882352941197877
+    },
+    {
+      "aspect": "laptop",
+      "weather": "rain",
+      "before": {
+        "frameMs": 16.665650969529086,
+        "p95Ms": 16.800000000000182,
+        "draws": 693
+      },
+      "after": {
+        "frameMs": 16.851820728291315,
+        "p95Ms": 16.80000000000109,
+        "draws": 698
+      },
+      "frameChangePercent": 1.1170866298749305,
+      "p95ChangePercent": 5.417888360170764e-12
+    },
+    {
+      "aspect": "laptop",
+      "weather": "clear",
+      "before": {
+        "frameMs": 16.66426592797784,
+        "p95Ms": 16.80000000000109,
+        "draws": 665
+      },
+      "after": {
+        "frameMs": 16.710833333333333,
+        "p95Ms": 16.80000000000109,
+        "draws": 670
+      },
+      "frameChangePercent": 0.2794446845528986,
+      "p95ChangePercent": 0
+    },
+    {
+      "aspect": "portrait",
+      "weather": "rain",
+      "before": {
+        "frameMs": 16.66426592797784,
+        "p95Ms": 16.80000000000109,
+        "draws": 631
+      },
+      "after": {
+        "frameMs": 16.90056657223796,
+        "p95Ms": 16.800000000000182,
+        "draws": 633
+      },
+      "frameChangePercent": 1.418008121578218,
+      "p95ChangePercent": -5.417888360170764e-12
+    },
+    {
+      "aspect": "portrait",
+      "weather": "clear",
+      "before": {
+        "frameMs": 16.6646408839779,
+        "p95Ms": 16.800000000000182,
+        "draws": 604
+      },
+      "after": {
+        "frameMs": 16.66454293628809,
+        "p95Ms": 16.80000000000109,
+        "draws": 606
+      },
+      "frameChangePercent": -0.0005877575790069756,
+      "p95ChangePercent": 5.417888360170764e-12
+    },
+    {
+      "aspect": "ultrawide",
+      "weather": "rain",
+      "before": {
+        "frameMs": 16.664722222222224,
+        "p95Ms": 16.80000000000109,
+        "draws": 692
+      },
+      "after": {
+        "frameMs": 19.778360655737703,
+        "p95Ms": 33.399999999999636,
+        "draws": 697
+      },
+      "frameChangePercent": 18.684010402306473,
+      "p95ChangePercent": 98.80952380950873
+    },
+    {
+      "aspect": "ultrawide",
+      "weather": "clear",
+      "before": {
+        "frameMs": 16.664542936288086,
+        "p95Ms": 16.800000000000182,
+        "draws": 664
+      },
+      "after": {
+        "frameMs": 16.66472222222222,
+        "p95Ms": 16.80000000000109,
+        "draws": 669
+      },
+      "frameChangePercent": 0.0010758526940657376,
+      "p95ChangePercent": 5.417888360170764e-12
+    }
+  ],
+  "regressions": [
+    {
+      "aspect": "ultrawide",
+      "weather": "rain",
+      "before": {
+        "frameMs": 16.664722222222224,
+        "p95Ms": 16.80000000000109,
+        "draws": 692
+      },
+      "after": {
+        "frameMs": 19.778360655737703,
+        "p95Ms": 33.399999999999636,
+        "draws": 697
+      },
+      "frameChangePercent": 18.684010402306473,
+      "p95ChangePercent": 98.80952380950873
+    }
+  ]
+}

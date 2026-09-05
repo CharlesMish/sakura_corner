@@ -32,16 +32,17 @@ export function createRainContact() {
   group.name = 'Rain contact memory';
 
   const catchHighlight = tintMaterial(0xa07046, 0.3);
-  const catchHighlightDim = tintMaterial(0x7e5636, 0.2);
+  const catchHighlightDim = tintMaterial(0x7e624a, 0.12);
   const wetTint = tintMaterial(0x1a2226, 0.3);
   const wallTint = tintMaterial(0x2a2824, 0.2);
 
   const pool = new THREE.Group();
   pool.name = 'Shop pool wet catch';
   pool.add(
-    cheatCard('Shop pool light catch', [0.5, 0.01, 0.32], [3.14, 0.042, -0.62], catchHighlight, 0.18),
-    cheatCard('Shop pool light catch mid', [0.22, 0.008, 0.26], [3.34, 0.04, -0.26], catchHighlightDim, -0.22),
-    cheatCard('Shop pool light catch interrupt', [0.13, 0.008, 0.11], [2.96, 0.041, -0.44], catchHighlightDim, 0.52),
+    cheatCard('Shop pool light catch', [0.38, 0.01, 0.08], [3.14, 0.042, -0.62], catchHighlight),
+    cheatCard('Shop pool light catch mid', [0.24, 0.008, 0.06], [3.34, 0.04, -0.26], catchHighlightDim),
+    cheatCard('Shop pool light catch interrupt', [0.19, 0.008, 0.055], [2.96, -0.507, 4.18], catchHighlightDim),
+    cheatCard('Shop pool outer fragment', [0.36, 0.008, 0.045], [3.45, -0.507, 4.34], catchHighlightDim),
   );
   group.add(pool);
 

@@ -15,3 +15,17 @@ screenshots/*.gif
 !screenshots/rain-contact-detail.png
 .DS_Store
 
+# Original temporal capture retained locally; review MP4 and gzip are versioned.
+screenshots/nocturne-temporal/canonical-65s.webm
+screenshots/nocturne-temporal/telemetry.json
+
+# Everyday detail review: compressed/shareable evidence is retained.
+screenshots/nocturne-everyday/temporal/detail-65s.webm
+screenshots/nocturne-everyday/temporal/telemetry.json
+scripts/.review-everyday-*.mjs
+scripts/.capture-everyday-run.mjs
+scripts/.compare-everyday-run.mjs
+
+scripts/.review-weather-*.mjs
+screenshots/nocturne-weather/temporal/*.webm
+screenshots/nocturne-weather/temporal/*-telemetry.json

@@ -1,0 +1,56 @@
+{
+  "snow": {
+    "renderedFrames": 3899,
+    "wallSeconds": 64.99229999999702,
+    "sceneSeconds": 64.9911,
+    "meanFrameMs": 16.67324268855747,
+    "p95FrameMs": 18.299999997019256,
+    "cameraMatrixChange": 0.0,
+    "lightPositionChange": 0,
+    "visibilityEvents": [],
+    "snowStart": {
+      "capacity": 64,
+      "recycled": 6,
+      "ground": 1,
+      "construction": 3,
+      "canopy": 1,
+      "trunk": 0,
+      "boundary": 1,
+      "boundsCount": 155,
+      "elapsed": 4.599300000000004
+    },
+    "snowEnd": {
+      "capacity": 64,
+      "recycled": 264,
+      "ground": 149,
+      "construction": 83,
+      "canopy": 19,
+      "trunk": 0,
+      "boundary": 13,
+      "boundsCount": 155,
+      "elapsed": 69.59040000000195
+    }
+  },
+  "firefly": {
+    "renderedFrames": 3901,
+    "wallSeconds": 64.99210000000895,
+    "sceneSeconds": 64.9915,
+    "meanFrameMs": 16.664641025643316,
+    "p95FrameMs": 18.199999988079085,
+    "cameraMatrixChange": 0.0,
+    "lightPositionChange": 0,
+    "visibilityEvents": [],
+    "activeSamples": 148,
+    "samples": 594,
+    "peakOpacity": 0.7294632351458161,
+    "glowPeakTimes": [
+      4.7765,
+      14.86079999999702,
+      26.77359999999404,
+      39.39009999999404,
+      51.01989999999106,
+      59.76939999999106
+    ]
+  },
+  "review": "Normal-speed recordings plus representative frame inspection. Continuous playback review unavailable."
+}

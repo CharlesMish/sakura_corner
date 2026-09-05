@@ -9,10 +9,20 @@ import { createPetalSystem } from './scene/createPetalSystem.js';
 import { createRainClouds } from './scene/createRainClouds.js';
 import { createSakuraTree } from './scene/createSakuraTree.js';
 import { createWeatherEffects } from './scene/createWeatherEffects.js';
-import { getWeatherMode, weatherIsWet } from './weatherMode.js';
+import { fireflyIsEnabled, getWeatherMode, weatherIsWet } from './weatherMode.js';
+import { sampleWind } from './scene/sampleWind.js';
+import { createWeatherControls } from './weatherControls.js';
+import { createSnowfall } from './scene/createSnowfall.js';
+import { createFirefly } from './scene/createFirefly.js';
 
 const weather = getWeatherMode();
 document.documentElement.dataset.weather = weather;
+const weatherControls = createWeatherControls({ weather });
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+let assetsReady = false;
+let sceneRevealed = false;
+THREE.DefaultLoadingManager.itemStart('scene-initialization');
+THREE.DefaultLoadingManager.onLoad = () => { assetsReady = true; };
 
 const container = document.querySelector('#app');
 const scene = new THREE.Scene();
@@ -24,7 +34,7 @@ scene.fog = new THREE.Fog(
   sky.fogFar,
 );
 
-const camera = new THREE.PerspectiveCamera(ART_DIRECTION.camera.fieldOfView, 1, 0.1, 60);
+const camera = new THREE.PerspectiveCamera(ART_DIRECTION.camera.fieldOfView, 1, 0.1, 120);
 camera.name = 'Fixed composition camera';
 
 const renderer = new THREE.WebGLRenderer({
@@ -45,8 +55,11 @@ const environment = createEnvironment();
 const lighting = createLighting();
 const tree = createSakuraTree();
 const petalSystem = createPetalSystem();
-const weatherEffects = createWeatherEffects();
+const weatherEffects = createWeatherEffects({ camera });
 const rainClouds = createRainClouds();
+const snowfall = weather === 'snow'
+  ? createSnowfall({ camera, environment: environment.group, tree: tree.group }) : null;
+const firefly = fireflyIsEnabled() ? createFirefly() : null;
 scene.add(
   environment.group,
   tree.group,
@@ -55,6 +68,8 @@ scene.add(
   lighting.group,
 );
 if (rainClouds) scene.add(rainClouds);
+if (snowfall) scene.add(snowfall.group);
+if (firefly) scene.add(firefly.group);
 
 const releaseDirection = new THREE.Vector3();
 const interaction = ART_DIRECTION.interaction.enabled
@@ -138,12 +153,26 @@ function render(timestamp) {
   const elapsed = timer.getElapsed();
   environment.update(elapsed);
   lighting.update(elapsed);
-  tree.update(elapsed);
-  petalSystem.update(delta, elapsed);
-  weatherEffects.update(delta);
+  const wind = sampleWind(elapsed);
+  tree.update(elapsed, wind);
+  petalSystem.update(delta, elapsed, wind);
+  weatherEffects.update(delta, wind);
+  if (snowfall) {
+    snowfall.group.visible = !reducedMotion.matches;
+    if (!reducedMotion.matches) snowfall.update(delta, wind);
+  }
+  if (firefly) {
+    firefly.group.visible = !reducedMotion.matches;
+    if (!reducedMotion.matches) firefly.update(elapsed);
+  }
   renderer.render(scene, camera);
+  if (assetsReady && !sceneRevealed) {
+    weatherControls.reveal();
+    sceneRevealed = true;
+  }
 }
 
 renderer.setAnimationLoop(render);
+THREE.DefaultLoadingManager.itemEnd('scene-initialization');
 
 window.addEventListener('pagehide', () => interaction?.dispose(), { once: true });

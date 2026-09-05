@@ -1,0 +1,17 @@
+{
+  "checks": [
+    "Loading curtain stays opaque until textures and the first rendered frame are ready",
+    "Unknown weather falls back to Rain and excludes the firefly control",
+    "44px control, 7px dot, keyboard activation, selected state, Tab, Escape and focus return",
+    "Outside dismissal consumes the tree press; the following tree press still releases petals",
+    "Selecting the current weather closes the panel without navigation",
+    "After rain exposes an off-by-default firefly checkbox; enabling it stores firefly=1",
+    "Rapid selections produce one navigation, preserve unrelated URL state, and suppress firefly in Snow",
+    "Back and Forward restore their weather and working tree interaction",
+    "All four weather choices work; firefly preference survives weather changes and can be removed",
+    "Portrait touch opens a fitting panel, consumes dismissal, and changes weather",
+    "Reduced motion suppresses Snow and Firefly and removes fades, including live preference changes",
+    "No weather query defaults to Rain"
+  ],
+  "errors": []
+}

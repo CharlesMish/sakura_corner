@@ -1,8 +1,9 @@
 import * as THREE from 'three';
 import { ART_DIRECTION } from '../config.js';
-import { getRainStyle, getWeatherMode, weatherIsWet } from '../weatherMode.js';
+import { getRainStyle, getWeatherMode, hasLiquidWater } from '../weatherMode.js';
 
 const matrixHelper = new THREE.Object3D();
+const rainColor = new THREE.Color();
 
 function resetDrop(drop, spec, random) {
   const [treeX, , treeZ] = ART_DIRECTION.world.treePosition;
@@ -22,16 +23,27 @@ function resetDrop(drop, spec, random) {
   }
 }
 
-function createRainStreaks(random) {
+function createRainStreaks(random, camera) {
   const spec = ART_DIRECTION.weather.rain[getRainStyle()] ?? ART_DIRECTION.weather.rain.dash;
   const geometry = new THREE.BoxGeometry(1, 1, 1);
+  const accentSpec = ART_DIRECTION.weather.rainAccents;
+  const accentCount = Math.max(1, Math.round(spec.count * accentSpec.fraction));
   const surface = new THREE.MeshBasicMaterial({
     color: spec.color,
     transparent: true,
     opacity: spec.opacity,
     depthWrite: false,
   });
-  const mesh = new THREE.InstancedMesh(geometry, surface, spec.count);
+  const mesh = new THREE.InstancedMesh(geometry, surface, spec.count - accentCount);
+  const profile = [[0, -0.5], [0.32, -0.42], [0.5, -0.23], [0.46, -0.02], [0.26, 0.22], [0, 0.5]];
+  const accents = new THREE.InstancedMesh(
+    new THREE.LatheGeometry(profile.map(([radius, y]) => new THREE.Vector2(radius, y)), 8),
+    surface,
+    accentCount,
+  );
+  accents.name = 'Sparse tapered raindrops';
+  accents.frustumCulled = false;
+  accents.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
   mesh.name = 'Bounded rain streaks';
   mesh.frustumCulled = false;
   mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
@@ -45,28 +57,45 @@ function createRainStreaks(random) {
   const tilt = spec.tilt;
 
   function place(drop, index) {
+    const isAccent = index < accentCount;
+    const target = isAccent ? accents : mesh;
+    const targetIndex = isAccent ? index : index - accentCount;
+    const specDepth = ART_DIRECTION.weather.rainDepth;
+    const position = camera?.position;
+    const fallback = ART_DIRECTION.camera.useFrameCompletionVariant
+      ? ART_DIRECTION.camera.frameCompletionPosition : ART_DIRECTION.camera.desktopPosition;
+    const distance = Math.hypot(drop.x - (position?.x ?? fallback[0]), drop.y - (position?.y ?? fallback[1]), drop.z - (position?.z ?? fallback[2]));
+    const depth = 1 - THREE.MathUtils.smoothstep(distance, specDepth.nearDistance, specDepth.farDistance);
+    const scale = THREE.MathUtils.lerp(specDepth.farScale, specDepth.nearScale, depth);
     matrixHelper.position.set(drop.x, drop.y, drop.z);
     matrixHelper.rotation.set(0, 0, tilt);
-    matrixHelper.scale.set(drop.width, drop.length, drop.width);
+    const width = isAccent ? THREE.MathUtils.lerp(...accentSpec.width, (index % 3) / 2) : drop.width;
+    const length = isAccent ? THREE.MathUtils.lerp(...accentSpec.length, (index % 4) / 3) : drop.length;
+    matrixHelper.scale.set(width * scale, length * scale, width * scale);
     matrixHelper.updateMatrix();
-    mesh.setMatrixAt(index, matrixHelper.matrix);
+    target.setMatrixAt(targetIndex, matrixHelper.matrix);
+    target.setColorAt(targetIndex, rainColor.setScalar(THREE.MathUtils.lerp(specDepth.farBrightness, 1, depth)));
   }
 
   drops.forEach(place);
   mesh.instanceMatrix.needsUpdate = true;
+  accents.instanceMatrix.needsUpdate = true;
 
-  function update(delta) {
+  function update(delta, wind = 1) {
     drops.forEach((drop, index) => {
       drop.y -= drop.speed * delta;
-      drop.x += spec.drift[0] * delta;
-      drop.z += spec.drift[2] * delta;
+      drop.x += spec.drift[0] * delta * wind;
+      drop.z += spec.drift[2] * delta * wind;
       if (drop.y < spec.groundY) resetDrop(drop, spec, random);
       place(drop, index);
     });
     mesh.instanceMatrix.needsUpdate = true;
+    mesh.instanceColor.needsUpdate = true;
+    accents.instanceMatrix.needsUpdate = true;
+    accents.instanceColor.needsUpdate = true;
   }
 
-  return { mesh, update };
+  return { mesh, accents, update };
 }
 
 function createDrips(random) {
@@ -189,14 +218,54 @@ function createSpoutTrickle(random) {
   return { mesh, update };
 }
 
-export function createWeatherEffects() {
+export function createRainSplashes(random = Math.random) {
+  const spec = ART_DIRECTION.weather.splashes;
+  const mesh = new THREE.InstancedMesh(
+    new THREE.RingGeometry(0.65, 1, 6),
+    new THREE.MeshBasicMaterial({ color: spec.color, transparent: true, opacity: spec.opacity, depthWrite: false, side: THREE.DoubleSide }),
+    spec.count,
+  );
+  mesh.name = 'Pooled pavement rain contacts';
+  mesh.frustumCulled = false;
+  mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+  const drops = Array.from({ length: spec.count }, () => ({ age: spec.lifetime, x: 0, z: 0 }));
+  let next = 0;
+  let untilSpawn = spec.interval;
+  function update(delta) {
+    untilSpawn -= delta;
+    if (untilSpawn <= 0) {
+      untilSpawn = spec.interval * (0.7 + random() * 0.6);
+      const drop = drops[next];
+      next = (next + 1) % drops.length;
+      // Exposed strip beyond the crown and in front of the shop awning.
+      drop.x = 2.7 + random() * 3.5;
+      drop.z = 0.35 + random() * 2.5;
+      drop.age = 0;
+    }
+    drops.forEach((drop, index) => {
+      drop.age = Math.min(spec.lifetime, drop.age + delta);
+      const t = drop.age / spec.lifetime;
+      const size = t < 1 ? spec.radius * (0.35 + t * 0.65) : 0;
+      matrixHelper.position.set(drop.x, 0.045, drop.z);
+      matrixHelper.rotation.set(-Math.PI / 2, 0, 0);
+      matrixHelper.scale.set(size, size, size);
+      matrixHelper.updateMatrix();
+      mesh.setMatrixAt(index, matrixHelper.matrix);
+    });
+    mesh.instanceMatrix.needsUpdate = true;
+  }
+  update(0);
+  return { mesh, update };
+}
+
+export function createWeatherEffects({ camera } = {}) {
   const group = new THREE.Group();
   group.name = 'Weather study effects';
   const random = () => Math.random();
   const mode = getWeatherMode();
   const updaters = [];
 
-  if (weatherIsWet()) {
+  if (hasLiquidWater()) {
     const drips = createDrips(random);
     group.add(drips.mesh);
     updaters.push(drips.update);
@@ -206,15 +275,18 @@ export function createWeatherEffects() {
   }
 
   if (mode === 'rain') {
-    const rain = createRainStreaks(random);
-    group.add(rain.mesh);
+    const rain = createRainStreaks(random, camera);
+    group.add(rain.mesh, rain.accents);
     updaters.push(rain.update);
+    const splashes = createRainSplashes(random);
+    group.add(splashes.mesh);
+    updaters.push(splashes.update);
   }
 
   return {
     group,
-    update(delta) {
-      updaters.forEach((update) => update(delta));
+    update(delta, wind = 1) {
+      updaters.forEach((update) => update(delta, wind));
     },
   };
 }

@@ -96,15 +96,23 @@ export function createBackgroundGround() {
   });
 
   if (wet) {
+    const outline = new THREE.Shape();
+    outline.moveTo(-44, -9);
+    outline.lineTo(36, -9);
+    [[36, -47], [24, -49], [16, -44], [7, -48], [-3, -45], [-13, -50], [-25, -46], [-44, -48]].forEach(([x, z]) => outline.lineTo(x, z));
+    outline.closePath();
+    const geometry = new THREE.ShapeGeometry(outline);
+    geometry.rotateX(Math.PI / 2);
     const hazePlate = new THREE.Mesh(
-      new THREE.BoxGeometry(80, 0.16, 42),
+      geometry,
       new THREE.MeshBasicMaterial({
         color: ART_DIRECTION.palette.wetHaze,
         fog: true,
+        side: THREE.DoubleSide,
       }),
     );
     hazePlate.name = 'Unlit horizon haze ground';
-    hazePlate.position.set(-4, -0.05, -30);
+    hazePlate.position.y = -0.05;
     hazePlate.castShadow = false;
     hazePlate.receiveShadow = false;
     ground.add(hazePlate);

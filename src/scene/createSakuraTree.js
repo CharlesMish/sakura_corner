@@ -4,6 +4,7 @@ import { ART_DIRECTION } from '../config.js';
 import { weatherIsWet } from '../weatherMode.js';
 import { branchBetween, material } from './primitives.js';
 import { applyWetMaterial } from './wetSurfaces.js';
+import { sampleWind } from './sampleWind.js';
 
 const { palette } = ART_DIRECTION;
 const knotGeometry = new THREE.IcosahedronGeometry(1, 1);
@@ -665,6 +666,13 @@ export function createSakuraTree() {
     applyWetMaterial(barkSurfaces.mid, 'bark');
     applyWetMaterial(barkSurfaces.light, 'bark');
     applyWetMaterial(barkSurfaces.scar, 'bark');
+    // Selected broad facets borrow sky color; dark limbs and scars keep depth.
+    barkSurfaces.light.color.lerp(new THREE.Color(0x536573), 0.24);
+    barkSurfaces.mid.color.lerp(new THREE.Color(0x3b4b57), 0.14);
+    barkSurfaces.light.emissive.set(0x344b60);
+    barkSurfaces.light.emissiveIntensity = 0.055;
+    barkSurfaces.mid.emissive.set(0x344b60);
+    barkSurfaces.mid.emissiveIntensity = 0.025;
   }
   const blossomSurfaces = {
     highlight: material(palette.blossomHighlight, { side: THREE.DoubleSide, roughness: 0.84, emissive: 0x32151f, emissiveIntensity: 0.06 }),
@@ -681,6 +689,17 @@ export function createSakuraTree() {
     mid: material(palette.blossomMid, { side: THREE.DoubleSide, roughness: 0.82 }),
     shade: material(palette.blossomShade, { side: THREE.DoubleSide, roughness: 0.82 }),
   };
+
+  if (weatherIsWet()) {
+    const spec = ART_DIRECTION.weather.blossoms;
+    for (const surfaces of [blossomSurfaces, readableBlossomSurfaces]) {
+      for (const [tone, surface] of Object.entries(surfaces)) {
+        surface.color.set(spec.colors[tone]);
+        surface.emissive.set(spec.colors[tone]);
+        surface.emissiveIntensity = spec.emission[tone];
+      }
+    }
+  }
 
   const rootFlare = new THREE.Mesh(
     new THREE.CylinderGeometry(0.49, 0.66, 0.36, 8),
@@ -834,7 +853,17 @@ export function createSakuraTree() {
       worldPivot: definition.pivot,
       pivot: subtractOrigin(definition.pivot, crownOrigin),
     };
-    const zone = createCanopyZone(localDefinition, blossomSurfaces);
+    let zoneSurfaces = blossomSurfaces;
+    if (weatherIsWet() && ['selective inner crown infill', 'annotated gap infill'].includes(definition.name)) {
+      zoneSurfaces = Object.fromEntries(Object.entries(blossomSurfaces).map(([tone, surface]) => {
+        if (tone === 'highlight' || tone === 'light') return [tone, surface];
+        const recessed = surface.clone();
+        recessed.color.multiplyScalar(0.9);
+        recessed.emissiveIntensity *= 0.7;
+        return [tone, recessed];
+      }));
+    }
+    const zone = createCanopyZone(localDefinition, zoneSurfaces);
     zone.userData.zoneName = definition.name;
     crownRig.add(zone);
     return zone;
@@ -984,7 +1013,7 @@ export function createSakuraTree() {
     }
   }
 
-  function update(elapsed) {
+  function update(elapsed, windEnvelope = sampleWind(elapsed)) {
     if (elapsed < lastElapsed) lastElapsed = elapsed;
     const delta = Math.min(Math.max(elapsed - lastElapsed, 0), 0.05);
     lastElapsed = elapsed;
@@ -992,7 +1021,7 @@ export function createSakuraTree() {
 
     const { motion } = ART_DIRECTION;
     const time = elapsed * motion.swayFrequency;
-    const wind = motion.windStrength;
+    const wind = motion.windStrength * windEnvelope;
     crownRig.rotation.z =
       (Math.sin(time) * 0.72 + Math.sin(time * 0.43 + 1.7) * 0.28) *
       motion.branchSwayAmplitude * wind;

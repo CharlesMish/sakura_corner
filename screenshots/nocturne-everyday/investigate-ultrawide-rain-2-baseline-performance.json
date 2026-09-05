@@ -1,0 +1,16 @@
+{
+  "ref": "nocturne-canonical",
+  "browser": "152.0.7977.77",
+  "results": [
+    {
+      "aspect": "ultrawide",
+      "weather": "rain",
+      "trial": 0,
+      "frames": 350,
+      "frameMs": 17.140571428571427,
+      "p95Ms": 17.299999999999272,
+      "drawCalls": 692,
+      "device": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A788) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    }
+  ]
+}

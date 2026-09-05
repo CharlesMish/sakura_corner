@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { createFarLeftShrineHint } from './createFarLeftShrineHint.js';
 import { box, branchBetween, material } from './primitives.js';
+import { addResidenceEverydayDetails } from './createEverydayDetails.js';
 
 const VOLUMES = [
   {
@@ -188,6 +189,7 @@ export function createLeftBackgroundExtension({ surfaces }) {
     box('Left residence gutter stub', [0.52, 0.06, 0.1], [-11.72, 3.02, -3.52], surfaces.distantTrim),
   );
 
+  addResidenceEverydayDetails(extension, integratedSurfaces.nearCap);
   extension.traverse((object) => {
     if (object.isMesh) {
       object.castShadow = false;

@@ -1,0 +1,17 @@
+{
+  "renderedFrames": 3551,
+  "sceneSeconds": 65.0079,
+  "integratedParticleSeconds": 60.41080000000001,
+  "meanFrameMs": 18.311718309861675,
+  "p95FrameMs": 20.200000002980232,
+  "visibilityEvents": [],
+  "cameraMatrixChange": 0.0,
+  "lightPositionChange": 0,
+  "review": "Normal-speed recording and sampled still-frame inspection; no continuous visual feed was available.",
+  "detailAssetHashes": {
+    "src\\scene\\createEverydayDetails.js": "c1273af46e47375c6ea5fe9d370dd032fba89f51963e8437f9a3d92ade183ead",
+    "src\\assets\\everyday\\delivery-notice.png": "890be656fe8642a0242fa038a5a53403fd1a6047f43c81fae6e7495b55f95669",
+    "src\\assets\\everyday\\roof-felt.png": "12c1c422e577439c3148107bf64f2f0e714de7af1a9b437b006da8fe8b50f68a",
+    "src\\assets\\everyday\\shop-lettering.png": "4c1fc1cdc63f6d965ed62b1e6239e6b213f86cdc6f40d2127836cf305b2be28d"
+  }
+}

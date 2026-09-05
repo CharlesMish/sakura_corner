@@ -1,5 +1,27 @@
 # Grok Creative Playground Handoff
 
+> Current pass: the authorized weather selector, spring flurry with two tiny
+> deposits, optional After rain firefly and low shop-roof hatch are implemented
+> on `codex/nocturne-weather-modes`. See [WEATHER_MODES.md](WEATHER_MODES.md)
+> for behavior, comparison gallery, recordings and verification. Canonical
+> camera, existing weather appearances and previous captures remain preserved.
+
+> Previous checkpoint (2026-09-05): the user's motion assessment is accepted.
+> A narrow five-group everyday decoration pass is implemented locally on
+> `codex/nocturne-everyday-details`. See [EVERYDAY_DETAILS.md](EVERYDAY_DETAILS.md)
+> for retained details, comparison frames, recording and verification.
+> Canonical framing, architecture, lighting, weather and animation remain frozen.
+> The older temporal-only instruction below is historical for this authorized pass.
+
+> Canonical reference: freeze the canonical camera and visual state at
+> `nocturne-canonical` (`d5f1102`). No further beauty pass. See
+> [CANONICAL_REFERENCE.md](CANONICAL_REFERENCE.md) for the six permitted
+> temporal checks, recording and explicit limits on review completion.
+
+> Superseded by the user-authorized director's pass on 2026-09-05.
+> See `NOCTURNE_DIRECTORS_PASS.md` for the current handoff. The rain-contact audit
+> below records the previous checkpoint and remains available as history.
+
 ## Visual thesis
 
 The frozen parent already says rain is falling through cool air. This pass

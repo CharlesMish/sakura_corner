@@ -1,4 +1,4 @@
-const WEATHER_MODES = new Set(['clear', 'wet', 'rain']);
+const WEATHER_MODES = new Set(['clear', 'wet', 'rain', 'snow']);
 const RAIN_STYLES = new Set(['dash', 'pixel', 'dense']);
 
 let resolvedMode;
@@ -17,7 +17,18 @@ export function getRainStyle() {
 }
 
 export function weatherIsWet(mode = getWeatherMode()) {
+  // A spring flurry uses damp surfaces and the accepted cool evening palette.
+  // Liquid-water animation is gated independently below.
+  return mode === 'wet' || mode === 'rain' || mode === 'snow';
+}
+
+export function hasLiquidWater(mode = getWeatherMode()) {
   return mode === 'wet' || mode === 'rain';
+}
+
+export function fireflyIsEnabled() {
+  return getWeatherMode() === 'wet' && typeof window !== 'undefined'
+    && new URLSearchParams(window.location.search).get('firefly') === '1';
 }
 
 function parseWeatherMode() {
