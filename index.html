@@ -3,16 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" href="data:," />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta
       name="description"
       content="A quiet, fixed-camera urban sakura vignette rendered in Three.js."
     />
     <title>Urban Edge Sakura Window</title>
+    <style>
+      #scene-transition { position: fixed; inset: 0; z-index: 40; background: #19252c; }
+    </style>
   </head>
   <body>
     <main id="app" aria-label="Urban edge sakura scene"></main>
-    <noscript>This scene requires JavaScript to render.</noscript>
+    <div id="scene-transition" aria-hidden="true"></div>
+    <noscript>
+      <style>#scene-transition { display: none; }</style>
+      This scene requires JavaScript to render.
+    </noscript>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>

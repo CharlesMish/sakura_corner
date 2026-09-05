@@ -3,7 +3,7 @@ import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
 if (!process.argv[2]) {
-  for (const mode of ['clear', 'wet', 'rain', 'dash', 'pixel', 'invalid']) {
+  for (const mode of ['clear', 'wet', 'rain', 'snow', 'dash', 'pixel', 'invalid']) {
     console.log(execFileSync(process.execPath, [fileURLToPath(import.meta.url), mode], { encoding: 'utf8' }).trim());
   }
 } else {
@@ -23,7 +23,8 @@ if (!process.argv[2]) {
     assert.equal(streaks.count + accents.count, ART_DIRECTION.weather.rain[style].count);
     assert.ok(accents.count > 0 && accents.count < streaks.count);
   }
-  assert.equal(Boolean(splashes), !['clear', 'wet'].includes(mode));
+  assert.equal(Boolean(splashes), !['clear', 'wet', 'snow'].includes(mode));
+  if (mode === 'snow') assert.equal(meshes.length, 0, 'Snow has no liquid-water effects');
   let sawContact = false;
   for (let frame = 0; frame < 180 * 60; frame += 1) {
     const wind = sampleWind(frame / 60);

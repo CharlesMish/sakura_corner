@@ -25,3 +25,7 @@ screenshots/nocturne-everyday/temporal/telemetry.json
 scripts/.review-everyday-*.mjs
 scripts/.capture-everyday-run.mjs
 scripts/.compare-everyday-run.mjs
+
+scripts/.review-weather-*.mjs
+screenshots/nocturne-weather/temporal/*.webm
+screenshots/nocturne-weather/temporal/*-telemetry.json

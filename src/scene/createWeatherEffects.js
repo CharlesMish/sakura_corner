@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { ART_DIRECTION } from '../config.js';
-import { getRainStyle, getWeatherMode, weatherIsWet } from '../weatherMode.js';
+import { getRainStyle, getWeatherMode, hasLiquidWater } from '../weatherMode.js';
 
 const matrixHelper = new THREE.Object3D();
 const rainColor = new THREE.Color();
@@ -265,7 +265,7 @@ export function createWeatherEffects({ camera } = {}) {
   const mode = getWeatherMode();
   const updaters = [];
 
-  if (weatherIsWet()) {
+  if (hasLiquidWater()) {
     const drips = createDrips(random);
     group.add(drips.mesh);
     updaters.push(drips.update);

@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { ART_DIRECTION } from '../config.js';
-import { weatherIsWet } from '../weatherMode.js';
+import { getWeatherMode, weatherIsWet } from '../weatherMode.js';
 import { box, material } from './primitives.js';
 
 const matrixHelper = new THREE.Object3D();
@@ -11,6 +11,7 @@ export function createSleepNods() {
   const group = new THREE.Group();
   group.name = 'Quiet sleep-app nods';
   const { hearth, moths } = ART_DIRECTION.sleepNods;
+  const showMoths = getWeatherMode() !== 'snow';
 
   const glow = material(hearth.color, {
     emissive: hearth.emissive,
@@ -45,7 +46,8 @@ export function createSleepNods() {
   mothMesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
   mothMesh.castShadow = false;
 
-  group.add(fire, light, mothMesh);
+  group.add(fire, light);
+  if (showMoths) group.add(mothMesh);
 
   function update(elapsed) {
     const flicker =
@@ -55,7 +57,7 @@ export function createSleepNods() {
     light.intensity = hearth.lightIntensity * flicker;
     glow.emissiveIntensity = hearth.emissiveIntensity * (0.88 + flicker * 0.12);
 
-    for (let index = 0; index < moths.count; index += 1) {
+    for (let index = 0; showMoths && index < moths.count; index += 1) {
       const phase = elapsed * moths.speed + index * 2.15;
       matrixHelper.position.set(
         hearth.position[0] + Math.cos(phase) * moths.radius[0],

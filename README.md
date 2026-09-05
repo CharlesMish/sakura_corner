@@ -1,5 +1,21 @@
 # sakura_corner
 
+## Nocturne weather choices
+
+Run `npm run dev` from this repository and open the local URL. Tap the small
+dot at the bottom-right to choose **Rain**, **After rain**, **Clear** or **Snow**.
+The scene briefly fades and restarts when a choice changes. **After rain** also
+offers one optional firefly; it is off by default.
+
+Weather lives in the URL: `?weather=rain`, `?weather=wet`, `?weather=clear`,
+`?weather=snow`; add `&firefly=1` for the After rain firefly. Snow keeps the
+pink tree and adds a light flurry with two tiny roof deposits. Reduced motion
+suppresses flakes, firefly and interface fades while retaining the existing
+scene animation.
+
+See [WEATHER_MODES.md](WEATHER_MODES.md) for this pass and its verification.
+The earlier creative-playground instructions below remain as project history.
+
 This is a self-contained creative snapshot of the accepted Urban Edge Sakura
 Window production scene. It exists so Grok can explore boldly in Cursor without
 touching `/home/cmish/sakura`, which remains Sol's production baseline.
@@ -30,6 +46,9 @@ assignment is in `GROK_BRIEF.md`.
 - `npm run analyze:sway` — canopy continuity regression.
 - `npm run analyze:response` — local tree-response stability.
 - `npm run analyze:interaction` — petal population/RNG/settling stability.
+- `npm run analyze:weather` — weather-mode particle checks.
+- `npm run analyze:snow` — bounded flake and surface-interception checks.
+- `npm run check:weather-controls` — desktop/touch navigation and reduced motion.
 - `npm run build` — production build.
 
 Browser capture may require the host to permit a temporary localhost server.

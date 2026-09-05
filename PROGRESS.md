@@ -1,5 +1,21 @@
 # Playground Progress
 
+## Quiet weather choices and everyday details — 2026-09-05
+
+The five everyday detail groups are preserved at `7dbae2c` on
+`codex/nocturne-everyday-details`. The subsequent authorized weather pass on
+`codex/nocturne-weather-modes` adds a small expandable weather selector,
+gentle spring snow with two tiny deposits, an optional After rain firefly,
+and a shallow maintenance hatch on the shop roof. Lightning remains deferred.
+Canonical camera, lighting and existing motion remain unchanged.
+
+See [WEATHER_MODES.md](WEATHER_MODES.md) for the comparison gallery, controls
+checks, analyzers, performance measurements and two 65-second recordings.
+Review used recordings and sampled frames; continuous visual playback review
+remains unverified. Earlier local-only and do-not-commit instructions below
+describe historical checkpoints; the user authorized pushing this feature
+branch to GitHub, without merging or deploying.
+
 ## Canonical freeze and temporal evidence — 2026-09-05
 
 The user froze `d5f1102` as the canonical camera and visual state, now tagged

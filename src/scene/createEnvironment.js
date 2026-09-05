@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { ART_DIRECTION } from '../config.js';
-import { weatherIsWet } from '../weatherMode.js';
+import { getWeatherMode, weatherIsWet } from '../weatherMode.js';
 import { createRightWallDetails } from './createDownspout.js';
 import { createBackgroundGround } from './createBackgroundGround.js';
 import { createDistantHills } from './createDistantHills.js';
@@ -14,6 +14,7 @@ import { createRainContact } from './createRainContact.js';
 import { createStreetWear } from './createStreetWear.js';
 import { createNeighborhoodLife } from './createNeighborhoodLife.js';
 import { addShopEverydayDetails } from './createEverydayDetails.js';
+import { createRoofWeatherDetails } from './createRoofWeatherDetails.js';
 
 const { palette } = ART_DIRECTION;
 const transform = new THREE.Object3D();
@@ -684,6 +685,7 @@ export function createEnvironment() {
     }
   });
   addShopEverydayDetails(building);
+  building.add(createRoofWeatherDetails({ roofMaterial: surfaces.plasterRoof, snow: getWeatherMode() === 'snow' }));
   world.add(building);
 
   const sign = new THREE.Group();
