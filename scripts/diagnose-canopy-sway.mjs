@@ -6,7 +6,7 @@ import { applyLocalPlaywrightLibsIfNeeded } from './playwright-libs.mjs';
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const outputDirectory = resolve(projectRoot, 'screenshots');
-process.env.PLAYWRIGHT_BROWSERS_PATH ??= resolve(
+if (process.platform !== 'win32') process.env.PLAYWRIGHT_BROWSERS_PATH ??= resolve(
   projectRoot,
   '.playwright-browsers',
 );
@@ -25,7 +25,7 @@ try {
   await server.listen();
   const address = server.httpServer.address();
   const url = `http://127.0.0.1:${address.port}/`;
-  browser = await chromium.launch({ headless: true });
+  browser = await chromium.launch({ headless: true, ...(process.platform === 'win32' ? { channel: 'chrome' } : {}) });
 
   const page = await browser.newPage({
     viewport: { width: 1920, height: 1080 },
@@ -45,10 +45,10 @@ try {
     if (index > 0) await page.waitForTimeout(stepMs);
     const label = `t${index}`;
     await page.screenshot({
-      path: resolve(outputDirectory, `sway-full-${label}.png`),
+      path: resolve(outputDirectory, `${process.env.CAPTURE_PREFIX ?? ''}sway-full-${label}.png`),
     });
     await page.screenshot({
-      path: resolve(outputDirectory, `sway-crop-${label}.png`),
+      path: resolve(outputDirectory, `${process.env.CAPTURE_PREFIX ?? ''}sway-crop-${label}.png`),
       clip: { x: 500, y: 40, width: 650, height: 520 },
     });
     console.log(`Captured sway-full-${label}.png / sway-crop-${label}.png`);

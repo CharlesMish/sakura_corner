@@ -1,12 +1,13 @@
 import { mkdir } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { execFileSync } from 'node:child_process';
 import { createServer } from 'vite';
 import { applyLocalPlaywrightLibsIfNeeded } from './playwright-libs.mjs';
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const outputDirectory = resolve(projectRoot, 'screenshots');
-process.env.PLAYWRIGHT_BROWSERS_PATH ??= resolve(
+if (process.platform !== 'win32') process.env.PLAYWRIGHT_BROWSERS_PATH ??= resolve(
   projectRoot,
   '.playwright-browsers',
 );
@@ -15,6 +16,15 @@ applyLocalPlaywrightLibsIfNeeded(projectRoot);
 const { chromium } = await import('playwright');
 const server = await createServer({
   root: projectRoot,
+  plugins: process.env.CAPTURE_BASELINE ? [{
+    name: 'review-committed-baseline',
+    enforce: 'pre',
+    transform(code, id) {
+      const relative = id.replaceAll('\\', '/').split('/src/')[1]?.split('?')[0];
+      if (!relative) return;
+      return execFileSync('git', ['-c', `safe.directory=${projectRoot.replaceAll('\\', '/')}`, 'show', `HEAD:src/${relative}`], { cwd: projectRoot, encoding: 'utf8' });
+    },
+  }] : [],
   logLevel: 'warn',
   server: { host: '127.0.0.1', port: 0 },
 });
@@ -25,9 +35,13 @@ try {
   await server.listen();
   const address = server.httpServer.address();
   const url = `http://127.0.0.1:${address.port}/`;
-  browser = await chromium.launch({ headless: true });
+  browser = await chromium.launch({ headless: true, ...(process.platform === 'win32' ? { channel: 'chrome' } : {}) });
 
   const allCaptures = [
+    { name: 'luminous-rain-30s.png', width: 1920, height: 1080, wait: 30000 },
+    { name: 'luminous-wet.png', width: 1920, height: 1080, search: '?weather=wet' },
+    { name: 'luminous-dash.png', width: 1920, height: 1080, search: '?rain=dash' },
+    { name: 'luminous-pixel.png', width: 1920, height: 1080, search: '?rain=pixel' },
     { name: 'scene-desktop.png', width: 1920, height: 1080 },
     { name: 'scene-laptop.png', width: 1366, height: 768 },
     { name: 'scene-ultrawide.png', width: 2560, height: 1080 },
@@ -74,20 +88,47 @@ try {
       viewport: { width: capture.width, height: capture.height },
       deviceScaleFactor: 1,
     });
+    const errors = [];
     page.on('pageerror', (error) => {
+      errors.push(error.message);
       console.error(`pageerror in ${capture.name}:`, error);
     });
     page.on('console', (message) => {
       if (message.type() === 'error') {
+        errors.push(message.text());
         console.error(`console.error in ${capture.name}:`, message.text());
       }
+    });
+    await page.addInitScript(() => {
+      let draws = 0;
+      for (const name of ['drawArrays', 'drawElements', 'drawArraysInstanced', 'drawElementsInstanced']) {
+        const original = WebGL2RenderingContext.prototype[name];
+        WebGL2RenderingContext.prototype[name] = function (...args) { draws += 1; return original.apply(this, args); };
+      }
+      const frames = [];
+      let previous = 0;
+      function sample(time) {
+        if (previous && time > 1000) frames.push({ ms: time - previous, draws });
+        if (frames.length > 180) frames.shift();
+        previous = time;
+        draws = 0;
+        requestAnimationFrame(sample);
+      }
+      requestAnimationFrame(sample);
+      window.captureMetrics = () => ({
+        frameMs: frames.reduce((sum, frame) => sum + frame.ms, 0) / frames.length,
+        drawCalls: frames.reduce((sum, frame) => sum + frame.draws, 0) / frames.filter(frame => frame.draws > 0).length,
+        frames: frames.length,
+      });
     });
     await page.goto(`${url}${capture.search ?? ''}`, { waitUntil: 'networkidle' });
     await page.waitForTimeout(capture.wait ?? 1800);
     await page.screenshot({
-      path: resolve(outputDirectory, capture.name),
+      path: resolve(outputDirectory, `${process.env.CAPTURE_PREFIX ?? ''}${capture.name}`),
       clip: capture.clip,
     });
+    console.log(`${capture.name} metrics: ${JSON.stringify(await page.evaluate(() => window.captureMetrics()))}`);
+    if (errors.length) throw new Error(errors.join('\n'));
     await page.close();
     console.log(`Captured screenshots/${capture.name}`);
   }

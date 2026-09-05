@@ -39,9 +39,10 @@ export function createRainContact() {
   const pool = new THREE.Group();
   pool.name = 'Shop pool wet catch';
   pool.add(
-    cheatCard('Shop pool light catch', [0.5, 0.01, 0.32], [3.14, 0.042, -0.62], catchHighlight, 0.18),
-    cheatCard('Shop pool light catch mid', [0.22, 0.008, 0.26], [3.34, 0.04, -0.26], catchHighlightDim, -0.22),
-    cheatCard('Shop pool light catch interrupt', [0.13, 0.008, 0.11], [2.96, 0.041, -0.44], catchHighlightDim, 0.52),
+    cheatCard('Shop pool light catch', [0.38, 0.01, 0.08], [3.14, 0.042, -0.62], catchHighlight),
+    cheatCard('Shop pool light catch mid', [0.24, 0.008, 0.06], [3.34, 0.04, -0.26], catchHighlightDim),
+    cheatCard('Shop pool light catch interrupt', [0.13, 0.008, 0.07], [2.96, 0.041, -0.44], catchHighlightDim),
+    cheatCard('Shop pool outer fragment', [0.32, 0.008, 0.055], [3.45, 0.042, 0.18], catchHighlightDim),
   );
   group.add(pool);
 

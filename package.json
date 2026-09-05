@@ -12,6 +12,7 @@
     "analyze:sway": "node scripts/analyze-canopy-sway.mjs",
     "analyze:interaction": "node scripts/analyze-interaction.mjs",
     "analyze:response": "node scripts/analyze-tree-response.mjs",
+    "analyze:weather": "node scripts/analyze-weather.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

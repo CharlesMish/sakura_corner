@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { ART_DIRECTION } from '../config.js';
 import { weatherIsWet } from '../weatherMode.js';
+import { sampleWind } from './sampleWind.js';
 
 const matrixHelper = new THREE.Object3D();
 const hiddenScale = new THREE.Vector3(0, 0, 0);
@@ -78,6 +79,10 @@ function groundHeightAt(x, z) {
 export function createPetalSystem() {
   const { petals, world } = ART_DIRECTION;
   const wetPetals = weatherIsWet() ? ART_DIRECTION.weather.petals : null;
+  const fallingColors = wetPetals
+    ? ['highlight', 'light', 'warm', 'mid'].map(tone => new THREE.Color(ART_DIRECTION.weather.blossoms.colors[tone]))
+    : petalColors;
+  const pickFallingColor = rng => fallingColors[Math.floor(rng() * fallingColors.length)];
   const gravity = wetPetals?.gravity ?? petals.gravity;
   const wind = wetPetals?.wind ?? petals.wind;
   const settledTilt = wetPetals?.settledTilt ?? 0.08;
@@ -112,6 +117,10 @@ export function createPetalSystem() {
   const settledMaterial = fallingMaterial.clone();
   settledMaterial.roughness = wetPetals?.settledRoughness ?? 0.92;
   settledMaterial.emissiveIntensity = petals.rosyFill * (weatherIsWet() ? 0.32 : 0.45);
+  if (wetPetals) {
+    fallingMaterial.emissive.set(ART_DIRECTION.weather.blossoms.colors.light);
+    fallingMaterial.emissiveIntensity = wetPetals.fallingFill;
+  }
 
   const fallingMesh = new THREE.InstancedMesh(
     geometry,
@@ -160,7 +169,7 @@ export function createPetalSystem() {
 
   particles.forEach((particle, index) => {
     hideInstance(fallingMesh, index);
-    fallingMesh.setColorAt(index, pickPetalColor(random));
+    fallingMesh.setColorAt(index, pickFallingColor(random));
   });
   fallingMesh.instanceMatrix.needsUpdate = true;
   fallingMesh.instanceColor.needsUpdate = true;
@@ -563,7 +572,7 @@ export function createPetalSystem() {
       petals.tumbleTilt,
       random(),
     );
-    fallingMesh.setColorAt(index, pickPetalColor(random));
+    fallingMesh.setColorAt(index, pickFallingColor(random));
     fallingMesh.instanceColor.needsUpdate = true;
   }
 
@@ -594,7 +603,7 @@ export function createPetalSystem() {
     particle.scale = slot.scale;
     particle.age = 0;
     particle.tiltAmplitude = slot.tiltAmplitude;
-    fallingMesh.setColorAt(index, pickPetalColor(interactiveRandom));
+    fallingMesh.setColorAt(index, pickFallingColor(interactiveRandom));
     fallingMesh.instanceColor.needsUpdate = true;
     fallingInteractiveCount += 1;
     return true;
@@ -691,7 +700,7 @@ export function createPetalSystem() {
 
   let timeUntilSpawn = 0.8;
 
-  function update(delta, elapsed) {
+  function update(delta, elapsed, windEnvelope = sampleWind(elapsed)) {
     lastElapsed = elapsed;
     interactionTokens = Math.min(
       interactive.tokenBudget,
@@ -711,10 +720,7 @@ export function createPetalSystem() {
       if (random() < 0.18) timeUntilSpawn += THREE.MathUtils.lerp(0.8, 2.3, random());
     }
 
-    const gust =
-      0.82 +
-      Math.sin(elapsed * 0.17) * 0.12 +
-      Math.sin(elapsed * 0.41 + 1.3) * 0.06;
+    const gust = windEnvelope;
 
     particles.forEach((particle, index) => {
       if (!particle.active) return;

@@ -1,5 +1,9 @@
 # Grok Creative Playground Handoff
 
+> Superseded by the user-authorized luminous refinement on 2026-09-05.
+> See `LUMINOUS_REFINEMENT.md` for the current handoff. The rain-contact audit
+> below records the previous checkpoint and remains available as history.
+
 ## Visual thesis
 
 The frozen parent already says rain is falling through cool air. This pass

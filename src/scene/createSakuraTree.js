@@ -4,6 +4,7 @@ import { ART_DIRECTION } from '../config.js';
 import { weatherIsWet } from '../weatherMode.js';
 import { branchBetween, material } from './primitives.js';
 import { applyWetMaterial } from './wetSurfaces.js';
+import { sampleWind } from './sampleWind.js';
 
 const { palette } = ART_DIRECTION;
 const knotGeometry = new THREE.IcosahedronGeometry(1, 1);
@@ -32,6 +33,27 @@ function createReadableBlossomGeometry() {
     positions.setZ(index, Math.max(0, 1 - radius) * 0.08);
   }
   positions.needsUpdate = true;
+  // The shadow has fewer tiny scallops, but exactly the same planar area.
+  // Visible geometry and the instance transforms are unchanged.
+  const shadowPositions = positions.clone();
+  for (let index = 0; index < positions.count; index += 1) {
+    const angle = Math.atan2(positions.getY(index), positions.getX(index));
+    const radius = 0.73 + Math.cos(angle * 5) * 0.09;
+    shadowPositions.setXY(index, Math.cos(angle) * radius, Math.sin(angle) * radius);
+  }
+  function area(attribute) {
+    let sum = 0;
+    for (let i = 0; i < attribute.count; i += 1) {
+      const j = (i + 1) % attribute.count;
+      sum += attribute.getX(i) * attribute.getY(j) - attribute.getX(j) * attribute.getY(i);
+    }
+    return Math.abs(sum);
+  }
+  const shadowScale = Math.sqrt(area(positions) / area(shadowPositions));
+  for (let index = 0; index < positions.count; index += 1) {
+    shadowPositions.setXY(index, shadowPositions.getX(index) * shadowScale, shadowPositions.getY(index) * shadowScale);
+  }
+  geometry.setAttribute('shadowPosition', shadowPositions);
   geometry.computeVertexNormals();
   return geometry;
 }
@@ -47,6 +69,7 @@ function createBlossomClusterGeometry(pattern) {
     transform.scale.setScalar(scale);
     transform.updateMatrix();
     blossom.applyMatrix4(transform.matrix);
+    blossom.getAttribute('shadowPosition').applyMatrix4(transform.matrix);
     return blossom;
   });
   const geometry = mergeGeometries(pieces, false);
@@ -80,6 +103,13 @@ const blossomClusterGeometries = {
     [[0.1, -1.02, -0.03], 0.19, -0.15, 0.12, 0.05],
   ]),
 };
+
+const foliageShadowMaterial = new THREE.MeshDepthMaterial({ depthPacking: THREE.RGBADepthPacking });
+foliageShadowMaterial.onBeforeCompile = shader => {
+  shader.vertexShader = `attribute vec3 shadowPosition;\n${shader.vertexShader}`
+    .replace('#include <begin_vertex>', '#include <begin_vertex>\ntransformed = shadowPosition;');
+};
+foliageShadowMaterial.customProgramCacheKey = () => 'rounded-foliage-shadow-v1';
 
 function seededRandom(seed) {
   let state = seed >>> 0;
@@ -239,6 +269,8 @@ function createCanopyZone(definition, blossomSurfaces) {
       );
       mesh.name = `${definition.name} ${tone} ${variant} blossom sprays`;
       mesh.castShadow = true;
+
+      if (weatherIsWet()) mesh.customDepthMaterial = foliageShadowMaterial;
 
       items.forEach((item, index) => {
         matrixHelper.position.copy(item.position);
@@ -682,6 +714,17 @@ export function createSakuraTree() {
     shade: material(palette.blossomShade, { side: THREE.DoubleSide, roughness: 0.82 }),
   };
 
+  if (weatherIsWet()) {
+    const spec = ART_DIRECTION.weather.blossoms;
+    for (const surfaces of [blossomSurfaces, readableBlossomSurfaces]) {
+      for (const [tone, surface] of Object.entries(surfaces)) {
+        surface.color.set(spec.colors[tone]);
+        surface.emissive.set(spec.colors[tone]);
+        surface.emissiveIntensity = spec.emission[tone];
+      }
+    }
+  }
+
   const rootFlare = new THREE.Mesh(
     new THREE.CylinderGeometry(0.49, 0.66, 0.36, 8),
     barkSurfaces.mid,
@@ -834,7 +877,16 @@ export function createSakuraTree() {
       worldPivot: definition.pivot,
       pivot: subtractOrigin(definition.pivot, crownOrigin),
     };
-    const zone = createCanopyZone(localDefinition, blossomSurfaces);
+    let zoneSurfaces = blossomSurfaces;
+    if (weatherIsWet() && ['selective inner crown infill', 'annotated gap infill'].includes(definition.name)) {
+      zoneSurfaces = Object.fromEntries(Object.entries(blossomSurfaces).map(([tone, surface]) => {
+        if (tone === 'highlight' || tone === 'light') return [tone, surface];
+        const recessed = surface.clone();
+        recessed.emissiveIntensity *= 0.82;
+        return [tone, recessed];
+      }));
+    }
+    const zone = createCanopyZone(localDefinition, zoneSurfaces);
     zone.userData.zoneName = definition.name;
     crownRig.add(zone);
     return zone;
@@ -984,7 +1036,7 @@ export function createSakuraTree() {
     }
   }
 
-  function update(elapsed) {
+  function update(elapsed, windEnvelope = sampleWind(elapsed)) {
     if (elapsed < lastElapsed) lastElapsed = elapsed;
     const delta = Math.min(Math.max(elapsed - lastElapsed, 0), 0.05);
     lastElapsed = elapsed;
@@ -992,7 +1044,7 @@ export function createSakuraTree() {
 
     const { motion } = ART_DIRECTION;
     const time = elapsed * motion.swayFrequency;
-    const wind = motion.windStrength;
+    const wind = motion.windStrength * windEnvelope;
     crownRig.rotation.z =
       (Math.sin(time) * 0.72 + Math.sin(time * 0.43 + 1.7) * 0.28) *
       motion.branchSwayAmplitude * wind;

@@ -10,6 +10,7 @@ import { createRainClouds } from './scene/createRainClouds.js';
 import { createSakuraTree } from './scene/createSakuraTree.js';
 import { createWeatherEffects } from './scene/createWeatherEffects.js';
 import { getWeatherMode, weatherIsWet } from './weatherMode.js';
+import { sampleWind } from './scene/sampleWind.js';
 
 const weather = getWeatherMode();
 document.documentElement.dataset.weather = weather;
@@ -24,7 +25,7 @@ scene.fog = new THREE.Fog(
   sky.fogFar,
 );
 
-const camera = new THREE.PerspectiveCamera(ART_DIRECTION.camera.fieldOfView, 1, 0.1, 60);
+const camera = new THREE.PerspectiveCamera(ART_DIRECTION.camera.fieldOfView, 1, 0.1, 120);
 camera.name = 'Fixed composition camera';
 
 const renderer = new THREE.WebGLRenderer({
@@ -45,7 +46,7 @@ const environment = createEnvironment();
 const lighting = createLighting();
 const tree = createSakuraTree();
 const petalSystem = createPetalSystem();
-const weatherEffects = createWeatherEffects();
+const weatherEffects = createWeatherEffects({ camera });
 const rainClouds = createRainClouds();
 scene.add(
   environment.group,
@@ -138,9 +139,10 @@ function render(timestamp) {
   const elapsed = timer.getElapsed();
   environment.update(elapsed);
   lighting.update(elapsed);
-  tree.update(elapsed);
-  petalSystem.update(delta, elapsed);
-  weatherEffects.update(delta);
+  const wind = sampleWind(elapsed);
+  tree.update(elapsed, wind);
+  petalSystem.update(delta, elapsed, wind);
+  weatherEffects.update(delta, wind);
   renderer.render(scene, camera);
 }
 

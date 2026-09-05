@@ -43,13 +43,13 @@ function createRidge(profile, surface) {
 export function createDistantHills() {
   const wet = weatherIsWet();
   const near = new THREE.MeshBasicMaterial({
-    color: wet ? 0x1c2830 : 0x6a6662,
-    fog: true,
+    color: wet ? 0x304253 : 0x6a6662,
+    fog: !wet,
     side: THREE.DoubleSide,
   });
   const far = new THREE.MeshBasicMaterial({
-    color: wet ? 0x161e24 : 0x5a5652,
-    fog: true,
+    color: wet ? 0x35475a : 0x5a5652,
+    fog: !wet,
     side: THREE.DoubleSide,
   });
 
@@ -59,10 +59,12 @@ export function createDistantHills() {
   const farRidge = createRidge(FAR_PROFILE, far);
   farRidge.name = 'Mountain range far';
   farRidge.position.set(-0.6, 0.04, -18.6);
+  farRidge.scale.set(1.4, 1.65, 1);
 
   const nearRidge = createRidge(NEAR_PROFILE, near);
   nearRidge.name = 'Mountain range near';
   nearRidge.position.set(0.4, 0, -16.4);
+  nearRidge.scale.set(1.3, 1.2, 1);
 
   hills.add(farRidge, nearRidge);
   hills.traverse((object) => {

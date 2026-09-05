@@ -11,6 +11,8 @@ import { createRightBackgroundExtension } from './createRightBackgroundExtension
 import { createSleepNods } from './createSleepNods.js';
 import { applyWetMaterial } from './wetSurfaces.js';
 import { createRainContact } from './createRainContact.js';
+import { createStreetWear } from './createStreetWear.js';
+import { createNeighborhoodLife } from './createNeighborhoodLife.js';
 
 const { palette } = ART_DIRECTION;
 const transform = new THREE.Object3D();
@@ -528,10 +530,15 @@ export function createEnvironment() {
     applyWetMaterial(surfaces.debris, 'mass');
     surfaces.glow.emissiveIntensity = ART_DIRECTION.lighting.wet.windowEmissiveIntensity;
     surfaces.window.opacity = 0.58;
+    surfaces.window.emissive.set(0xc99362);
+    surfaces.window.emissiveIntensity = 0.16;
+    for (const key of ['farArchitecture', 'farArchitectureShade', 'farWindow', 'distantWindow']) {
+      surfaces[key]?.color.lerp(new THREE.Color(palette.wetHaze), 0.22);
+    }
   }
 
   world.add(
-    box('Sidewalk slab', [70, 0.32, 55], [0, -0.18, -21.5], surfaces.pavement),
+    box('Sidewalk slab', [70, 0.32, 17], [0, -0.18, -2.5], surfaces.pavement),
     box('Curb', [36, 0.5, 0.42], [0, -0.34, 3.35], surfaces.pavementEdge),
     createCurbJoints(surfaces.pavementShade),
     box('Drain channel', [36, 0.18, 0.5], [0, -0.51, 3.78], surfaces.metal),
@@ -677,6 +684,8 @@ export function createEnvironment() {
   const sleepNods = createSleepNods();
   world.add(
     createBackgroundGround(),
+    createStreetWear(),
+    createNeighborhoodLife(),
     createDistantHills(),
     createLeftHorizonFill(),
     createFarNeighborhood(surfaces),
