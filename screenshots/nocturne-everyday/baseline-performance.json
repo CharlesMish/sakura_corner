@@ -1,0 +1,246 @@
+{
+  "ref": "nocturne-canonical",
+  "browser": "152.0.7977.77",
+  "results": [
+    {
+      "aspect": "desktop",
+      "weather": "rain",
+      "trial": 0,
+      "frames": 361,
+      "frameMs": 16.66454293628809,
+      "p95Ms": 16.899999999999636,
+      "drawCalls": 693,
+      "device": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A788) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "aspect": "desktop",
+      "weather": "rain",
+      "trial": 1,
+      "frames": 361,
+      "frameMs": 16.664542936288086,
+      "p95Ms": 16.900000000000546,
+      "drawCalls": 693,
+      "device": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A788) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "aspect": "desktop",
+      "weather": "rain",
+      "trial": 2,
+      "frames": 360,
+      "frameMs": 16.66444444444444,
+      "p95Ms": 16.900000000001455,
+      "drawCalls": 693,
+      "device": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A788) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "aspect": "desktop",
+      "weather": "clear",
+      "trial": 0,
+      "frames": 361,
+      "frameMs": 16.664819944598335,
+      "p95Ms": 16.80000000000109,
+      "drawCalls": 665,
+      "device": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A788) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "aspect": "desktop",
+      "weather": "clear",
+      "trial": 1,
+      "frames": 359,
+      "frameMs": 16.803621169916433,
+      "p95Ms": 17.300000000000182,
+      "drawCalls": 665,
+      "device": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A788) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "aspect": "desktop",
+      "weather": "clear",
+      "trial": 2,
+      "frames": 86,
+      "frameMs": 69.75813953488372,
+      "p95Ms": 17,
+      "drawCalls": 665,
+      "device": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A788) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "aspect": "laptop",
+      "weather": "rain",
+      "trial": 0,
+      "frames": 355,
+      "frameMs": 16.946197183098594,
+      "p95Ms": 16.800000000000182,
+      "drawCalls": 693,
+      "device": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A788) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "aspect": "laptop",
+      "weather": "rain",
+      "trial": 1,
+      "frames": 361,
+      "frameMs": 16.665650969529086,
+      "p95Ms": 16.800000000000182,
+      "drawCalls": 693,
+      "device": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A788) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "aspect": "laptop",
+      "weather": "rain",
+      "trial": 2,
+      "frames": 360,
+      "frameMs": 16.664166666666667,
+      "p95Ms": 16.800000000000182,
+      "drawCalls": 693,
+      "device": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A788) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "aspect": "laptop",
+      "weather": "clear",
+      "trial": 0,
+      "frames": 362,
+      "frameMs": 16.664088397790053,
+      "p95Ms": 16.80000000000109,
+      "drawCalls": 665,
+      "device": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A788) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "aspect": "laptop",
+      "weather": "clear",
+      "trial": 1,
+      "frames": 361,
+      "frameMs": 16.66426592797784,
+      "p95Ms": 16.80000000000109,
+      "drawCalls": 665,
+      "device": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A788) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "aspect": "laptop",
+      "weather": "clear",
+      "trial": 2,
+      "frames": 361,
+      "frameMs": 16.710803324099725,
+      "p95Ms": 16.80000000000109,
+      "drawCalls": 665,
+      "device": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A788) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "aspect": "portrait",
+      "weather": "rain",
+      "trial": 0,
+      "frames": 361,
+      "frameMs": 16.66426592797784,
+      "p95Ms": 16.80000000000109,
+      "drawCalls": 631,
+      "device": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A788) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "aspect": "portrait",
+      "weather": "rain",
+      "trial": 1,
+      "frames": 360,
+      "frameMs": 16.664722222222224,
+      "p95Ms": 16.800000000000182,
+      "drawCalls": 631,
+      "device": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A788) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "aspect": "portrait",
+      "weather": "rain",
+      "trial": 2,
+      "frames": 361,
+      "frameMs": 16.663434903047094,
+      "p95Ms": 16.80000000000109,
+      "drawCalls": 631,
+      "device": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A788) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "aspect": "portrait",
+      "weather": "clear",
+      "trial": 0,
+      "frames": 359,
+      "frameMs": 16.711699164345404,
+      "p95Ms": 16.899999999999636,
+      "drawCalls": 604,
+      "device": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A788) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "aspect": "portrait",
+      "weather": "clear",
+      "trial": 1,
+      "frames": 361,
+      "frameMs": 16.664542936288086,
+      "p95Ms": 16.800000000000182,
+      "drawCalls": 604,
+      "device": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A788) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "aspect": "portrait",
+      "weather": "clear",
+      "trial": 2,
+      "frames": 362,
+      "frameMs": 16.6646408839779,
+      "p95Ms": 16.800000000000182,
+      "drawCalls": 604,
+      "device": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A788) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "aspect": "ultrawide",
+      "weather": "rain",
+      "trial": 0,
+      "frames": 361,
+      "frameMs": 16.664542936288086,
+      "p95Ms": 16.800000000000182,
+      "drawCalls": 692,
+      "device": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A788) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "aspect": "ultrawide",
+      "weather": "rain",
+      "trial": 1,
+      "frames": 360,
+      "frameMs": 16.664722222222224,
+      "p95Ms": 16.80000000000109,
+      "drawCalls": 692,
+      "device": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A788) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "aspect": "ultrawide",
+      "weather": "rain",
+      "trial": 2,
+      "frames": 360,
+      "frameMs": 16.664722222222224,
+      "p95Ms": 16.80000000000109,
+      "drawCalls": 692,
+      "device": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A788) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "aspect": "ultrawide",
+      "weather": "clear",
+      "trial": 0,
+      "frames": 361,
+      "frameMs": 16.664542936288086,
+      "p95Ms": 16.800000000000182,
+      "drawCalls": 664,
+      "device": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A788) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "aspect": "ultrawide",
+      "weather": "clear",
+      "trial": 1,
+      "frames": 359,
+      "frameMs": 16.71058495821727,
+      "p95Ms": 16.800000000000182,
+      "drawCalls": 664,
+      "device": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A788) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "aspect": "ultrawide",
+      "weather": "clear",
+      "trial": 2,
+      "frames": 361,
+      "frameMs": 16.664265927977837,
+      "p95Ms": 16.800000000000182,
+      "drawCalls": 664,
+      "device": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A788) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    }
+  ]
+}

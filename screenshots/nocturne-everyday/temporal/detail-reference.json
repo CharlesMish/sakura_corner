@@ -1,0 +1,165 @@
+{
+  "canonical": "d5f110295f813560f240799ce540935962fa64ca",
+  "tag": "nocturne-canonical",
+  "candidate": "working tree with everyday decoration",
+  "frozenCameraSettings": {
+    "useFrameCompletionVariant": true,
+    "desktopPosition": [
+      12.5,
+      9.4,
+      15.5
+    ],
+    "frameCompletionPosition": [
+      12.15,
+      8.75,
+      14.85
+    ],
+    "narrowPosition": [
+      14,
+      10.7,
+      19
+    ],
+    "desktopTarget": [
+      0.2,
+      3.25,
+      -0.25
+    ],
+    "frameCompletionTarget": [
+      0.15,
+      3.05,
+      -0.2
+    ],
+    "ultrawideTarget": [
+      -0.45,
+      3.5,
+      -0.2
+    ],
+    "narrowTarget": [
+      -0.35,
+      3.55,
+      -0.2
+    ],
+    "fieldOfView": 34,
+    "frameCompletionFieldOfView": 33,
+    "ultrawideFieldOfView": 30.5,
+    "narrowFieldOfView": 47,
+    "narrowBreakpoint": 0.82,
+    "ultrawideBreakpoint": 2.05
+  },
+  "sourceHashes": {
+    "index.html": "0e78c8e41cd4bc6e373d2da09d1fa60fc296b32af69bdc5ea0ab78ae6c825cb4",
+    "package-lock.json": "f86eb1d39f455caf802ee06615423fecfd5428793d4ad4dee318fe5358c68296",
+    "package.json": "e8341e4f864c7802fed948c8b2b6d54b7f4b16f6f9d7df5b1f5c5219e0160026",
+    "src/config.js": "c0a51b1a1b574990388c11e10931a0141548e543683be2c9cb90647de3d13118",
+    "src/interaction/createTreeInteraction.js": "c7bf01acc4459f0666e05dbf6231a25f336f2acfbf70cea2c6850439d3d4eb8c",
+    "src/main.js": "c8de5a1281376ce70176719a675118421658e8190e308f655b3c6ac71976aa08",
+    "src/scene/createAtmosphere.js": "c39d2fb3a10aaf2a7508049c754187c152c0c1af8c2fe796cd639ead3d0a262e",
+    "src/scene/createBackgroundGround.js": "1b9737b207de0b6de1b244d3b9fa284388bdc407d81480bac8712b9ac789cfd3",
+    "src/scene/createDistantHills.js": "c5a619f9973cf99e0b4d18d3fe318d9df67a3be831d614e642eb9e39cb1d1f88",
+    "src/scene/createDownspout.js": "c959ddec9d5fdee409b76ee3a6d879f6a4c68229f466c7ca0b37dc0c7e39abae",
+    "src/scene/createEnvironment.js": "9922033c4af1772ecbc4673ea51e1d38f5ad29ad91c13eefdeef99a2602a4dd4",
+    "src/scene/createFarLeftShrineHint.js": "5fcc2f0b4c4b3e4364d3c4a28671eba8abbfaa00e5bbedf742006b967a065014",
+    "src/scene/createLeftBackgroundExtension.js": "266f15d395c29d8979fe80aebfca4218b84c2c9a0a37129d1b34515a31fa8eb1",
+    "src/scene/createLeftHorizonFill.js": "22334bdcd13ffdd90ae7e4435a34109c84af67b6375e8c53b674b3dd765a724c",
+    "src/scene/createLighting.js": "dde34ea2d6ab4ff687b494acacebaf0d5907e59e941276271369da9e257bee95",
+    "src/scene/createNeighborhoodLife.js": "eb50019807d33d7191b722b9c05bdb712aa0d9ba80c84135e85a4ecc7f15004c",
+    "src/scene/createPetalSystem.js": "cbb416bd8f0c5fb428547674ad75fc024c19019714c052b639bbb5c5305b643a",
+    "src/scene/createRainClouds.js": "5b8c42f2a6d51d5d1b1fda613df97adf2c52622fa9e82e89e442f1065a237a17",
+    "src/scene/createRainContact.js": "d2466e15c7a1dc255527463202084a7f150b00274fe18485c239cd1c64f4a584",
+    "src/scene/createRightBackgroundExtension.js": "970f64595ab58f0a748bf35cd06868063e4e74e8e4af6f9e215ab61ff8c3d255",
+    "src/scene/createSakuraTree.js": "3718e31724fa58a4a66d7a0bd7823123bcfd10d0a4f42cdba03d5ff5acf909da",
+    "src/scene/createSleepNods.js": "3506fa5482df0ee2ad919b6be8c6d016d27785943945c10dd399b91a4e0ba155",
+    "src/scene/createStreetWear.js": "7bb1c60c39d61a2286fc37a53d58956f3d8e12c3e3243116f9b3d85d8da8f538",
+    "src/scene/createWeatherEffects.js": "948375b11e9dff391374b3b64f87d5c8fcdb7c5d0341d60df4adbb6eedaaf48e",
+    "src/scene/primitives.js": "aa2299fa0602e9209386102174dea85729c595b3b197f6af916c1443c7aa61f7",
+    "src/scene/sampleWind.js": "498deff667c44bfe1d8099970143ab4bc5abb6ece9e3194dfa4fdf27a533499b",
+    "src/scene/wetSurfaces.js": "7e1547fe5f7312c64f614892bcd27a47344f6ae82234b3f85c3417080a3085a1",
+    "src/styles.css": "ca9ff1082a8d5d92fa5a098fb31638c06a98dac23bfab18467fd6b25a0fef488",
+    "src/weatherMode.js": "e62f771954491ec31a4a73ba876a68ffa416cf7cc028ada2ac06513129b8b122"
+  },
+  "viewport": {
+    "width": 1920,
+    "height": 1080,
+    "deviceScaleFactor": 1
+  },
+  "weather": "rain",
+  "browser": "152.0.7977.77",
+  "camera": {
+    "position": [
+      12.15,
+      8.75,
+      14.85
+    ],
+    "quaternion": [
+      -0.13540542733534813,
+      0.3268255382096251,
+      0.04737431373505295,
+      0.934133883455821
+    ],
+    "matrixWorld": [
+      0.7818814839442433,
+      2.7755575615628914e-17,
+      -0.6234270968326193,
+      0,
+      -0.17701580666151778,
+      0.958842089292529,
+      -0.22200732418798685,
+      0,
+      0.5977681400485645,
+      0.28393986652306813,
+      0.7497008756442413,
+      0,
+      12.15,
+      8.75,
+      14.85,
+      1
+    ],
+    "fov": 33,
+    "aspect": 1.7777777777777777,
+    "near": 0.1,
+    "far": 120
+  },
+  "renderer": {
+    "width": 960,
+    "height": 540,
+    "exposure": 0.96,
+    "toneMapping": 4,
+    "outputColorSpace": "srgb",
+    "shadowAutoUpdate": true
+  },
+  "device": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A788) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+  "lights": [
+    {
+      "name": "Ambient sky fill",
+      "position": [
+        0,
+        1,
+        0
+      ],
+      "color": 8559274,
+      "castShadow": false
+    },
+    {
+      "name": "Cool wet key",
+      "position": [
+        -7,
+        12,
+        9
+      ],
+      "color": 12110032,
+      "castShadow": true
+    },
+    {
+      "name": "Restrained shop window glow",
+      "position": [
+        3.25,
+        1.75,
+        -1.25
+      ],
+      "color": 16760178,
+      "castShadow": false
+    }
+  ],
+  "casters": 273,
+  "customCasters": 0
+}

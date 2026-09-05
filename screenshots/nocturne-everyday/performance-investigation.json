@@ -1,0 +1,102 @@
+{
+  "method": "Three alternating canonical/detail pairs, same device, warmup and sample duration. Original flagged measurements retained.",
+  "results": [
+    {
+      "version": "baseline",
+      "pair": 0,
+      "browser": "152.0.7977.77",
+      "aspect": "ultrawide",
+      "weather": "rain",
+      "trial": 0,
+      "frames": 326,
+      "frameMs": 18.503374233128834,
+      "p95Ms": 33.30000000000109,
+      "drawCalls": 692,
+      "device": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A788) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "version": "final",
+      "pair": 0,
+      "browser": "152.0.7977.77",
+      "aspect": "ultrawide",
+      "weather": "rain",
+      "trial": 0,
+      "frames": 321,
+      "frameMs": 18.79252336448598,
+      "p95Ms": 33.30000000000109,
+      "drawCalls": 697,
+      "device": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A788) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "version": "baseline",
+      "pair": 1,
+      "browser": "152.0.7977.77",
+      "aspect": "ultrawide",
+      "weather": "rain",
+      "trial": 0,
+      "frames": 324,
+      "frameMs": 18.56728395061728,
+      "p95Ms": 33.30000000000109,
+      "drawCalls": 692,
+      "device": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A788) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "version": "final",
+      "pair": 1,
+      "browser": "152.0.7977.77",
+      "aspect": "ultrawide",
+      "weather": "rain",
+      "trial": 0,
+      "frames": 357,
+      "frameMs": 16.896078431372548,
+      "p95Ms": 16.899999999999636,
+      "drawCalls": 697,
+      "device": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A788) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "version": "baseline",
+      "pair": 2,
+      "browser": "152.0.7977.77",
+      "aspect": "ultrawide",
+      "weather": "rain",
+      "trial": 0,
+      "frames": 350,
+      "frameMs": 17.140571428571427,
+      "p95Ms": 17.299999999999272,
+      "drawCalls": 692,
+      "device": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A788) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    },
+    {
+      "version": "final",
+      "pair": 2,
+      "browser": "152.0.7977.77",
+      "aspect": "ultrawide",
+      "weather": "rain",
+      "trial": 0,
+      "frames": 361,
+      "frameMs": 16.664542936288086,
+      "p95Ms": 16.900000000000546,
+      "drawCalls": 697,
+      "device": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A788) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    }
+  ],
+  "rows": [
+    {
+      "aspect": "ultrawide",
+      "weather": "rain",
+      "before": {
+        "frameMs": 18.503374233128834,
+        "p95Ms": 33.30000000000109,
+        "draws": 692
+      },
+      "after": {
+        "frameMs": 16.896078431372548,
+        "p95Ms": 16.900000000000546,
+        "draws": 697
+      },
+      "frameChangePercent": -8.686501075455466,
+      "p95ChangePercent": -49.249249249249274
+    }
+  ],
+  "regressions": []
+}

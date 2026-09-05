@@ -1,5 +1,12 @@
 # Grok Creative Playground Handoff
 
+> Current instruction (2026-09-05): the user's motion assessment is accepted.
+> A narrow five-group everyday decoration pass is implemented locally on
+> `codex/nocturne-everyday-details`. See [EVERYDAY_DETAILS.md](EVERYDAY_DETAILS.md)
+> for retained details, comparison frames, recording and verification.
+> Canonical framing, architecture, lighting, weather and animation remain frozen.
+> The older temporal-only instruction below is historical for this authorized pass.
+
 > Current instruction: freeze the canonical camera and visual state at
 > `nocturne-canonical` (`d5f1102`). No further beauty pass. See
 > [CANONICAL_REFERENCE.md](CANONICAL_REFERENCE.md) for the six permitted

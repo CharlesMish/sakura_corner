@@ -1,0 +1,16 @@
+{
+  "ref": "working tree",
+  "browser": "152.0.7977.77",
+  "results": [
+    {
+      "aspect": "ultrawide",
+      "weather": "rain",
+      "trial": 0,
+      "frames": 357,
+      "frameMs": 16.896078431372548,
+      "p95Ms": 16.899999999999636,
+      "drawCalls": 697,
+      "device": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A788) Direct3D11 vs_5_0 ps_5_0, D3D11)"
+    }
+  ]
+}

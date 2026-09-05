@@ -13,6 +13,7 @@ import { applyWetMaterial } from './wetSurfaces.js';
 import { createRainContact } from './createRainContact.js';
 import { createStreetWear } from './createStreetWear.js';
 import { createNeighborhoodLife } from './createNeighborhoodLife.js';
+import { addShopEverydayDetails } from './createEverydayDetails.js';
 
 const { palette } = ART_DIRECTION;
 const transform = new THREE.Object3D();
@@ -682,6 +683,7 @@ export function createEnvironment() {
       object.receiveShadow = false;
     }
   });
+  addShopEverydayDetails(building);
   world.add(building);
 
   const sign = new THREE.Group();
