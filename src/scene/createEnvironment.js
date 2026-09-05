@@ -36,8 +36,10 @@ function createHorizontalPatch(name, points, y, surface) {
 }
 
 function createDrainGrates(surface) {
-  const geometry = new THREE.BoxGeometry(0.38, 0.035, 0.29);
-  const grates = new THREE.InstancedMesh(geometry, surface, 60);
+  const geometry = new THREE.BoxGeometry(0.38, 0.035, 0.22);
+  const grateSurface = surface.clone();
+  grateSurface.color.multiplyScalar(0.58);
+  const grates = new THREE.InstancedMesh(geometry, grateSurface, 60);
   grates.name = 'Repeated drain covers';
   grates.receiveShadow = true;
 
@@ -499,7 +501,7 @@ export function createEnvironment() {
       roughness: weatherIsWet() ? 0.78 : 0.88,
       metalness: weatherIsWet() ? 0.08 : 0.03,
     }),
-    bicycle: material(0x465156, { roughness: 0.72, metalness: 0.14 }),
+    bicycle: material(0x5c727b, { roughness: 0.58, metalness: 0.14 }),
     insulator: material(0xb6b0a2, { roughness: 0.55 }),
     soil: material(0x4a4139),
     grass: material(palette.grass),
@@ -529,16 +531,28 @@ export function createEnvironment() {
     applyWetMaterial(surfaces.grass, 'grass');
     applyWetMaterial(surfaces.debris, 'mass');
     surfaces.glow.emissiveIntensity = ART_DIRECTION.lighting.wet.windowEmissiveIntensity;
-    surfaces.window.opacity = 0.58;
-    surfaces.window.emissive.set(0xc99362);
-    surfaces.window.emissiveIntensity = 0.16;
+    // The pane catches cool air; the separate interior plane supplies the gold.
+    surfaces.window.color.set(0x8fa7b1);
+    surfaces.window.opacity = 0.22;
+    surfaces.window.depthWrite = false;
+    surfaces.window.roughness = 0.32;
+    surfaces.window.emissiveIntensity = 0;
+    surfaces.plaster.color.multiplyScalar(0.87);
+    surfaces.bicycle.emissive.set(0x36536a);
+    surfaces.bicycle.emissiveIntensity = 0.065;
     for (const key of ['farArchitecture', 'farArchitectureShade', 'farWindow', 'distantWindow']) {
       surfaces[key]?.color.lerp(new THREE.Color(palette.wetHaze), 0.22);
     }
   }
 
+  const interiorRecess = surfaces.windowDark.clone();
+  interiorRecess.color.set(weatherIsWet() ? 0x343f44 : palette.windowDark);
+  interiorRecess.emissive.set(0x52626b);
+  interiorRecess.emissiveIntensity = weatherIsWet() ? 0.075 : 0;
+
   world.add(
-    box('Sidewalk slab', [70, 0.32, 17], [0, -0.18, -2.5], surfaces.pavement),
+    // Keep the rear at z=-11 and end paving exactly at the curb's back edge.
+    box('Sidewalk slab', [70, 0.32, 14.14], [0, -0.18, -3.93], surfaces.pavement),
     box('Curb', [36, 0.5, 0.42], [0, -0.34, 3.35], surfaces.pavementEdge),
     createCurbJoints(surfaces.pavementShade),
     box('Drain channel', [36, 0.18, 0.5], [0, -0.51, 3.78], surfaces.metal),
@@ -617,13 +631,13 @@ export function createEnvironment() {
     box('Building body', [5.65, 5.45, 3.1], [3.8, 2.33, -3.25], surfaces.plaster),
     box('Building side return', [0.55, 5.68, 4.4], [6.55, 2.42, -2.7], surfaces.plasterShade),
     box('Building cap', [5.95, 0.25, 3.38], [3.76, 5.16, -3.23], surfaces.plasterRoof),
-    box('Recessed shop window', [2.62, 2.08, 0.13], [3.36, 1.5, -1.61], surfaces.windowDark),
+    box('Recessed shop window', [2.62, 2.08, 0.13], [3.36, 1.5, -1.61], interiorRecess),
     box('Warm interior plane', [1.17, 1.7, 0.045], [2.86, 1.52, -1.53], surfaces.glow),
     box('Warm window glass', [1.16, 1.68, 0.035], [2.86, 1.52, -1.43], surfaces.window),
     box('Interior counter silhouette', [1.02, 0.18, 0.055], [2.86, 1.05, -1.48], surfaces.windowDark),
     box('Interior shelf silhouette', [0.82, 0.065, 0.052], [2.92, 1.52, -1.48], surfaces.windowDark),
     box('Interior shelf upright', [0.065, 0.72, 0.052], [2.61, 1.43, -1.48], surfaces.windowDark),
-    box('Cool window plane', [1.04, 1.7, 0.05], [4.02, 1.52, -1.52], surfaces.window),
+    box('Cool window plane', [1.04, 1.7, 0.035], [4.02, 1.52, -1.43], surfaces.window),
     box('Window left reveal', [0.13, 2.28, 0.32], [1.98, 1.5, -1.47], surfaces.plasterShade),
     box('Window right reveal', [0.13, 2.28, 0.32], [4.73, 1.5, -1.47], surfaces.plasterShade),
     box('Window upper reveal', [2.86, 0.13, 0.32], [3.35, 2.62, -1.47], surfaces.plasterShade),
@@ -654,13 +668,20 @@ export function createEnvironment() {
     [
       box('Warm glass rain streak left', [0.035, 0.82, 0.02], [2.58, 1.62, -1.4], surfaces.windowDark),
       box('Warm glass rain streak right', [0.028, 0.54, 0.02], [3.08, 1.38, -1.4], surfaces.windowDark),
-      box('Cool glass rain streak', [0.03, 0.7, 0.02], [4.18, 1.55, -1.49], surfaces.windowDark),
+      box('Cool glass rain streak', [0.03, 0.7, 0.02], [4.18, 1.55, -1.4], surfaces.windowDark),
       box('Door glass rain streak', [0.028, 0.62, 0.02], [5.18, 1.72, -1.5], surfaces.windowDark),
     ].forEach((streak) => {
       streak.castShadow = false;
       building.add(streak);
     });
   }
+  building.traverse(object => {
+    // Transparent box glass must not cast an opaque box shadow into its recess.
+    if (object.material === surfaces.window) {
+      object.castShadow = false;
+      object.receiveShadow = false;
+    }
+  });
   world.add(building);
 
   const sign = new THREE.Group();

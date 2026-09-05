@@ -9,7 +9,8 @@ export function createStreetWear() {
   group.name = 'Everyday street wear';
   const batches = { dark: [], pale: [], moss: [], asphalt: [] };
   function patch(tone, points, y = 0.034) {
-    const shape = new THREE.Shape(points.map(([x, z]) => new THREE.Vector2(x, z)));
+    // Road repairs follow the exposed asphalt just beyond the drain, z > 4.03.
+    const shape = new THREE.Shape(points.map(([x, z]) => new THREE.Vector2(x, y < -0.4 ? z - 2 : z)));
     const geometry = new THREE.ShapeGeometry(shape);
     geometry.rotateX(Math.PI / 2);
     geometry.translate(0, y, 0);
@@ -48,7 +49,7 @@ export function createStreetWear() {
     strip('dark', [x, 3.23], [x + length, 3.23], 0.09, -0.078);
   }
 
-  // The established sidewalk extends to z=6; repairs sit on exposed asphalt.
+  // Authored road coordinates are shifted toward the corrected curb in patch().
   patch('asphalt', [[-4.8, 6.42], [-3.3, 6.34], [-2.96, 6.65], [-3.18, 7.01], [-4.6, 7.08], [-4.98, 6.72]], -0.507);
   patch('asphalt', [[-8.4, 6.63], [-7.43, 6.58], [-7.18, 6.91], [-7.45, 7.15], [-8.3, 7.12]], -0.507);
   strip('dark', [-3.3, 6.35], [-2.96, 6.65], 0.035, -0.503);

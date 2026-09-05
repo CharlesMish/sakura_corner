@@ -31,7 +31,7 @@ export function createNeighborhoodLife() {
   block('roof', [0.7, 0.035, 0.035], [-12.95, 4.07, -5.55]);
   block('roof', [0.42, 0.03, 0.035], [-12.95, 3.9, -5.55]);
   const colors = wet
-    ? { wall: 0x3c4c59, roof: 0x25333e, trim: 0x49565f, window: 0x817253 }
+    ? { wall: 0x384956, roof: 0x2c3c49, trim: 0x404f5b, window: 0x817253 }
     : { wall: 0x777b7d, roof: 0x555d65, trim: 0x888985, window: 0x736f60 };
   for (const [tone, pieces] of Object.entries(batches)) {
     const mesh = new THREE.Mesh(mergeGeometries(pieces), new THREE.MeshBasicMaterial({ color: colors[tone] }));
