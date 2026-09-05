@@ -15,3 +15,6 @@ screenshots/*.gif
 !screenshots/rain-contact-detail.png
 .DS_Store
 
+# Original temporal capture retained locally; review MP4 and gzip are versioned.
+screenshots/nocturne-temporal/canonical-65s.webm
+screenshots/nocturne-temporal/telemetry.json

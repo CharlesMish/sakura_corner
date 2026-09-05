@@ -1,5 +1,10 @@
 # Grok Creative Playground Handoff
 
+> Current instruction: freeze the canonical camera and visual state at
+> `nocturne-canonical` (`d5f1102`). No further beauty pass. See
+> [CANONICAL_REFERENCE.md](CANONICAL_REFERENCE.md) for the six permitted
+> temporal checks, recording and explicit limits on review completion.
+
 > Superseded by the user-authorized director's pass on 2026-09-05.
 > See `NOCTURNE_DIRECTORS_PASS.md` for the current handoff. The rain-contact audit
 > below records the previous checkpoint and remains available as history.

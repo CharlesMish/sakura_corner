@@ -1,5 +1,15 @@
 # Playground Progress
 
+## Canonical freeze and temporal evidence — 2026-09-05
+
+The user froze `d5f1102` as the canonical camera and visual state, now tagged
+`nocturne-canonical`. No scene source changed. Recorded an uninterrupted
+65-second live run and preserved its camera manifest, video and measurements.
+Continuous visual viewing and physical-display sign-off were unavailable and
+remain unverified; sampled frames/telemetry are not claimed as a substitute.
+See [CANONICAL_REFERENCE.md](CANONICAL_REFERENCE.md). Earlier permission for
+a beauty pass is superseded by this freeze and the six temporal checks.
+
 ## Nocturne director's pass — 2026-09-05
 
 The broader director's pass supersedes the historical composition freezes and
