@@ -6,7 +6,7 @@ for broader artistic changes. Do not conduct another beauty pass.
 
 The desktop camera is position `[12.15, 8.75, 14.85]`, target
 `[0.15, 3.05, -0.2]`, vertical FOV `33°`. All existing portrait/ultrawide
-camera settings are also frozen. The [reference manifest](screenshots/nocturne-temporal/canonical-reference.json)
+camera settings are also frozen. The [reference manifest](../../screenshots/nocturne-temporal/canonical-reference.json)
 records the actual desktop quaternion/matrix, render settings, source SHA-256
 hashes and all responsive camera settings. The original reference captures and
 director's-pass captures remain preserved.
@@ -27,10 +27,10 @@ physical intended display. Recording and frame inspection are not equivalent
 to watching continuously at playback speed. No scene changes were made on the
 basis of incomplete perceptual evidence.
 
-The [normal-speed recording](screenshots/nocturne-temporal/canonical-65s.mp4)
+The [normal-speed recording](../../screenshots/nocturne-temporal/canonical-65s.mp4)
 contains 64.93 seconds of uninterrupted playback, without taps, clock changes,
 RNG overrides, camera adjustments or scene edits. The
-[playback page](screenshots/nocturne-temporal/index.html) presents it at 1×,
+[playback page](../../screenshots/nocturne-temporal/index.html) presents it at 1×,
 without looping. Capture used a 1920×1080 CSS viewport at DPR 1 and the scene's
 native 960×540 render buffer. The recording preserves timestamps and that
 pixel grid; it contains 3,648 video frames. The app rendered 3,878 frames over
@@ -48,8 +48,8 @@ pacing on the physical display.
 | Lower-left curb/gutter | Preserved exactly. An eye-exit judgment requires continuous viewing; no change is justified by telemetry or the sampled frames alone. |
 | Storefront hotspot | Mullion/counter structure remains visible in the inspected decoded frames. Physical-display clipping and retention through continuous playback remain unverified. |
 
-Full [measured results](screenshots/nocturne-temporal/measured-summary.json)
-and [representative frames](screenshots/nocturne-temporal/representative-frames.png)
+Full [measured results](../../screenshots/nocturne-temporal/measured-summary.json)
+and [representative frames](../../screenshots/nocturne-temporal/representative-frames.png)
 are preserved separately from the canonical scene. The original high-bitrate
 WebM and raw telemetry remain local; the timestamp-preserving MP4 and compressed
 telemetry are versioned. No temporal failure has been established strongly

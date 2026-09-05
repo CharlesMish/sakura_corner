@@ -40,7 +40,7 @@ new shadow acne or distracting highlights.
 
 ## Evidence
 
-[Local comparison gallery](screenshots/nocturne-everyday/index.html) contains
+[Local comparison gallery](../../screenshots/nocturne-everyday/index.html) contains
 canonical/final desktop, laptop, portrait and ultrawide in rain and clear,
 grayscale, thumbnails, and each isolated group against canonical before the
 combined result. Still comparisons use the existing review-only seeded RNG
@@ -52,8 +52,8 @@ street. The additions do not displace the bicycle, canopy or shop interior.
 Portrait loses the tucked service objects and most of the residential detail;
 this is accepted rather than compensated with lighting or framing changes.
 
-[65-second normal-speed recording](screenshots/nocturne-everyday/temporal/detail-65s.mp4)
-and [roof frame samples](screenshots/nocturne-everyday/temporal/roof-samples.png)
+[65-second normal-speed recording](../../screenshots/nocturne-everyday/temporal/detail-65s.mp4)
+and [roof frame samples](../../screenshots/nocturne-everyday/temporal/roof-samples.png)
 are separate from canonical evidence. The recording contains 3,551 rendered
 frames and 65.008 seconds of scene time, with 60.411 integrated particle
 seconds and no visibility interruptions. Camera matrices and light positions
@@ -98,7 +98,7 @@ frame interval and median p95. Vsync limits inference about GPU headroom.
 ## Performance result
 
 Intel UHD Graphics / Chrome, DPR 1, sequential local runs. The initial
-[comparison](screenshots/nocturne-everyday/performance-comparison.json) passed
+[comparison](../../screenshots/nocturne-everyday/performance-comparison.json) passed
 seven of eight cases: median mean changes ranged from -0.83% to +1.42%.
 Draw calls increase by five (about 0.7%) on desktop/laptop/ultrawide and two
 on portrait. Several individual trials contained scheduling pauses; raw data
@@ -107,7 +107,7 @@ is retained.
 Ultrawide rain initially flagged +18.69% mean and +98.81% p95. This was
 investigated using `node scripts/investigate-everyday-performance.mjs`, which
 alternates three canonical/detail pairs without overwriting the initial run.
-The [paired results](screenshots/nocturne-everyday/performance-investigation.json)
+The [paired results](../../screenshots/nocturne-everyday/performance-investigation.json)
 also reproduced slow timing on canonical: its median was 18.503 ms / 33.3 ms
 p95, versus 16.896 ms / 16.9 ms for the detail pass. No >10% regression
 persisted. This supports device/scheduling variability as a contributor;

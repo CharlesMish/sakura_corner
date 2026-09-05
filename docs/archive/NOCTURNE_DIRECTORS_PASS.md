@@ -7,7 +7,7 @@ materials are in `40208f2`; rain and landing-height refinements are in `9034f4a`
 Nothing was pushed or deployed. Original reference and sign-off images remain
 unchanged.
 
-Open the [comparison gallery](screenshots/nocturne/index.html) for baseline/final
+Open the [comparison gallery](../../screenshots/nocturne/index.html) for baseline/final
 frames at desktop (1920×1080), laptop (1366×768), portrait (390×844), and
 ultrawide (2560×1080), in rain and clear weather. Each pair includes grayscale
 and thumbnail views. Full frames use the same particle seed and four seconds
@@ -36,7 +36,7 @@ The retained changes are:
   slots in the 96-drop dense-rain budget. Falling-petal pink, release timing,
   sway, interaction limits and settled-memory capacity remain intact.
 
-The [shadow study](screenshots/nocturne/shadow-study.png) compares the baseline,
+The [shadow study](../../screenshots/nocturne/shadow-study.png) compares the baseline,
 quieter wall with the inherited custom shadow, actual blossom silhouettes,
 and a broader-lobed custom shadow candidate. The custom variants did not
 show enough improvement in connected shapes/openings to retain. The final
@@ -71,7 +71,7 @@ repeated. The largest median-p95 increase was 7.5% (laptop rain, 17.4 to
 700 to 693 on desktop/laptop, 634 to 631 in portrait, and 699 to 692 on
 ultrawide. Clear draw calls fell by three in every view. These measurements
 are vsync-limited and do not establish uncapped GPU headroom. Raw trials and
-the [comparison summary](screenshots/nocturne/performance-comparison.json)
+the [comparison summary](../../screenshots/nocturne/performance-comparison.json)
 are preserved beside the frames. Run `node scripts/compare-nocturne-performance.mjs`
 to validate complete, same-device trials and the 10% regression threshold.
 

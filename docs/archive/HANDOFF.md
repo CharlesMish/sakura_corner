@@ -2,7 +2,7 @@
 
 > Current pass: the authorized weather selector, spring flurry with two tiny
 > deposits, optional After rain firefly and low shop-roof hatch are implemented
-> on `codex/nocturne-weather-modes`. See [WEATHER_MODES.md](WEATHER_MODES.md)
+> on `codex/nocturne-weather-modes`. See [WEATHER_MODES.md](../WEATHER_MODES.md)
 > for behavior, comparison gallery, recordings and verification. Canonical
 > camera, existing weather appearances and previous captures remain preserved.
 

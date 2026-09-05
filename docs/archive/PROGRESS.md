@@ -9,7 +9,7 @@ gentle spring snow with two tiny deposits, an optional After rain firefly,
 and a shallow maintenance hatch on the shop roof. Lightning remains deferred.
 Canonical camera, lighting and existing motion remain unchanged.
 
-See [WEATHER_MODES.md](WEATHER_MODES.md) for the comparison gallery, controls
+See [WEATHER_MODES.md](../WEATHER_MODES.md) for the comparison gallery, controls
 checks, analyzers, performance measurements and two 65-second recordings.
 Review used recordings and sampled frames; continuous visual playback review
 remains unverified. Earlier local-only and do-not-commit instructions below
@@ -37,7 +37,7 @@ are refined. The special foliage shadow was removed after comparison; visible
 blossoms now supply their own shadow. Rain accents are slightly smaller and
 quieter. Camera, lights, props, particle budgets and interaction choreography
 remain intact. See [the handoff](NOCTURNE_DIRECTORS_PASS.md) and
-[comparison gallery](screenshots/nocturne/index.html) for retained changes,
+[comparison gallery](../../screenshots/nocturne/index.html) for retained changes,
 tradeoffs, validation and measurements. Work remains local, with no deployment.
 
 ## Still-frame finishing — 2026-09-05
