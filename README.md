@@ -3,6 +3,8 @@
 A quiet, interactive street corner: a pink cherry tree, a warm neighborhood
 shop, and a little weather passing through. Built with Three.js.
 
+[**Open the scene →**](https://charlesmish.github.io/sakura_corner/)
+
 ![The current scene in rain: a pink cherry tree beside a warmly lit shop on a quiet street.](docs/images/rain.png)
 
 ## Spend a moment here
