@@ -1,5 +1,19 @@
 # Playground Progress
 
+## Nocturne director's pass — 2026-09-05
+
+The broader director's pass supersedes the historical composition freezes and
+three-change limit below. Baseline checkpoint `49ddb72` includes all inherited
+source improvements. Local branch: `codex/nocturne-directors-pass`.
+
+Materials, glazing, cloud/hill profiles and the sidewalk/curb/drain connection
+are refined. The special foliage shadow was removed after comparison; visible
+blossoms now supply their own shadow. Rain accents are slightly smaller and
+quieter. Camera, lights, props, particle budgets and interaction choreography
+remain intact. See [the handoff](NOCTURNE_DIRECTORS_PASS.md) and
+[comparison gallery](screenshots/nocturne/index.html) for retained changes,
+tradeoffs, validation and measurements. Work remains local, with no deployment.
+
 ## Still-frame finishing — 2026-09-05
 
 Applied the three agreed adjustments without moving the camera, visible
