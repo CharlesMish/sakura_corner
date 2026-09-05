@@ -1,61 +1,51 @@
-# sakura_corner
+# Nocturne — Sakura Corner
 
-## Nocturne weather choices
+A quiet, interactive street corner: a pink cherry tree, a warm neighborhood
+shop, and a little weather passing through. Built with Three.js.
 
-Run `npm run dev` from this repository and open the local URL. Tap the small
-dot at the bottom-right to choose **Rain**, **After rain**, **Clear** or **Snow**.
-The scene briefly fades and restarts when a choice changes. **After rain** also
-offers one optional firefly; it is off by default.
+![The current scene in rain: a pink cherry tree beside a warmly lit shop on a quiet street.](docs/images/rain.png)
 
-Weather lives in the URL: `?weather=rain`, `?weather=wet`, `?weather=clear`,
-`?weather=snow`; add `&firefly=1` for the After rain firefly. Snow keeps the
-pink tree and adds a light flurry with two tiny roof deposits. Reduced motion
-suppresses flakes, firefly and interface fades while retaining the existing
-scene animation.
+## Spend a moment here
 
-See [WEATHER_MODES.md](WEATHER_MODES.md) for this pass and its verification.
-The earlier creative-playground instructions below remain as project history.
+Click or tap the tree to release a few petals. Open the small dot in the
+bottom-right corner to choose **Rain**, **After rain**, **Clear**, or **Snow**.
+After rain also offers a single optional firefly.
 
-This is a self-contained creative snapshot of the accepted Urban Edge Sakura
-Window production scene. It exists so Grok can explore boldly in Cursor without
-touching `/home/cmish/sakura`, which remains Sol's production baseline.
+Snow is a light spring flurry, with the pink canopy still in bloom. Look
+closely for the shop's painted lettering, a tucked-away bottle crate, a plant
+behind an upstairs window, and small signs of roof repairs.
 
-## Open this folder in Cursor
+### A change in weather
 
-Open only:
+These are the current scene previews. Select an image to see it at full size.
 
-`/home/cmish/sakura/CURSOR_GROK_PLAYGROUND`
+| After rain | Clear | Snow |
+| :---: | :---: | :---: |
+| [![The quiet street after rain.](docs/images/after-rain.png)](docs/images/after-rain.png) | [![The cherry tree and shop in warm daylight.](docs/images/clear.png)](docs/images/clear.png) | [![A sparse spring flurry around the pink cherry tree.](docs/images/snow.png)](docs/images/snow.png) |
 
-Then paste the contents of `CURSOR_PROMPT.md` into Grok. The complete creative
-assignment is in `GROK_BRIEF.md`.
+## Run locally
 
-## Important isolation rules
+Use Node.js 22.12 or newer, then:
 
-- Edit only this directory. Do not edit its parent or the older collaborator
-  lanes.
-- `node_modules`, `.playwright-browsers`, and `.playwright-libs` are read-only-in-
-  spirit links to the parent installation. Do not install, update, replace, or
-  delete dependencies.
-- `reference/` contains immutable accepted captures. Never overwrite them.
+```sh
+git clone https://github.com/CharlesMish/sakura_corner.git
+cd sakura_corner
+npm ci
+npm run dev
+```
 
-## Commands
+Open the local address printed in the terminal. The scene requires JavaScript
+and a browser with WebGL support.
 
-- `npm run dev` — local scene.
-- `npm run capture` — six-viewport screenshot set.
-- `npm run capture:interaction` — click/tap sequence.
-- `npm run analyze:sway` — canopy continuity regression.
-- `npm run analyze:response` — local tree-response stability.
-- `npm run analyze:interaction` — petal population/RNG/settling stability.
-- `npm run analyze:weather` — weather-mode particle checks.
-- `npm run analyze:snow` — bounded flake and surface-interception checks.
-- `npm run check:weather-controls` — desktop/touch navigation and reduced motion.
-- `npm run build` — production build.
+Weather choices are bookmarkable: `?weather=rain`, `?weather=wet`,
+`?weather=clear`, or `?weather=snow`. Use `?weather=wet&firefly=1` for the
+optional firefly. Switching weather briefly fades and restarts the scene.
 
-Browser capture may require the host to permit a temporary localhost server.
-The existing Three.js chunk-size warning is known and is not itself a defect.
+The weather control supports touch and keyboard input. Reduced-motion
+preferences hide snowflakes and the firefly and remove the interface fades;
+the existing tree, petal, and hearth animation remains active.
 
-## Returning the work
+## Development
 
-Leave the lane intact. Complete `HANDOFF.md`, update `PROGRESS.md`, preserve the
-best comparison captures, and stop. Sol can then inspect the lane's Git diff and
-selectively integrate ideas into production.
+`npm run build` creates a production build; `npm run preview` serves it locally.
+See the [development notes](docs/README.md) for checks and scene-review details.

@@ -53,7 +53,7 @@ The three existing everyday PNG textures remain locally bundled.
 
 ## Verification and evidence
 
-[Comparison gallery](screenshots/nocturne-weather/index.html): all four weather
+[Comparison gallery](../screenshots/nocturne-weather/index.html): all four weather
 states across desktop, laptop, portrait and ultrawide, with baseline/final,
 grayscale, thumbnails and hatch crops. The Snow baseline is After rain, whose
 appearance it inherits. Fixed-time review resets the liquid-weather RNG and
@@ -68,22 +68,22 @@ exposure were used to make details more visible.
 - Existing sway, interaction, response and weather analyzers complete/pass.
 - Snow analyzer passes 180 seconds at 24, 60 and 120 Hz, checking finite
   transforms, capacity, bounds and construction/canopy/ground interception.
-- All 12 [browser controls checks](screenshots/nocturne-weather/controls-checks.json)
+- All 12 [browser controls checks](../screenshots/nocturne-weather/controls-checks.json)
   pass: texture readiness, keyboard/focus, current choice, touch, dismissal
   without petal release, URL preservation, rapid selection, history,
   firefly eligibility and live reduced motion.
 
-[Snow recording](screenshots/nocturne-weather/temporal/snow-65s.mp4) contains
+[Snow recording](../screenshots/nocturne-weather/temporal/snow-65s.mp4) contains
 65 seconds of normal playback; 3,899 rendered frames, no visibility
 interruptions, and unchanged camera matrices/light positions. Full-scene
 telemetry confirms 64 flakes and 155 static collision bounds, including
 observed construction and canopy interception.
 
-[Firefly recording](screenshots/nocturne-weather/temporal/firefly-65s.mp4) and
+[Firefly recording](../screenshots/nocturne-weather/temporal/firefly-65s.mp4) and
 peak-glow frame crops document the optional accent. Compressed telemetry and
 sampled frame boards accompany both videos; raw WebMs/telemetry remain local.
 
-[Same-device performance comparisons](screenshots/nocturne-weather/performance-comparison.json)
+[Same-device performance comparisons](../screenshots/nocturne-weather/performance-comparison.json)
 cover the four viewport sizes and five cases (three original modes, Snow,
 and After rain with the firefly) in Chrome 152 on Intel UHD graphics. Final
 case means/medians stay at 16.64–16.70 ms per rendered frame. The largest
