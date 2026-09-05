@@ -138,8 +138,8 @@ export const ART_DIRECTION = {
       emission: { highlight: 0.28, light: 0.23, warm: 0.17, mid: 0.14, shade: 0.055, deep: 0.025 },
     },
     splashes: { count: 12, interval: 0.32, lifetime: 0.38, radius: 0.09, color: 0x8faebc, opacity: 0.24 },
-    rainDepth: { nearScale: 1.12, farScale: 0.58, farBrightness: 0.42, nearDistance: 14, farDistance: 32 },
-    rainAccents: { fraction: 0.08, width: [0.065, 0.095], length: [0.18, 0.29] },
+    rainDepth: { nearScale: 1.06, farScale: 0.58, farBrightness: 0.42, nearDistance: 14, farDistance: 32 },
+    rainAccents: { fraction: 0.08, width: [0.06, 0.085], length: [0.17, 0.26] },
     drips: {
       color: 0xc2ccd2,
       opacity: 0.34,
@@ -204,7 +204,7 @@ export const ART_DIRECTION = {
       dense: {
         count: 96,
         color: 0xa8c8d4,
-        opacity: 0.22,
+        opacity: 0.2,
         width: 0.016,
         widthJitter: 0.5,
         length: [0.22, 0.48],

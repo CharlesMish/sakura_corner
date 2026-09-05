@@ -70,9 +70,10 @@ function groundHeightAt(x, z) {
   const [treeX, , treeZ] = ART_DIRECTION.world.treePosition;
   const cutoutDistance = Math.hypot((x - treeX) / 1.02, (z - treeZ) / 0.76);
   if (cutoutDistance < 1) return 0.105;
-  if (z < 3.08) return 0.005;
-  if (z < 3.62) return -0.065;
-  if (z < 3.98) return -0.37;
+  // Match the paving, curb and drain boundaries, including the exposed road.
+  if (z < 3.14) return 0.005;
+  if (z < 3.56) return -0.065;
+  if (z < 4.03) return -0.37;
   return -0.5;
 }
 
