@@ -14,6 +14,7 @@
     "analyze:response": "node scripts/analyze-tree-response.mjs",
     "analyze:weather": "node scripts/analyze-weather.mjs",
     "analyze:snow": "node scripts/analyze-snow.mjs",
+    "analyze:life": "node scripts/analyze-scene-life.mjs",
     "check:weather-controls": "node scripts/check-weather-controls.mjs",
     "preview": "vite preview"
   },

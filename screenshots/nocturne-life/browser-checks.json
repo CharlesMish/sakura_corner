@@ -1,0 +1,30 @@
+{
+  "checks": [
+    {
+      "weather": "rain",
+      "name": "Small life: orange-and-white cat asleep inside the shop",
+      "meshes": 3,
+      "reducedMotion": "pass"
+    },
+    {
+      "weather": "wet",
+      "name": "Small life: solitary bird foraging after rain",
+      "meshes": 6,
+      "reducedMotion": "pass"
+    },
+    {
+      "weather": "clear",
+      "name": "Small life: five distant birds in clear air",
+      "meshes": 1,
+      "reducedMotion": "pass"
+    },
+    {
+      "weather": "snow",
+      "name": "Small life: orange-and-white cat asleep inside the shop",
+      "meshes": 3,
+      "reducedMotion": "pass",
+      "snowCapacity": 64
+    }
+  ],
+  "errors": []
+}

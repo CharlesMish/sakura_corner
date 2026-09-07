@@ -1,5 +1,8 @@
 # Nocturne — quiet weather choices
 
+The later [small-lives pass](SCENE_LIFE.md) adds weather-specific inhabitants
+and records the assessment for a future winter edition.
+
 Implemented on `codex/nocturne-weather-modes`, starting from everyday-detail
 checkpoint `7dbae2c`. The completed everyday pass is preserved on its own
 branch. `nocturne-canonical`, previous captures, camera settings, lighting

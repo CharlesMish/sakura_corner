@@ -17,7 +17,8 @@ export async function startWeatherReview({ ref } = {}) {
         if (path === 'main.js') {
           code = code.replace('renderer.render(scene, camera);', 'renderer.render(scene, camera); window.weatherObserve?.(elapsed, delta);');
           code += `\nwindow.weatherReview = { scene, camera, renderer, petalSystem, tree, weatherEffects, lighting,
-            snowfall: ${ref ? 'null' : 'snowfall'}, firefly: ${ref ? 'null' : 'firefly'} };`;
+            snowfall: ${ref ? 'null' : 'snowfall'}, firefly: ${ref ? 'null' : 'firefly'},
+            sceneLife: ${code.includes('const sceneLife =') ? 'sceneLife' : 'null'} };`;
         }
         return code;
       },

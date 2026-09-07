@@ -11,5 +11,5 @@ These four images show the current scene. They are the images used in the
 | Snow | [snow.png](snow.png) |
 
 Each is an unchanged copy of its `final-*-desktop.png` frame in
-`screenshots/nocturne-weather/`. Comparison grids, grayscale images, and older
+`screenshots/nocturne-life/`. Comparison grids, grayscale images, and older
 iterations are development evidence, listed in the [capture index](../../screenshots/README.md).

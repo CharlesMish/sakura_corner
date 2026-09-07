@@ -8,7 +8,8 @@ The many older images are not alternative versions of the current preview.
 
 | Set | What it contains |
 | --- | --- |
-| [nocturne-weather](nocturne-weather/) | Latest final frames, baseline comparisons, controls checks, and recordings. Files starting `final-` show the current scene. |
+| [nocturne-life](nocturne-life/) | Cat and bird variations, current final frames, comparisons, and motion review. |
+| [nocturne-weather](nocturne-weather/) | Weather-selector milestone: final frames before the cat/bird pass, controls checks, and recordings. |
 | [nocturne-everyday](nocturne-everyday/) | Earlier shop lettering, notice, crate, roof, and window-plant review. |
 | [nocturne-temporal](nocturne-temporal/) | Earlier canonical-motion recording and telemetry. |
 | [nocturne](nocturne/) | Earlier material, lighting, and street-detail comparisons. |

@@ -1,0 +1,265 @@
+{
+  "baseline": "1207ccd",
+  "browser": "152.0.7977.77",
+  "device": "ANGLE (Intel, Intel(R) UHD Graphics (0x0000A788) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+  "method": "Sequential baseline/candidate pairs, 2s warmup (15s Clear to include the flock) + 4s measured rendering. Flagged >10% mean/p95 or >250ms stalled cases expanded to three alternating pairs, compared by medians. Resume rejects samples with fewer than 60 frames. Each mode compares to the same weather in the published Pages baseline. Vsync and scheduling limit GPU headroom inference.",
+  "rows": [
+    {
+      "aspect": "desktop",
+      "name": "rain",
+      "baselineWeather": "rain",
+      "initial": {
+        "before": {
+          "frameMs": 16.6597510373444,
+          "p95Ms": 18.100000023841858,
+          "drawCalls": 700
+        },
+        "after": {
+          "frameMs": 16.667083333184323,
+          "p95Ms": 18.600000023841858,
+          "drawCalls": 703
+        },
+        "frameChangePercent": 0.044012037295670936,
+        "p95ChangePercent": 2.7624309355877674
+      },
+      "trials": 1,
+      "before": {
+        "frameMs": 16.6597510373444,
+        "p95Ms": 18.100000023841858,
+        "drawCalls": 700
+      },
+      "after": {
+        "frameMs": 16.667083333184323,
+        "p95Ms": 18.600000023841858,
+        "drawCalls": 703
+      },
+      "frameChangePercent": 0.044012037295670936,
+      "p95ChangePercent": 2.7624309355877674
+    },
+    {
+      "aspect": "desktop",
+      "name": "wet",
+      "baselineWeather": "wet",
+      "initial": {
+        "before": {
+          "frameMs": 16.66390041493776,
+          "p95Ms": 18,
+          "drawCalls": 696
+        },
+        "after": {
+          "frameMs": 16.679583333432674,
+          "p95Ms": 18.599999964237213,
+          "drawCalls": 702
+        },
+        "frameChangePercent": 0.09411313140623712,
+        "p95ChangePercent": 3.333333134651184
+      },
+      "trials": 1,
+      "before": {
+        "frameMs": 16.66390041493776,
+        "p95Ms": 18,
+        "drawCalls": 696
+      },
+      "after": {
+        "frameMs": 16.679583333432674,
+        "p95Ms": 18.599999964237213,
+        "drawCalls": 702
+      },
+      "frameChangePercent": 0.09411313140623712,
+      "p95ChangePercent": 3.333333134651184
+    },
+    {
+      "aspect": "desktop",
+      "name": "clear",
+      "baselineWeather": "clear",
+      "initial": {
+        "before": {
+          "frameMs": 16.67208333313465,
+          "p95Ms": 18.399999976158142,
+          "drawCalls": 672
+        },
+        "after": {
+          "frameMs": 16.642323651501748,
+          "p95Ms": 18.600000023841858,
+          "drawCalls": 673
+        },
+        "frameChangePercent": -0.17850007727443495,
+        "p95ChangePercent": 1.0869567822981985
+      },
+      "trials": 1,
+      "before": {
+        "frameMs": 16.67208333313465,
+        "p95Ms": 18.399999976158142,
+        "drawCalls": 672
+      },
+      "after": {
+        "frameMs": 16.642323651501748,
+        "p95Ms": 18.600000023841858,
+        "drawCalls": 673
+      },
+      "frameChangePercent": -0.17850007727443495,
+      "p95ChangePercent": 1.0869567822981985
+    },
+    {
+      "aspect": "desktop",
+      "name": "snow",
+      "baselineWeather": "snow",
+      "initial": {
+        "before": {
+          "frameMs": 16.670000000049672,
+          "p95Ms": 19.30000001192093,
+          "drawCalls": 695
+        },
+        "after": {
+          "frameMs": 16.66182572614108,
+          "p95Ms": 19.69999998807907,
+          "drawCalls": 698
+        },
+        "frameChangePercent": -0.049035836284161416,
+        "p95ChangePercent": 2.072538735290541
+      },
+      "trials": 1,
+      "before": {
+        "frameMs": 16.670000000049672,
+        "p95Ms": 19.30000001192093,
+        "drawCalls": 695
+      },
+      "after": {
+        "frameMs": 16.66182572614108,
+        "p95Ms": 19.69999998807907,
+        "drawCalls": 698
+      },
+      "frameChangePercent": -0.049035836284161416,
+      "p95ChangePercent": 2.072538735290541
+    },
+    {
+      "aspect": "portrait",
+      "name": "rain",
+      "baselineWeather": "rain",
+      "initial": {
+        "before": {
+          "frameMs": 16.672083333383004,
+          "p95Ms": 19.600000023841858,
+          "drawCalls": 633
+        },
+        "after": {
+          "frameMs": 16.679668049841997,
+          "p95Ms": 20.19999998807907,
+          "drawCalls": 636
+        },
+        "frameChangePercent": 0.04549351336198271,
+        "p95ChangePercent": 3.061224303608978
+      },
+      "trials": 1,
+      "before": {
+        "frameMs": 16.672083333383004,
+        "p95Ms": 19.600000023841858,
+        "drawCalls": 633
+      },
+      "after": {
+        "frameMs": 16.679668049841997,
+        "p95Ms": 20.19999998807907,
+        "drawCalls": 636
+      },
+      "frameChangePercent": 0.04549351336198271,
+      "p95ChangePercent": 3.061224303608978
+    },
+    {
+      "aspect": "portrait",
+      "name": "wet",
+      "baselineWeather": "wet",
+      "initial": {
+        "before": {
+          "frameMs": 16.665560165876176,
+          "p95Ms": 18,
+          "drawCalls": 629
+        },
+        "after": {
+          "frameMs": 16.665560166123498,
+          "p95Ms": 19.100000023841858,
+          "drawCalls": 635
+        },
+        "frameChangePercent": 1.4840351170164467e-9,
+        "p95ChangePercent": 6.11111124356587
+      },
+      "trials": 1,
+      "before": {
+        "frameMs": 16.665560165876176,
+        "p95Ms": 18,
+        "drawCalls": 629
+      },
+      "after": {
+        "frameMs": 16.665560166123498,
+        "p95Ms": 19.100000023841858,
+        "drawCalls": 635
+      },
+      "frameChangePercent": 1.4840351170164467e-9,
+      "p95ChangePercent": 6.11111124356587
+    },
+    {
+      "aspect": "portrait",
+      "name": "clear",
+      "baselineWeather": "clear",
+      "initial": {
+        "before": {
+          "frameMs": 16.684583333383003,
+          "p95Ms": 18.69999998807907,
+          "drawCalls": 606
+        },
+        "after": {
+          "frameMs": 16.673749999950328,
+          "p95Ms": 18.19999998807907,
+          "drawCalls": 607
+        },
+        "frameChangePercent": -0.06493020063017552,
+        "p95ChangePercent": -2.673796793148353
+      },
+      "trials": 1,
+      "before": {
+        "frameMs": 16.684583333383003,
+        "p95Ms": 18.69999998807907,
+        "drawCalls": 606
+      },
+      "after": {
+        "frameMs": 16.673749999950328,
+        "p95Ms": 18.19999998807907,
+        "drawCalls": 607
+      },
+      "frameChangePercent": -0.06493020063017552,
+      "p95ChangePercent": -2.673796793148353
+    },
+    {
+      "aspect": "portrait",
+      "name": "snow",
+      "baselineWeather": "snow",
+      "initial": {
+        "before": {
+          "frameMs": 16.668333333233992,
+          "p95Ms": 18.900000035762787,
+          "drawCalls": 628
+        },
+        "after": {
+          "frameMs": 16.6597510373444,
+          "p95Ms": 19,
+          "drawCalls": 631
+        },
+        "frameChangePercent": -0.05148862647521568,
+        "p95ChangePercent": 0.5291003388782745
+      },
+      "trials": 1,
+      "before": {
+        "frameMs": 16.668333333233992,
+        "p95Ms": 18.900000035762787,
+        "drawCalls": 628
+      },
+      "after": {
+        "frameMs": 16.6597510373444,
+        "p95Ms": 19,
+        "drawCalls": 631
+      },
+      "frameChangePercent": -0.05148862647521568,
+      "p95ChangePercent": 0.5291003388782745
+    }
+  ],
+  "regressions": []
+}

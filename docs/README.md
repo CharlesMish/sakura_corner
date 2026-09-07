@@ -12,6 +12,7 @@ For the scene and its current previews, start with the [project README](../READM
 | `npm run analyze:interaction` | Petal population and settling behavior. |
 | `npm run analyze:weather` | Weather-mode particle checks. |
 | `npm run analyze:snow` | Bounded snowflakes and surface interception. |
+| `npm run analyze:life` | Small inhabitants, surface contact, motion bounds, and reduced motion. |
 | `npm run check:weather-controls` | Keyboard, touch, navigation, and reduced motion. |
 
 Browser checks use Playwright and a local Chrome installation. Capture tools
@@ -44,6 +45,9 @@ remain in the repository. If the repository name or hosting path changes,
 update the workflow's `--base` argument and these links together.
 
 ## Review evidence
+
+[Small lives and winter assessment](SCENE_LIFE.md) covers the weather-specific
+cat and birds, their comparison frames, and an approach to a later winter scene.
 
 [Weather implementation and verification](WEATHER_MODES.md) documents the
 current weather modes, controls, performance checks, and review limitations.

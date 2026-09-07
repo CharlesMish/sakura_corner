@@ -29,3 +29,7 @@ scripts/.compare-everyday-run.mjs
 scripts/.review-weather-*.mjs
 screenshots/nocturne-weather/temporal/*.webm
 screenshots/nocturne-weather/temporal/*-telemetry.json
+scripts/.review-life-*.mjs
+scripts/.capture-life-*.mjs
+screenshots/nocturne-life/*.webm
+screenshots/nocturne-life/*-telemetry.json
