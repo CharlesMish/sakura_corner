@@ -15,6 +15,8 @@ import { createWeatherControls } from './weatherControls.js';
 import { createSnowfall } from './scene/createSnowfall.js';
 import { createFirefly } from './scene/createFirefly.js';
 import { createSceneLife } from './scene/createSceneLife.js';
+import { createStreetLamp } from './scene/createStreetLamp.js';
+import { createWetReflections } from './scene/createWetReflections.js';
 
 const weather = getWeatherMode();
 document.documentElement.dataset.weather = weather;
@@ -62,6 +64,8 @@ const snowfall = weather === 'snow'
   ? createSnowfall({ camera, environment: environment.group, tree: tree.group }) : null;
 const firefly = fireflyIsEnabled() ? createFirefly() : null;
 const sceneLife = createSceneLife({ weather });
+const streetLamp = createStreetLamp();
+const wetReflections = createWetReflections();
 scene.add(
   environment.group,
   tree.group,
@@ -73,6 +77,8 @@ if (rainClouds) scene.add(rainClouds);
 if (snowfall) scene.add(snowfall.group);
 if (firefly) scene.add(firefly.group);
 scene.add(sceneLife.group);
+if (streetLamp) scene.add(streetLamp.group);
+if (wetReflections) scene.add(wetReflections.group);
 
 const releaseDirection = new THREE.Vector3();
 const interaction = ART_DIRECTION.interaction.enabled
@@ -156,6 +162,8 @@ function render(timestamp) {
   const elapsed = timer.getElapsed();
   environment.update(elapsed);
   lighting.update(elapsed);
+  streetLamp?.update(elapsed);
+  wetReflections?.update(elapsed);
   const wind = sampleWind(elapsed);
   tree.update(elapsed, wind);
   petalSystem.update(delta, elapsed, wind);
