@@ -14,6 +14,7 @@ import { sampleWind } from './scene/sampleWind.js';
 import { createWeatherControls } from './weatherControls.js';
 import { createSnowfall } from './scene/createSnowfall.js';
 import { createFirefly } from './scene/createFirefly.js';
+import { createSceneLife } from './scene/createSceneLife.js';
 
 const weather = getWeatherMode();
 document.documentElement.dataset.weather = weather;
@@ -60,6 +61,7 @@ const rainClouds = createRainClouds();
 const snowfall = weather === 'snow'
   ? createSnowfall({ camera, environment: environment.group, tree: tree.group }) : null;
 const firefly = fireflyIsEnabled() ? createFirefly() : null;
+const sceneLife = createSceneLife({ weather });
 scene.add(
   environment.group,
   tree.group,
@@ -70,6 +72,7 @@ scene.add(
 if (rainClouds) scene.add(rainClouds);
 if (snowfall) scene.add(snowfall.group);
 if (firefly) scene.add(firefly.group);
+scene.add(sceneLife.group);
 
 const releaseDirection = new THREE.Vector3();
 const interaction = ART_DIRECTION.interaction.enabled
@@ -157,6 +160,7 @@ function render(timestamp) {
   tree.update(elapsed, wind);
   petalSystem.update(delta, elapsed, wind);
   weatherEffects.update(delta, wind);
+  sceneLife.update(delta, reducedMotion.matches);
   if (snowfall) {
     snowfall.group.visible = !reducedMotion.matches;
     if (!reducedMotion.matches) snowfall.update(delta, wind);

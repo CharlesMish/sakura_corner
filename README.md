@@ -17,6 +17,9 @@ Snow is a light spring flurry, with the pink canopy still in bloom. Look
 closely for the shop's painted lettering, a tucked-away bottle crate, a plant
 behind an upstairs window, and small signs of roof repairs.
 
+Depending on the weather, you may also spot a cat asleep behind the shop
+glass, a bird searching the pavement, or a small flock crossing the distant sky.
+
 ### A change in weather
 
 These are the current scene previews. Select an image to see it at full size.

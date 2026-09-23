@@ -1,0 +1,23 @@
+{
+  "wet": {
+    "frames": 5385,
+    "wallSeconds": 89.98790000003576,
+    "lifeSeconds": 89.9225000000013,
+    "meanFrameMs": 16.713948737005158,
+    "p95FrameMs": 18.50000000000307,
+    "maxFrameMs": 97.60000002384572,
+    "visibilityChanges": [],
+    "cameraAndLightPositions": "unchanged"
+  },
+  "clear": {
+    "frames": 5300,
+    "wallSeconds": 89.98439999997616,
+    "lifeSeconds": 89.88810000000299,
+    "meanFrameMs": 16.98139271560222,
+    "p95FrameMs": 20.600000023847542,
+    "maxFrameMs": 53.80000001192542,
+    "visibilityChanges": [],
+    "cameraAndLightPositions": "unchanged"
+  },
+  "review": "Normal-speed recordings and sampled frames; continuous visual playback review unavailable."
+}
