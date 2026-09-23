@@ -84,6 +84,9 @@ const WetReflectionShader = {
   `,
 };
 
+// True while any surface is rendering its reflection pass.
+let reflecting = false;
+
 function createSurface(name, surface, shared) {
   const reflector = new Reflector(new THREE.PlaneGeometry(...surface.size), {
     shader: WetReflectionShader,
@@ -109,12 +112,20 @@ function createSurface(name, surface, shared) {
   material.uniforms.fogRange.value.set(sky.fogNear, sky.fogFar);
 
   // The camera is a fixed composition, so a reflection can be re-used for a
-  // few frames; only rain, petals and sway change it.
+  // few frames; only rain, petals and sway change it. update() marks a surface
+  // due; the hook also fires while the other surface renders its reflection,
+  // so nested calls are ignored rather than counted as frames.
   const renderReflection = reflector.onBeforeRender;
-  let frame = 0;
+  reflector.userData.due = true;
   reflector.onBeforeRender = function onBeforeRender(...args) {
-    if (frame % shared.updateEvery === 0) renderReflection.apply(this, args);
-    frame += 1;
+    if (reflecting || !this.userData.due) return;
+    this.userData.due = false;
+    reflecting = true;
+    try {
+      renderReflection.apply(this, args);
+    } finally {
+      reflecting = false;
+    }
   };
 
   return reflector;
@@ -135,8 +146,16 @@ export function createWetReflections() {
   group.name = 'Wet ground reflections';
   group.add(...surfaces);
 
+  const updateEvery = Math.max(1, Math.round(spec.updateEvery ?? 1));
+  let frame = 0;
+
   function update(elapsed) {
-    for (const surface of surfaces) surface.material.uniforms.time.value = elapsed;
+    const due = frame % updateEvery === 0;
+    frame += 1;
+    for (const surface of surfaces) {
+      surface.material.uniforms.time.value = elapsed;
+      if (due) surface.userData.due = true;
+    }
   }
 
   return { group, update };
