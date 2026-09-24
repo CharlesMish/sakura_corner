@@ -16,6 +16,7 @@
     "analyze:snow": "node scripts/analyze-snow.mjs",
     "analyze:life": "node scripts/analyze-scene-life.mjs",
     "check:weather-controls": "node scripts/check-weather-controls.mjs",
+    "check:weather-controls:webkit": "node scripts/check-weather-controls.mjs --webkit",
     "preview": "vite preview"
   },
   "dependencies": {

@@ -1,0 +1,33 @@
+name: Safari weather-control checks
+
+on:
+  pull_request:
+    paths:
+      - 'src/weatherControls.js'
+      - 'scripts/check-weather-controls.mjs'
+      - 'package.json'
+      - '.github/workflows/weather-controls.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  webkit:
+    runs-on: ubuntu-latest
+    env:
+      PLAYWRIGHT_BROWSERS_PATH: .playwright-browsers
+    steps:
+      - name: Check out source
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - name: Set up Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Install Playwright WebKit
+        run: npx playwright install --with-deps webkit
+      - name: Run weather controls in WebKit
+        run: npm run check:weather-controls:webkit

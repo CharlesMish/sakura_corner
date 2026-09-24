@@ -9,7 +9,9 @@ const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const outputDirectory = resolve(projectRoot, 'screenshots/nocturne-weather');
 if (process.platform !== 'win32') process.env.PLAYWRIGHT_BROWSERS_PATH ??= resolve(projectRoot, '.playwright-browsers');
 applyLocalPlaywrightLibsIfNeeded(projectRoot);
-const { chromium } = await import('playwright');
+const { chromium, webkit } = await import('playwright');
+const useWebKit = process.argv.includes('--webkit');
+const browserType = useWebKit ? webkit : chromium;
 
 // Introspection exists only in this review server, never in a production bundle.
 const server = await createServer({
@@ -96,7 +98,7 @@ try {
   await mkdir(outputDirectory, { recursive: true });
   await server.listen();
   const url = `http://127.0.0.1:${server.httpServer.address().port}/`;
-  browser = await chromium.launch({ headless: true, ...(process.platform === 'win32' ? { channel: 'chrome' } : {}) });
+  browser = await browserType.launch({ headless: true, ...(process.platform === 'win32' && !useWebKit ? { channel: 'chrome' } : {}) });
   const desktop = await browser.newPage({ viewport: { width: 1920, height: 1080 }, deviceScaleFactor: 1 });
   watch(desktop, 'desktop');
 
@@ -146,6 +148,30 @@ try {
   assert.equal(await desktop.evaluate(() => document.activeElement.textContent), 'After rain');
   await desktop.keyboard.press('Escape');
   passed('44px control, 7px dot, keyboard activation, selected state, Tab, Escape and focus return');
+
+  // Safari/WebKit may blur a focused control with relatedTarget === null during
+  // a touch activation. That transient blur must not dismiss the panel before
+  // the weather button's click can run. Once focus really lands elsewhere,
+  // focusin should still close the non-modal panel.
+  await open(desktop);
+  await desktop.evaluate(() => {
+    const selected = document.querySelector('.weather-choices [aria-pressed="true"]');
+    selected.dispatchEvent(new FocusEvent('focusout', {
+      bubbles: true,
+      relatedTarget: null,
+    }));
+  });
+  assert.equal(await toggle.getAttribute('aria-expanded'), 'true');
+  await desktop.evaluate(() => {
+    const sentinel = document.createElement('button');
+    sentinel.id = 'weather-focus-sentinel';
+    sentinel.textContent = 'Outside weather controls';
+    document.body.append(sentinel);
+    sentinel.focus();
+  });
+  assert.equal(await toggle.getAttribute('aria-expanded'), 'false');
+  await desktop.locator('#weather-focus-sentinel').evaluate((element) => element.remove());
+  passed('Null-relatedTarget blur keeps the panel open; focus landing outside closes it');
 
   await open(desktop);
   const point = await canopyPoint(desktop);
