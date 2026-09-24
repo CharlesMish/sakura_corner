@@ -121,6 +121,8 @@ export function createPetalSystem() {
   if (wetPetals) {
     fallingMaterial.emissive.set(ART_DIRECTION.weather.blossoms.colors.light);
     fallingMaterial.emissiveIntensity = wetPetals.fallingFill;
+    settledMaterial.emissive.set(wetPetals.settledGlowColor);
+    settledMaterial.emissiveIntensity = wetPetals.settledGlow;
   }
 
   const fallingMesh = new THREE.InstancedMesh(

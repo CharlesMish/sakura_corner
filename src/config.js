@@ -97,10 +97,10 @@ export const ART_DIRECTION = {
     gradientResolution: 128,
   },
   lighting: {
-    skyColor: 0xd8c2bb,
-    groundColor: 0x4d5660,
+    skyColor: 0xcac2cc,
+    groundColor: 0x5a5550,
     hemisphereIntensity: 1.45,
-    sunColor: 0xffc18e,
+    sunColor: 0xffcf9e,
     sunIntensity: 3.8,
     sunPosition: [-7, 12, 9],
     shadowMapSize: 1536,
@@ -222,7 +222,42 @@ export const ART_DIRECTION = {
       wind: [0.16, 0, 0.04],
       settledTilt: 0.02,
       settledRoughness: 0.62,
+      // Fallen petals on wet stone read pale pink rather than maroon.
+      settledGlowColor: 0xd99ab8,
+      settledGlow: 0.16,
     },
+  },
+  streetLamp: {
+    // Yozakura key: a cool LED security lamp by the curb gives the tree its own
+    // light at night, opposite the warm shop. Lit in wet/rain/snow; the post
+    // stays (unlit) in clear. Lighter build: castShadow false, or enabled false.
+    enabled: true,
+    base: [-6.9, -0.02, 2.75],
+    head: [-5.95, 6.05, 2.45],
+    color: 0xdfe8ff,
+    intensity: 40,
+    distance: 14,
+    angle: 40,
+    penumbra: 0.85,
+    decay: 1.4,
+    target: [-1.9, 3.4, 0.35],
+    castShadow: true,
+    shadowMapSize: 512,
+    lensIntensity: 2.4,
+    halo: { color: 0xc9d6ff, opacity: 0.55, size: 1.5 },
+    spill: { color: 0xcfdcff, intensity: 1.4, distance: 4.2 },
+  },
+  wetReflections: {
+    // Wet ground adds reflected light on top of the existing surfaces (rain and
+    // after rain only). Each enabled surface re-renders the scene; updateEvery
+    // re-uses the reflection for N frames, which is safe with the fixed camera.
+    // Lighter build: road.enabled false and/or updateEvery 2.
+    updateEvery: 1,
+    ripple: 0.006,
+    streak: 0.012,
+    puddleScale: 0.8,
+    road: { enabled: true, strength: 0.3, y: -0.505, centerZ: 19.05, size: [60, 30], textureSize: [384, 216] },
+    pavement: { enabled: true, strength: 0.34, y: 0.006, centerZ: -2.35, size: [44, 11], textureSize: [384, 216] },
   },
   sleepNods: {
     // Later these can follow Nocturne mixer channels. For now they are always
@@ -349,12 +384,12 @@ export const ART_DIRECTION = {
     barkMid: 0x574139,
     barkLight: 0x6d5043,
     barkShadow: 0x302a29,
-    blossomHighlight: 0xf5c7ce,
-    blossomLight: 0xeeb3bf,
-    blossomWarm: 0xd98298,
-    blossomMid: 0xd98fa4,
-    blossomShade: 0xa9657f,
-    blossomDeep: 0x744e65,
+    blossomHighlight: 0xfbe2ec,
+    blossomLight: 0xf6cbdc,
+    blossomWarm: 0xeba4c0,
+    blossomMid: 0xe0a0bd,
+    blossomShade: 0xb47898,
+    blossomDeep: 0x7a5672,
     grass: 0x607057,
   },
 };
