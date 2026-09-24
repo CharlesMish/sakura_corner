@@ -125,10 +125,15 @@ export function createWeatherControls({ weather }) {
     closePanel();
   }, { signal });
 
-  controls.addEventListener('focusout', (event) => {
-    if (controls.contains(event.relatedTarget)) return;
+  // Close only after focus has actually landed outside the controls.
+  // Safari/WebKit can emit focusout with relatedTarget === null during a touch
+  // activation, before the tapped weather button's click runs. Closing on that
+  // intermediate blur makes the menu appear tappable while swallowing the choice.
+  // focusin reports the destination directly and leaves touch activation intact.
+  document.addEventListener('focusin', (event) => {
+    if (panel.hidden || controls.contains(event.target)) return;
     closePanel({ returnFocus: false });
-  }, { signal });
+  }, { capture: true, signal });
 
   // pagehide disposes the scene interaction, including when entering bfcache.
   window.addEventListener('pageshow', (event) => {
