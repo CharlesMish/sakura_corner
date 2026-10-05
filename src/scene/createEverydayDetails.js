@@ -3,6 +3,7 @@ import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import letteringUrl from '../assets/everyday/shop-lettering.png';
 import noticeUrl from '../assets/everyday/delivery-notice.png';
 import roofUrl from '../assets/everyday/roof-felt.png';
+import { hasLiquidWater } from '../weatherMode.js';
 
 function texture(url) {
   const map = new THREE.TextureLoader().load(url);
@@ -76,6 +77,26 @@ export function addShopEverydayDetails(building) {
   const fold = block([0.15, 0.008, 0.17], [0,0,0]).rotateX(-0.24).translate(-0.12, 0.057, 0.04);
   batch(crate, 'Folded paper liner', new THREE.MeshStandardMaterial({ color: 0x777566, roughness: 1 }), [fold]);
   building.add(identity, notice, crate);
+  if (hasLiquidWater()) building.add(createDoorwayUmbrella());
+}
+
+// A customer's furled umbrella left leaning against the shopfront while it rains.
+// Rain and After rain only; no light, shadow caster or animation.
+function createDoorwayUmbrella() {
+  const umbrella = group('furled umbrella at the shopfront');
+  // Tip rests on the threshold slab; the handle leans toward the cool window, clear of the sill.
+  umbrella.position.set(4.3, 0.002, -1.1);
+  umbrella.rotation.set(-0.31, 0, 0.06);
+  const canopyProfile = [[0, 0.04], [0.012, 0.06], [0.04, 0.2], [0.046, 0.3], [0.036, 0.56], [0.014, 0.64], [0, 0.65]];
+  const canopy = new THREE.LatheGeometry(canopyProfile.map(([r, y]) => new THREE.Vector2(r, y)), 9);
+  batch(umbrella, 'Furled muted plum canopy', new THREE.MeshStandardMaterial({ color: 0x5e3a45, roughness: 0.62 }), [canopy]);
+  const strap = new THREE.CylinderGeometry(0.0425, 0.0435, 0.018, 9).translate(0, 0.37, 0);
+  const tip = new THREE.CylinderGeometry(0.006, 0.004, 0.05, 6).translate(0, 0.025, 0);
+  const shaft = new THREE.CylinderGeometry(0.0075, 0.0075, 0.17, 6).translate(0, 0.73, 0);
+  const handle = new THREE.TorusGeometry(0.036, 0.0105, 5, 10, Math.PI).translate(-0.036, 0.815, 0);
+  batch(umbrella, 'Dark strap, ferrule, shaft and hooked handle',
+    new THREE.MeshStandardMaterial({ color: 0x2a2523, roughness: 0.55 }), [strap, tip, shaft, handle]);
+  return umbrella;
 }
 
 export function addResidenceEverydayDetails(extension, roofSurface) {
