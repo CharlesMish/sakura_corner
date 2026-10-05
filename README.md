@@ -54,3 +54,15 @@ the existing tree, petal, and hearth animation remains active.
 
 `npm run build` creates a production build; `npm run preview` serves it locally.
 See the [development notes](docs/README.md) for checks and scene-review details.
+
+## License
+
+CharlesMish's original contributions to this project are available under the
+[MIT License](LICENSE). Third-party dependencies retain their own licenses
+and copyright notices, including Three.js under MIT.
+
+The scene textures are produced by `scripts/bake-everyday-textures.py`. The
+shop sign and delivery notice contain rendered phrases made with Windows
+Yu Gothic Medium; no font file is bundled. The project license does not
+license that font. Recreating the textures requires separately licensed
+access to it; see [Microsoft's font usage guidance](https://learn.microsoft.com/en-us/typography/fonts/font-faq).
