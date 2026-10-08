@@ -3,10 +3,12 @@
 The later [small-lives pass](SCENE_LIFE.md) adds weather-specific inhabitants
 and records the assessment for a future winter edition.
 
-Implemented on `codex/nocturne-weather-modes`, starting from everyday-detail
-checkpoint `7dbae2c`. The completed everyday pass is preserved on its own
-branch. `nocturne-canonical`, previous captures, camera settings, lighting
-values, canopy and petal behavior remain unchanged.
+These weather choices are available on `main` and in the
+[live scene](https://charlesmish.github.io/sakura_corner/). The implementation
+originated on `codex/nocturne-weather-modes`, starting from everyday-detail
+checkpoint `7dbae2c`. The records below describe that original pass, which
+preserved `nocturne-canonical`, earlier captures, camera settings, lighting
+values, canopy and petal behavior.
 
 Tap the bottom-right dot to choose weather. It has a 44px touch target and
 opens a small labeled panel. Weather changes fade out for 180ms, reload at
@@ -120,4 +122,7 @@ gallery. The recording/analysis and performance scripts are separately named
 `capture-weather-temporal.mjs`, `analyze-weather-temporal.py`, and
 `measure-weather-performance.mjs`.
 
-No changes were merged into `main` and no deployment is included.
+At the time of the original weather-pass review, no merge or deployment was
+included. The current publication workflow is documented in the
+[development notes](README.md#github-pages); the measurements above remain
+evidence for the original review, not a fresh run on today's live site.
