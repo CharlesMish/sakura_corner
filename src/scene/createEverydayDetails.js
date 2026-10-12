@@ -75,7 +75,32 @@ export function addShopEverydayDetails(building) {
   batch(crate, 'Three uneven opaque green return bottles', new THREE.MeshStandardMaterial({ color: 0x243b2d, roughness: 0.94 }), bottles);
   const fold = block([0.15, 0.008, 0.17], [0,0,0]).rotateX(-0.24).translate(-0.12, 0.057, 0.04);
   batch(crate, 'Folded paper liner', new THREE.MeshStandardMaterial({ color: 0x777566, roughness: 1 }), [fold]);
-  building.add(identity, notice, crate);
+  building.add(identity, notice, crate, createShopNoren());
+}
+
+// Two soft noren panels hung just inside the shop doorway — quiet everyday fabric,
+// always present (not weather-gated). No lights, no animation, no new assets.
+function createShopNoren() {
+  const noren = group('shop doorway noren');
+  // Hung under the lintel, split left/right of the doorway centre.
+  noren.position.set(4.78, 2.18, -1.42);
+  const cloth = new THREE.MeshStandardMaterial({
+    color: 0x6a3f48, roughness: 0.92, transparent: true, opacity: 0.82, depthWrite: false,
+  });
+  const stripe = new THREE.MeshStandardMaterial({
+    color: 0x2c2422, roughness: 0.95, transparent: true, opacity: 0.75, depthWrite: false,
+  });
+  for (const [x, name] of [[-0.22, 'Left noren panel'], [0.22, 'Right noren panel']]) {
+    const panel = new THREE.Mesh(new THREE.PlaneGeometry(0.36, 0.95), cloth);
+    panel.position.set(x, -0.48, 0);
+    panel.name = name;
+    noren.add(panel);
+    const bar = new THREE.Mesh(new THREE.BoxGeometry(0.36, 0.03, 0.02), stripe);
+    bar.position.set(x, 0.01, 0.01);
+    bar.name = `${name} hanging bar`;
+    noren.add(bar);
+  }
+  return noren;
 }
 
 export function addResidenceEverydayDetails(extension, roofSurface) {
