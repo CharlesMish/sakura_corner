@@ -102,6 +102,24 @@ html[data-scene-ready="true"] .weather-controls {
   opacity: 0.7;
 }
 
+.weather-current {
+  position: absolute;
+  right: 36px;
+  bottom: 0;
+  line-height: 44px;
+  color: #a3aea6;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  opacity: 0.62;
+  text-shadow: 0 1px 2px #101c2459;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.weather-controls:has(.weather-toggle[aria-expanded="true"]) .weather-current {
+  opacity: 0;
+}
+
 .weather-toggle:hover .weather-dot,
 .weather-toggle[aria-expanded="true"] .weather-dot {
   opacity: 1;

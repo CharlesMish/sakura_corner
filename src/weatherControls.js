@@ -77,7 +77,14 @@ export function createWeatherControls({ weather }) {
     panel.append(label);
   }
 
-  controls.append(panel, toggle);
+  // A quiet word beside the dot names the current weather. It is decorative:
+  // the 44px button keeps its accessible name and its whole touch target.
+  const current = document.createElement('span');
+  current.className = 'weather-current';
+  current.setAttribute('aria-hidden', 'true');
+  current.textContent = WEATHER_CHOICES.find(([value]) => value === weather)?.[1] ?? '';
+
+  controls.append(panel, current, toggle);
   document.body.append(controls);
 
   function closePanel({ returnFocus = true } = {}) {
