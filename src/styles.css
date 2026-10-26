@@ -119,6 +119,15 @@ html[data-scene-ready="true"] .weather-controls {
   box-shadow: 0 3px 16px #101c2440;
 }
 
+/* Curator 2026-10-26: let the street show faintly through the open weather panel. */
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .weather-panel {
+    background: rgb(34 49 47 / 84%);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+  }
+}
+
 .weather-panel h2 {
   margin: 2px 10px 7px;
   color: #98a6a0;
