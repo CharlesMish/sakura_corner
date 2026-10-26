@@ -102,6 +102,13 @@ html[data-scene-ready="true"] .weather-controls {
   opacity: 0.7;
 }
 
+/* Curator 2026-10-26: the closed toggle dot carries a quiet hint of the current
+   weather (petal for clear, slate for wet/rain, frost for snow). Colour only. */
+html[data-weather="clear"] .weather-dot { background: #c9a9ad; }
+html[data-weather="wet"] .weather-dot,
+html[data-weather="rain"] .weather-dot { background: #9fb3bd; }
+html[data-weather="snow"] .weather-dot { background: #dfe6e8; }
+
 .weather-toggle:hover .weather-dot,
 .weather-toggle[aria-expanded="true"] .weather-dot {
   opacity: 1;
