@@ -67,7 +67,8 @@ export const ART_DIRECTION = {
       position: [7.58, 3.48, -1.4],
       color: 0xe7ad67,
       emissive: 0xe7ad67,
-      emissiveIntensity: 0.5,
+      // Curator 2026-11-02: a little warmer so the right wall answers the shop glow.
+      emissiveIntensity: 0.85,
     },
   },
   shopMass: {
