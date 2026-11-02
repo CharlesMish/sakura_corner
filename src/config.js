@@ -224,7 +224,8 @@ export const ART_DIRECTION = {
       settledRoughness: 0.62,
       // Fallen petals on wet stone read pale pink rather than maroon.
       settledGlowColor: 0xd99ab8,
-      settledGlow: 0.16,
+      // Curator 2026-11-02: a touch brighter so the petal trail on the wet pavement reads at night.
+      settledGlow: 0.26,
     },
   },
   streetLamp: {
