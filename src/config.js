@@ -244,7 +244,8 @@ export const ART_DIRECTION = {
     castShadow: true,
     shadowMapSize: 512,
     lensIntensity: 2.4,
-    halo: { color: 0xc9d6ff, opacity: 0.55, size: 1.5 },
+    // Curator 2026-11-02: wider, fainter halo so the lamp head reads as mist, not a disc.
+    halo: { color: 0xc9d6ff, opacity: 0.4, size: 2.0 },
     spill: { color: 0xcfdcff, intensity: 1.4, distance: 4.2 },
   },
   wetReflections: {
