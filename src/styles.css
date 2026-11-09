@@ -105,6 +105,7 @@ html[data-scene-ready="true"] .weather-controls {
 .weather-toggle:hover .weather-dot,
 .weather-toggle[aria-expanded="true"] .weather-dot {
   opacity: 1;
+  box-shadow: 0 0 0 5px rgb(163 174 166 / 16%);
 }
 
 .weather-panel {
