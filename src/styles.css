@@ -169,6 +169,8 @@ html[data-scene-ready="true"] .weather-controls {
   margin-top: 7px;
   padding: 7px 10px 0;
   border-top: 1px solid #40514a;
+  color: #98a6a0;
+  font-size: 12px;
   cursor: pointer;
 }
 
