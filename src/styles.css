@@ -151,6 +151,7 @@ html[data-scene-ready="true"] .weather-controls {
 .weather-choices button[aria-pressed="true"] {
   background: #344640;
   color: #e0e3d6;
+  box-shadow: inset 2px 0 0 #adb897;
 }
 
 .weather-choices button[aria-pressed="true"]::after {
